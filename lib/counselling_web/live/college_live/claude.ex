@@ -3,8 +3,7 @@ defmodule AnthropicApi do
     url = "https://api.anthropic.com/v1/messages"
 
     headers = [
-      {"x-api-key",
-       "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"},
+      {"x-api-key", "API key"},
       {"anthropic-version", "2023-06-01"},
       {"content-type", "application/json"}
     ]
