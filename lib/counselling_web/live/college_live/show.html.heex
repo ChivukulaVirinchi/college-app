@@ -1,0 +1,28 @@
+<.header>
+  College <%= @college.id %>
+  <:subtitle>This is a college record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/colleges/#{@college}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit college</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @college.name %></:item>
+  <:item title="Established year"><%= @college.established_year %></:item>
+  <:item title="Location"><%= @college.location %></:item>
+</.list>
+
+<.back navigate={~p"/colleges"}>Back to colleges</.back>
+
+<.modal :if={@live_action == :edit} id="college-modal" show on_cancel={JS.patch(~p"/colleges/#{@college}")}>
+  <.live_component
+    module={CounsellingWeb.CollegeLive.FormComponent}
+    id={@college.id}
+    title={@page_title}
+    action={@live_action}
+    college={@college}
+    patch={~p"/colleges/#{@college}"}
+  />
+</.modal>

@@ -1,0 +1,52 @@
+<.header>
+  Listing Colleges
+  <:actions>
+    <.link patch={~p"/colleges/new"}>
+      <.button>New College</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="colleges"
+  rows={@streams.colleges}
+  row_click={fn {_id, college} -> JS.navigate(~p"/colleges/#{college}") end}
+>
+  <:col :let={{_id, college}} label="Name"><%= college.name %></:col>
+  <:col :let={{_id, college}} label="Established year"><%= college.established_year %></:col>
+  <:col :let={{_id, college}} label="Location"><%= college.location %></:col>
+  <:action :let={{_id, college}}>
+    <div class="sr-only">
+      <.link navigate={~p"/colleges/#{college}"}>Show</.link>
+    </div>
+    <.link patch={~p"/colleges/#{college}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, college}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: college.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="college-modal"
+  show
+  on_cancel={JS.patch(~p"/colleges")}
+>
+  <.live_component
+    module={CounsellingWeb.CollegeLive.FormComponent}
+    id={@college.id || :new}
+    title={@page_title}
+    action={@live_action}
+    college={@college}
+    patch={~p"/colleges"}
+  />
+</.modal>
+
+<button phx-click="create-college">Create-College</button>
+
+<%!-- <p><%= @socket.colleges %></p> --%>
