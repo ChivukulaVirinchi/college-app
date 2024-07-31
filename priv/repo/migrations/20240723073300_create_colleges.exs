@@ -6,8 +6,13 @@ defmodule Counselling.Repo.Migrations.CreateColleges do
       add :name, :string
       add :established_year, :integer
       add :location, :string
-
-      timestamps(type: :utc_datetime)
+      add :nirfrank, :integer
+      add :class, :string
+      add :link_to_website, :string
+      add :campus_area, :integer
+      timestamps()
     end
+
+    create unique_index(:colleges, [:name])
   end
 end

@@ -1,4 +1,4 @@
-<.header>
+<%!-- <.header>
   College <%= @college.id %>
   <:subtitle>This is a college record from your database.</:subtitle>
   <:actions>
@@ -12,11 +12,17 @@
   <:item title="Name"><%= @college.name %></:item>
   <:item title="Established year"><%= @college.established_year %></:item>
   <:item title="Location"><%= @college.location %></:item>
+  <:item title="Location"><%= @college.class %></:item>
 </.list>
 
 <.back navigate={~p"/colleges"}>Back to colleges</.back>
 
-<.modal :if={@live_action == :edit} id="college-modal" show on_cancel={JS.patch(~p"/colleges/#{@college}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="college-modal"
+  show
+  on_cancel={JS.patch(~p"/colleges/#{@college}")}
+>
   <.live_component
     module={CounsellingWeb.CollegeLive.FormComponent}
     id={@college.id}
@@ -25,4 +31,86 @@
     college={@college}
     patch={~p"/colleges/#{@college}"}
   />
-</.modal>
+</.modal> --%>
+
+<div class="max-w-6xl mx-auto ">
+  <section class="my-12 px-4">
+    <img
+      class="rounded-lg object-cover h-96 w-full"
+      src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
+      alt=""
+    />
+
+    <h1 class="text-3xl font-medium text-gray-900"><%= @college.name %></h1>
+  </section>
+  <section class="my-12 px-4">
+    <div class="border-b-2 border-violet-500 pb-2">
+      <h1 class="text-2xl font-medium text-gray-700">Highlights</h1>
+    </div>
+    <p class="text-sm lg:text-normal text-gray-800 pt-2">
+      Indian Institute of Information Technology, Design & Management (IIITDM), Jabalpur is a public institution established by the Ministry of Human Resource & Development, Government of India in 2005. IIITDM Jabalpur was declared Institute of National Importance under IIIT Act. The institute is ranked 97th by the NIRF in the Engineering category.
+    </p>
+  </section>
+
+  <section class="my-12 px-4">
+    <div class="border-b-2 border-violet-500 pb-2">
+      <h1 id="branches" class="text-2xl font-medium text-gray-700">Branches</h1>
+    </div>
+    <div class="flex flex-col">
+      <div class="-m-1.5 overflow-x-auto">
+        <div class="p-1.5 min-w-full inline-block align-middle">
+          <div class="overflow-hidden">
+            <table class="min-w-max mx-auto divide-y divide-gray-200 ark:divide-neutral-700">
+              <caption class="text-slate-500 ark:text-slate-400 pt-4 text-xs caption-bottom">
+                Branches at <%= @college.name %>
+              </caption>
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase ark:text-neutral-500"
+                  >
+                    Branch Name
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase ark:text-neutral-500"
+                  >
+                    Established Year
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase ark:text-neutral-500"
+                  >
+                    Opening Rank
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase ark:text-neutral-500"
+                  >
+                    Closing Rank
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 ark:divide-neutral-700">
+                <%= for branch <- @college.branches do %>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ark:text-neutral-200">
+                      <%= branch.name %>
+                    </td>
+
+                    <%!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ark:text-neutral-200">45</td> --%>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-12 px-4">
+    <div></div>
+  </section>
+</div>

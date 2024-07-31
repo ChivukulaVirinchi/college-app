@@ -24,6 +24,7 @@ config :counselling, CounsellingWeb.Endpoint,
 
 config :req, adapter: {Req.Finch, name: Counselling.Finch}
 
+config :flop, repo: Counselling.Repo
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

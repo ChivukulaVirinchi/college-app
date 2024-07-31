@@ -1,13 +1,67 @@
-<.header>
-  Listing Colleges
-  <:actions>
-    <.link patch={~p"/colleges/new"}>
-      <.button>New College</.button>
-    </.link>
-  </:actions>
-</.header>
+<h1 class="text-4xl">Listing Colleges</h1>
+<form class="max-w-6xl my-8 mx-auto" phx-change="filter">
+  <input
+    type="text"
+    name="name"
+    class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
+    placeholder="Search"
+    value={@filters.name}
+  />
+  <input
+    type="text"
+    name="location"
+    class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
+    placeholder="Search"
+  />
+  <%!-- <%= for class <- @classes do %>
+    <label class="inline-flex items-center mr-4">
+      <input
+        type="checkbox"
+        name="classes"
+        value={class}
+        checked={class in @institutes}
+        class="form-checkbox h-5 w-5 text-blue-600"
+      />
+      <span class="ml-2"><%= class %></span>
+    </label>
+  <% end %> --%>
+  <%!-- <input
+    type="text"
+    name="location"
+    class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
+    placeholder="Search"
+  /> --%>
+</form>
 
-<.table
+<%!--  --%>
+<button
+  phx-click={JS.toggle(to: "#filter-card")}
+  class="text-violet-600 bg-violet-200 px-4 py-2 rounded-lg"
+>
+  <.icon class="size-4" name="hero-funnel-solid" /> Filters
+</button>
+<div
+  phx-click-away={JS.hide(to: "#filter-card")}
+  id="filter-card"
+  class="hidden space-y-4 min-w-xs max-w-sm border border-red-600 p-4 bg-white rounded-lg transition-all duration-300 ease-in-out "
+>
+  <%!-- <select phx-submit="emit" name="class" id="">
+    <%= Phoenix.HTML.Form.options_for_select(
+      [:IIT, :NIT, :IIIT, :GFTI],
+      @filters.class
+    ) %>
+  </select> --%>
+</div>
+
+<%!--  --%>
+
+<div class="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 lg:mx-12 mx-6">
+  <%= for {id, college} <- @streams.colleges do %>
+    <CounsellingWeb.CollegeComponent.college_component id={id} college={college} />
+  <% end %>
+</div>
+
+<%!-- <.table
   id="colleges"
   rows={@streams.colleges}
   row_click={fn {_id, college} -> JS.navigate(~p"/colleges/#{college}") end}
@@ -29,9 +83,9 @@
       Delete
     </.link>
   </:action>
-</.table>
+</.table> --%>
 
-<.modal
+<%!-- <.modal
   :if={@live_action in [:new, :edit]}
   id="college-modal"
   show
@@ -45,8 +99,4 @@
     college={@college}
     patch={~p"/colleges"}
   />
-</.modal>
-
-<button phx-click="create-college">Create-College</button>
-
-<%!-- <p><%= @socket.colleges %></p> --%>
+</.modal> --%>

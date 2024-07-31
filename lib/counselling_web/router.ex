@@ -23,6 +23,9 @@ defmodule CounsellingWeb.Router do
 
     live "/colleges/:id", CollegeLive.Show, :show
     live "/colleges/:id/show/edit", CollegeLive.Show, :edit
+
+    # live "/colleges/:id/branch/:id", CollegeLive.Show, :show
+
     get "/", PageController, :home
   end
 
