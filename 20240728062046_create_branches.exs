@@ -7,6 +7,6 @@ defmodule Counselling.Repo.Migrations.CreateBranches do
       timestamps()
     end
 
-    create unique_index(:branches, [:name])
+    # create unique_index(:branches, [:name])
   end
 end

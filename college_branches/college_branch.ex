@@ -5,7 +5,7 @@ defmodule Counselling.CollegeBranches.CollegeBranch do
   schema "college_branches" do
     belongs_to :college, Counselling.Colleges.College
     belongs_to :branch, Counselling.Branches.Branch
-
+    has_many :rank_cutoffs, Counselling.CollegeBranches.RankCutoff
     timestamps()
   end
 

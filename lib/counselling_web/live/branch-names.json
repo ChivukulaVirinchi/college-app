@@ -1,0 +1,706 @@
+{
+  "branches": [
+    {
+      "name": "Aerospace Engineering"
+    },
+    {
+      "name": "Agricultural and Food Engineering"
+    },
+    {
+      "name": "Biological Sciences and Bioengineering"
+    },
+    {
+      "name": "Bio Technology"
+    },
+    {
+      "name": "Biotechnology and Biochemical Engineering"
+    },
+    {
+      "name": "Ceramic Engineering"
+    },
+    {
+      "name": "Chemical Engineering"
+    },
+    {
+      "name": "Chemical Science and Technology"
+    },
+    {
+      "name": "Civil Engineering"
+    },
+    {
+      "name": "Computational Engineering"
+    },
+    {
+      "name": "Industrial Chemistry"
+    },
+    {
+      "name": "Computer Science and Business"
+    },
+    {
+      "name": "Chemical and Biochemical Engineering"
+    },
+    {
+      "name": "Computer Science Engineering (Artificial lntelligence and Machine Learning)"
+    },
+    {
+      "name": "Computer Science Engineering (Data Science and Analytics)"
+    },
+    {
+      "name": "Computer Science Engineering (Human Computer lnteraction and Gaming Technology)"
+    },
+    {
+      "name": "Electronics and Communication Engineering (Internet of Things)"
+    },
+    {
+      "name": "Electronics and Communication Engineering (Avionics)"
+    },
+    {
+      "name": "Computer Science and Engineering (Cyber Security)"
+    },
+    {
+      "name": "Electronics and Communication Engineering with specialization in VLSI and Embedded Systems"
+    },
+    {
+      "name": "Artificial Intelligence and Machine Learning"
+    },
+    {
+      "name": "Computational and Data Science"
+    },
+    {
+      "name": "Computer Science and Engineering with specialization in Artificial Intelligence and Data Science"
+    },
+    {
+      "name": "Electrical Engineering (IC Design and Technology)"
+    },
+    {
+      "name": "Environmental Science and Engineering"
+    },
+    {
+      "name": "Electronics and VLSI Engineering"
+    },
+    {
+      "name": "Civil and Environmental Engineering"
+    },
+    {
+      "name": "B.Tech in General Engineering"
+    },
+    {
+      "name": "Electronics and Communication Engineering (VLSI Design and Technology)"
+    },
+    {
+      "name": "Computer Science and Engineering"
+    },
+    {
+      "name": "Electrical Engineering"
+    },
+    {
+      "name": "Electrical Engineering (Power and Automation)"
+    },
+    {
+      "name": "Electronics Engineering"
+    },
+    {
+      "name": "Electronics and Communication Engineering"
+    },
+    {
+      "name": "Electronics and Electrical Communication Engineering"
+    },
+    {
+      "name": "Electronics and Electrical Engineering"
+    },
+    {
+      "name": "Engineering Physics"
+    },
+    {
+      "name": "Engineering Science"
+    },
+    {
+      "name": "Environmental Engineering"
+    },
+    {
+      "name": "Printing and Packaging Technology"
+    },
+    {
+      "name": "Mechatronics and Automation Engineering"
+    },
+    {
+      "name": "Industrial Internet of Things"
+    },
+    {
+      "name": "B.Tech in Materials Science and Engineering"
+    },
+    {
+      "name": "B.Tech in Microelectronics & VLSI"
+    },
+    {
+      "name": "B.Tech in Mathematics and Computing"
+    },
+    {
+      "name": "Artificial Intelligence and Data Engineering"
+    },
+    {
+      "name": "Electronics Engineering (VLSI Design and Technology)"
+    },
+    {
+      "name": "Space Sciences and Engineering"
+    },
+    {
+      "name": "Mathematics and Scientific Computing"
+    },
+    {
+      "name": "Biological Engineering"
+    },
+    {
+      "name": "Aeronautical Engineering"
+    },
+    {
+      "name": "Dairy Engineering"
+    },
+    {
+      "name": "Fashion and Apparel Engineering"
+    },
+    {
+      "name": "B.Tech in Electronics & Communication Engineering (Rail Engineering)"
+    },
+    {
+      "name": "B.Tech in Electrical Engineering ( Rail  Engineering)"
+    },
+    {
+      "name": "B.Tech in Mechanical Engineering ( Rail  Engineering)"
+    },
+    {
+      "name": "B.Tech in Civil Engineering (Rail Engineering)"
+    },
+    {
+      "name": "B.Tech in Artificial Intelligenece and Data Science (Transportation and Logistics)"
+    },
+    {
+      "name": "B.Tech in Aviation Engineering"
+    },
+    {
+      "name": "Computer Science and Engineering (Cyber Physical System)"
+    },
+    {
+      "name": "VLSI Design and Technology"
+    },
+    {
+      "name": "Instrumentation Engineering"
+    },
+    {
+      "name": "Manufacturing Science and Engineering"
+    },
+    {
+      "name": "Materials Science and Engineering"
+    },
+    {
+      "name": "Mathematics and Computing"
+    },
+    {
+      "name": "Mechanical Engineering"
+    },
+    {
+      "name": "Metallurgical Engineering"
+    },
+    {
+      "name": "Metallurgical and Materials Engineering"
+    },
+    {
+      "name": "Metallurgical Engineering and Materials Science"
+    },
+    {
+      "name": "ROBOTICS & AUTOMATION"
+    },
+    {
+      "name": "Microelectronics & VLSI Engineering"
+    },
+    {
+      "name": "CSE ( Data Science & Analytics)"
+    },
+    {
+      "name": "SUSTAINABLE ENERGY TECHNOLOGIES"
+    },
+    {
+      "name": "Computer Science and Engineering (Data Science)"
+    },
+    {
+      "name": "Computer Science and Engineering ( Artificial Intelligence & Data Science)"
+    },
+    {
+      "name": "Computer Science and Engineering (Artificial Intelligence)"
+    },
+    {
+      "name": "Materials Engineering"
+    },
+    {
+      "name": "Industrial Engineering and Operations Research"
+    },
+    {
+      "name": "Integrated Circuit Design & Technology"
+    },
+    {
+      "name": "Electronic Engineering"
+    },
+    {
+      "name": "Artificial Intelligence and Data Analytics"
+    },
+    {
+      "name": "Mining Engineering"
+    },
+    {
+      "name": "Mining Machinery Engineering"
+    },
+    {
+      "name": "Naval Architecture and Ocean Engineering"
+    },
+    {
+      "name": "Ocean Engineering and Naval Architecture"
+    },
+    {
+      "name": "Petroleum Engineering"
+    },
+    {
+      "name": "Production and Industrial Engineering"
+    },
+    {
+      "name": "Textile Technology"
+    },
+    {
+      "name": "Civil and Infrastructure Engineering"
+    },
+    {
+      "name": "Electronics and Instrumentation Engineering"
+    },
+    {
+      "name": "Bio Engineering"
+    },
+    {
+      "name": "Electrical and Electronics Engineering"
+    },
+    {
+      "name": "Production Engineering"
+    },
+    {
+      "name": "Information Technology"
+    },
+    {
+      "name": "Instrumentation and Control Engineering"
+    },
+    {
+      "name": "Industrial and Production Engineering"
+    },
+    {
+      "name": "Computer Engineering"
+    },
+    {
+      "name": "Bio Medical Engineering"
+    },
+    {
+      "name": "Electronics and Telecommunication Engineering"
+    },
+    {
+      "name": "Industrial Design"
+    },
+    {
+      "name": "Metallurgy and Materials Engineering"
+    },
+    {
+      "name": "Carpet  and Textile Technology"
+    },
+    {
+      "name": "Materials Science and Metallurgical Engineering"
+    },
+    {
+      "name": "Food Technology"
+    },
+    {
+      "name": "Food Engineering  and Technology"
+    },
+    {
+      "name": "Agricultural Engineering"
+    },
+    {
+      "name": "Food Process Engineering"
+    },
+    {
+      "name": "Industrial and Systems Engineering"
+    },
+    {
+      "name": "Pharmaceutical Engineering & Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering with specialization in Design and Manufacturing"
+    },
+    {
+      "name": "Mechanical Engineering with specialization in Design and Manufacturing"
+    },
+    {
+      "name": "Smart Manufacturing"
+    },
+    {
+      "name": "Mechatronics Engineering"
+    },
+    {
+      "name": "Data Science and Artificial Intelligence"
+    },
+    {
+      "name": "Food Technology and Management"
+    },
+    {
+      "name": "Computer Science"
+    },
+    {
+      "name": "Artificial Intelligence"
+    },
+    {
+      "name": "Information Technology-Business Informatics"
+    },
+    {
+      "name": "Data Science and Engineering"
+    },
+    {
+      "name": "Artificial Intelligence and Data Science"
+    },
+    {
+      "name": "Mineral and Metallurgical Engineering"
+    },
+    {
+      "name": "Computer Science and Artificial Intelligence"
+    },
+    {
+      "name": "Biomedical Engineering"
+    },
+    {
+      "name": "Engineering and Computational Mechanics"
+    },
+    {
+      "name": "Materials Engineering"
+    },
+    {
+      "name": "Biosciences and Bioengineering"
+    },
+    {
+      "name": "Computer Science and Engineering with specialization in Cyber Security"
+    },
+    {
+      "name": "Computer Science and Engineering with Major in Artificial Intelligence"
+    },
+    {
+      "name": "Handloom and Textile Technology"
+    },
+    {
+      "name": "Energy Engineering"
+    },
+    {
+      "name": "Biotechnology and Bioinformatics"
+    },
+    {
+      "name": "Chemistry"
+    },
+    {
+      "name": "Economics"
+    },
+    {
+      "name": "Mathematics and Scientific Computing"
+    },
+    {
+      "name": "Physics"
+    },
+    {
+      "name": "Earth Sciences"
+    },
+    {
+      "name": "BS in Mathematics"
+    },
+    {
+      "name": "Statistics and Data Science"
+    },
+    {
+      "name": "Mathematics and Computing"
+    },
+    {
+      "name": "Applied Geology"
+    },
+    {
+      "name": "Exploration Geophysics"
+    },
+    {
+      "name": "Physics with Specialization"
+    },
+    {
+      "name": "Chemistry with Specialization"
+    },
+    {
+      "name": "BS in Chemical Sciences"
+    },
+    {
+      "name": "Biological Science"
+    },
+    {
+      "name": "Bachelor of Design"
+    },
+    {
+      "name": "Planning"
+    },
+    {
+      "name": "Electronics and Communication Engineering (with Specialization of Embedded Systems and Internet of Things)"
+    },
+    {
+      "name": "Computer Science and Engineering (with Specialization of Data Science and Artificial Intelligence)"
+    },
+    {
+      "name": "Computer Science Engineering (Artificial Intelligence)"
+    },
+    {
+      "name": "Computer Science Engineering (Data Science)"
+    },
+    {
+      "name": "Architecture"
+    },
+    {
+      "name": "Architecture and Planning"
+    },
+    {
+      "name": "Aerospace Engineering"
+    },
+    {
+      "name": "Biochemical Engineering with M.Tech. in Biochemical Engineering and Biotechnology"
+    },
+    {
+      "name": "Bioengineering with M.Tech in Biomedical Technology"
+    },
+    {
+      "name": "Ceramic Engineering"
+    },
+    {
+      "name": "Mathematics and Data Science"
+    },
+    {
+      "name": "Computational Mathematics"
+    },
+    {
+      "name": "Computer Science and Engineering with Specialization in Data Science"
+    },
+    {
+      "name": "Computer Science and Engineering with Specialization in Cyber Security"
+    },
+    {
+      "name": "Electronics and Communication Engineering with Specialization in Microelectronics and VLSI System Design"
+    },
+    {
+      "name": "Electrical Engineering with Specialization In Power System Engineering"
+    },
+    {
+      "name": "Mechanical Engineering with Specialization in Manufacturing and Industrial Engineering"
+    },
+    {
+      "name": "Civil Engineering with Specialization in Construction Technology and Management"
+    },
+    {
+      "name": "Material Science and Engineering"
+    },
+    {
+      "name": "Mathematics and Computing Technology"
+    },
+    {
+      "name": "Chemical Engineering"
+    },
+    {
+      "name": "Civil Engineering"
+    },
+    {
+      "name": "Computer Science and Engineering"
+    },
+    {
+      "name": "Electrical Engineering"
+    },
+    {
+      "name": "B.Tech. in Electronics and Communication Engineering and M.Tech. in VLSI Design"
+    },
+    {
+      "name": "B.Tech. in Electronics and Communication Engineering and M.Tech. in Communication Systems"
+    },
+    {
+      "name": "Chemical Technology"
+    },
+    {
+      "name": "Electrical Engineering with M.Tech. in Power Electronics"
+    },
+    {
+      "name": "Engineering Design"
+    },
+    {
+      "name": "Materials Science and Technology"
+    },
+    {
+      "name": "Mechanical Engineering"
+    },
+    {
+      "name": "Electronics and Communication Engineering"
+    },
+    {
+      "name": "Metallurgical Engineering"
+    },
+    {
+      "name": "Metallurgical and Materials Engineering"
+    },
+    {
+      "name": "Mining Engineering"
+    },
+    {
+      "name": "Mathematics and Computing"
+    },
+    {
+      "name": "Chemical Engineering"
+    },
+    {
+      "name": "Ceramic Engineering and M.Tech Industrial Ceramic"
+    },
+    {
+      "name": "Engineering Physics"
+    },
+    {
+      "name": "Industrial Chemistry"
+    },
+    {
+      "name": "Pharmaceutical Engineering & Technology"
+    },
+    {
+      "name": "Biotechnology"
+    },
+    {
+      "name": "Geological Technology"
+    },
+    {
+      "name": "Geophysical Technology"
+    },
+    {
+      "name": "Applied Geology"
+    },
+    {
+      "name": "Applied Geophysics"
+    },
+    {
+      "name": "Materials Engineering"
+    },
+    {
+      "name": "B.Tech (Chemical Science and Technology) - MBA in Hospital and Health Care Management (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Civil Engineering) - MBA (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Computer Science and Engineering) - MBA in Digital Business Management (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Electronics and Communication Engineering) - MBA in Hospital and Healthcare Management (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Engineering Physics) - MBA (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Mathematics and Computing) - MBA in Digital Business Management (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Metallurgical and Materials Engineering) - MBA (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Electrical and Electronics Engineering) - MBA (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Artificial Intelligence and Data Science) - MBA in Digital Business Management (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Chemical Engineering) - MBA in Hospital and Health Care Management (IIM Bodh Gaya)"
+    },
+    {
+      "name": "B.Tech (Mechanical Engineering) - MBA (IIM Mumbai)"
+    },
+    {
+      "name": "Chemistry"
+    },
+    {
+      "name": "Mathematics and Computing"
+    },
+    {
+      "name": "Physics"
+    },
+    {
+      "name": "Mathematics"
+    },
+    {
+      "name": "Life Science"
+    },
+    {
+      "name": "Quantitative Economics & Data Science"
+    },
+    {
+      "name": "Physics"
+    },
+    {
+      "name": "Chemistry"
+    },
+    {
+      "name": "Mathematics & Computing"
+    },
+    {
+      "name": "Chemical Sciences"
+    },
+    {
+      "name": "Economics"
+    },
+    {
+      "name": "Interdisciplinary Sciences"
+    },
+    {
+      "name": "B. Tech in CE. - M. Tech.  in Geotechnical Engineering"
+    },
+    {
+      "name": "B. Tech in CE. - M. Tech.  in Structural Engineering"
+    },
+    {
+      "name": "B. Tech. (CSE) and M.Tech in CSE"
+    },
+    {
+      "name": "B. Tech. (ECE) -M. Tech. in VLSI"
+    },
+    {
+      "name": "B. Tech. (EEE)-M. Tech. in (Power &. Control)"
+    },
+    {
+      "name": "B. Tech. (Mathematics & Computing) M. Tech. in (Mathematics & Computing)"
+    },
+    {
+      "name": "B. Tech. (ME) - M. Tech. in Mechatronics"
+    },
+    {
+      "name": "B.Tech in Mechanical Engineering and M.Tech in AI and Robotics"
+    },
+    {
+      "name": "Integrated B. Tech.(IT) and M. Tech (IT)"
+    },
+    {
+      "name": "Integrated B. Tech.- M. Tech in Metallurgical & Materials Engineering"
+    },
+    {
+      "name": "Integrated B. Tech. - M. Tech in Electrical Engineering"
+    },
+    {
+      "name": "Integrated B. Tech. - M. Tech in Civil Engineering"
+    },
+    {
+      "name": "Integrated B. Tech. - M. Tech in Computer Science & Engineering"
+    },
+    {
+      "name": "Artificial Intelligence"
+    },
+    {
+      "name": "Integrated B. Tech.(IT) and MBA"
+    },
+    {
+      "name": "Chemical Engineering"
+    },
+    {
+      "name": "BS in Economics with MBA (IIM Bodh Gaya)"
+    }
+  ]
+}

@@ -1,5 +1,4 @@
 defmodule CounsellingWeb.CollegeComponent do
-  alias Counselling.Colleges.College
   use Phoenix.Component
   use Phoenix.VerifiedRoutes, endpoint: CounsellingWeb.Endpoint, router: CounsellingWeb.Router
 

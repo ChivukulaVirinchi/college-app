@@ -1,13 +1,26 @@
 defmodule CounsellingWeb.CollegeLive.Index do
   use CounsellingWeb, :live_view
-
   alias Counselling.Colleges
-  alias Counselling.Colleges.College
+  alias CounsellingWeb.CollegeComponent
 
   @impl true
   def mount(_params, _session, socket) do
-    socket = assign(socket, filters: %{name: "", location: ""})
-    {:ok, stream(socket, :colleges, Colleges.list_colleges())}
+    socket =
+      socket
+      |> assign(
+        filters: %{
+          "name" => "",
+          "location" => "",
+          "class" => [],
+          "advanced_rank" => "",
+          selected_programs: []
+        },
+        page_title: "Colleges"
+      )
+      # |> assign(:programs, Colleges.list_programs())
+      |> stream(:colleges, Colleges.list_colleges())
+
+    {:ok, socket}
   end
 
   @impl true
@@ -16,44 +29,25 @@ defmodule CounsellingWeb.CollegeLive.Index do
   # end
 
   def handle_params(params, _uri, socket) do
-    params |> dbg()
     # sort_by = (params["sort_by"] || "id") |> String.to_atom()
     # sort_order = (params["sort_order"] || "asc") |> String.to_atom()
 
     # page = (params["page"] || "1") |> String.to_integer()
     # per_page = (params["per_page"] || "5") |> String.to_integer()
-    # options = %{sort_by: sort_by, sort_order: sort_order, page: page, per_page: per_page}
     options = %{
       name: params["name"],
-      location: params["location"]
-      # class: params["class"]
+      location: params["location"],
+      class: params["class"],
+      advanced_rank: params["advanced_rank"],
+      programs: params["programs"]
     }
 
     socket =
       socket
-      |> assign(options: options)
       |> stream(:colleges, Colleges.get_colleges_with_filter(options), reset: true)
 
     {:noreply, socket}
   end
-
-  # defp apply_action(socket, :edit, %{"id" => id}) do
-  #   socket
-  #   |> assign(:page_title, "Edit College")
-  #   |> assign(:college, Colleges.get_college!(id))
-  # end
-
-  # defp apply_action(socket, :new, _params) do
-  #   socket
-  #   |> assign(:page_title, "New College")
-  #   |> assign(:college, %College{})
-  # end
-
-  # defp apply_action(socket, :index, _params) do
-  #   socket
-  #   |> assign(:page_title, "Listing Colleges")
-  #   |> assign(:college, nil)
-  # end
 
   @impl true
   def handle_info({CounsellingWeb.CollegeLive.FormComponent, {:saved, college}}, socket) do
@@ -83,30 +77,52 @@ defmodule CounsellingWeb.CollegeLive.Index do
   #   {:noreply, socket}
   # end
 
-  # def handle_event("update-filter", params, socket) do
-  #   params = Map.delete(params, "_target")
-  #   {:noreply, push_patch(socket, to: ~p"/colleges?#{params}")}
-  # end
   def handle_event("filter", filters, socket) do
     # params = Map.put(params, "institutes", filters["institutes"])
     filters =
       filters
       |> Map.delete("_target")
-      |> Enum.reject(fn {_key, value} -> value == "" end)
+      |> update_checkbox_filters("class")
+      # |> Enum.reject(fn {_key, value} -> value == "" end)
       |> Map.new()
 
     updated_filters = Map.merge(socket.assigns.filters, filters)
 
-    updated_filters |> dbg()
-
     {:noreply,
      socket
      |> assign(filters: updated_filters)
+     |> assign(advanced_rank: filters["advanced_rank"])
      |> push_patch(to: ~p"/colleges?#{build_query(updated_filters)}")}
+  end
+
+  def update_checkbox_filters(filters, key) do
+    case filters[key] do
+      nil -> Map.put(filters, key, [])
+      values when is_list(values) -> Map.put(filters, key, values)
+      value -> Map.put(filters, key, [value])
+    end
   end
 
   def build_query(filters) do
     filters
-    |> Enum.filter(fn {_, v} -> v && v != "" end)
+    |> Enum.filter(fn
+      {_, v} when is_binary(v) -> v != ""
+      {_, v} when is_list(v) -> v != []
+      _ -> true
+    end)
+    |> Enum.map(fn
+      {"class", values} -> {"class", Enum.map(values, &String.to_existing_atom/1)}
+      other -> other
+    end)
+    |> Enum.into(%{})
+  end
+
+  def program_names() do
+    [
+      "All Types": "",
+      Fishing: "fishing",
+      Sporting: "sporting",
+      Sailing: "sailing"
+    ]
   end
 end

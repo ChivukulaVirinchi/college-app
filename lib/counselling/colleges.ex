@@ -7,8 +7,10 @@ defmodule Counselling.Colleges do
   alias Counselling.Repo
 
   alias Counselling.Colleges.College
-  alias Counselling.Branches.Branch
-  alias Counselling.Branches
+
+  alias Counselling.Ranks.RankCutoff
+  alias Counselling.CollegePrograms.CollegeProgram
+  alias Counselling.Programs.Program
 
   @doc """
   Returns the list of colleges.
@@ -38,7 +40,33 @@ defmodule Counselling.Colleges do
       ** (Ecto.NoResultsError)
 
   """
-  def get_college!(id), do: Repo.get!(College, id) |> Repo.preload(:branches)
+  def get_college_by_id!(college_id) do
+    College
+    |> where(id: ^college_id)
+    |> Repo.one()
+  end
+
+  def get_college_program_rank_data_by_id(college_id) do
+    query =
+      from rc in RankCutoff,
+        join: c in College,
+        on: rc.college_id == c.id and c.id == ^college_id,
+        join: p in Program,
+        on: rc.program_id == p.id,
+        select: %{
+          name: p.name,
+          duration: p.duration,
+          degree_type: p.degree_type,
+          year: rc.year,
+          quota: rc.quota,
+          category: rc.category,
+          opening_rank: rc.opening_rank,
+          closing_rank: rc.closing_rank
+        },
+        order_by: [c.name, p.name, desc: rc.year]
+
+    %{college: get_college_by_id!(college_id), programs: Repo.all(query)}
+  end
 
   @doc """
   Creates a college.
@@ -58,6 +86,19 @@ defmodule Counselling.Colleges do
     |> Repo.insert()
   end
 
+  def get_class(college_name) do
+    cond do
+      String.contains?(college_name, "Indian Institute of Technology") -> :IIT
+      String.contains?(college_name, "National Institute of Technology") -> :NIT
+      String.contains?(college_name, "Indian Institute of Engineering Science") -> :NIT
+      String.contains?(college_name, "Indian Institute of Information Technology") -> :IIIT
+      true -> :GFTI
+    end
+  end
+
+  # def get_nirfrank(college_name) do
+
+  # end
   @doc """
   Updates a college.
 
@@ -108,13 +149,13 @@ defmodule Counselling.Colleges do
   ################################################
 
   def get_colleges_with_filter(filters) when is_map(filters) do
+    IO.inspect(filters, label: "Received Filters")
+
     College
     |> build_query(filters)
     |> Repo.all()
-    |> Repo.preload(:branches)
 
     # |> sort_query(sort)
-    # |> Repo.preload(:branches)
   end
 
   def build_query(query, filters) do
@@ -127,19 +168,34 @@ defmodule Counselling.Colleges do
         pattern = "%#{location}%"
         from q in query, where: ilike(q.location, ^pattern)
 
-        # {:class, class}, query ->
-        #   pattern = "%#{class}%"
-        #   from q in query, where: ilike(q.class, ^pattern)
+      {:class, classes}, query when is_list(classes) ->
+        from q in query, where: q.class in ^classes
+
+      {:advanced_rank, advanced_rank}, query ->
+        case advanced_rank do
+          nil ->
+            query
+
+          string when is_binary(string) ->
+            case Integer.parse(string) do
+              {rank, _} ->
+                from q in query,
+                  where: q.class == :GFTI,
+                  join: p in assoc(q, :programs),
+                  join: rc in assoc(p, :rank_cutoffs),
+                  group_by: q.id,
+                  having: ^rank <= fragment("MAX(?)", rc.closing_rank)
+
+              :error ->
+                IO.puts("Error parsing integer: #{string}")
+                query
+            end
+        end
+
+      _, query ->
+        query
     end)
   end
-
-  # def filter_query(query, filters) do
-  #   from(p in query,
-  #     where: ilike(p.name, ^"%#{filters.name}%")
-
-  #     # or_where: ilike(p.location, ^"%#{filters.location}%")
-  #   )
-  # end
 
   def list_colleges() do
     Repo.all(from(d in College, order_by: d.nirfrank))
@@ -152,46 +208,167 @@ defmodule Counselling.Colleges do
   # defp sort_query(query, "nirfrank_desc"), do: query |> order_by([c], desc: c.nirfrank)
   #################################################
 
-  def list_branches do
-    Repo.all(Branch) |> Repo.preload(:colleges)
+  def get_college!(college_name) do
+    query =
+      from c in College,
+        where: c.name == ^college_name,
+        select: c.id
+
+    case Repo.all(query) do
+      [college_id] -> {:ok, college_id}
+      [] -> {:error, "College not found: #{college_name}"}
+    end
   end
 
-  def get_branch!(id), do: Repo.get!(Branch, id) |> Repo.preload(:colleges)
-
-  def create_branch(attrs \\ %{}) do
-    %Branch{}
-    |> Branch.changeset(attrs)
+  ############################################################
+  # Programs Context Functions
+  def create_program(attrs \\ %{}) do
+    %Program{}
+    |> Program.changeset(attrs)
     |> Repo.insert()
   end
 
-  def update_branch(%Branch{} = branch, attrs) do
-    branch
-    |> Branch.changeset(attrs)
-    |> Repo.update()
+  def list_programs() do
+    Repo.all(from(d in Program, order_by: d.name))
   end
 
-  def delete_branch(%Branch{} = branch) do
-    Repo.delete(branch)
+  def get_program!(program_name) do
+    query =
+      from c in Program,
+        where: c.name == ^program_name,
+        select: c
+
+    {:ok, Repo.all(query)}
   end
 
-  def change_branch(%Branch{} = branch, attrs \\ %{}) do
-    Branch.changeset(branch, attrs)
+  ############################################################
+  def create_college_program(college_id, program_id) do
+    %CollegeProgram{}
+    |> CollegeProgram.changeset(%{college_id: college_id, program_id: program_id})
+    |> Repo.insert()
   end
 
-  # New functions for managing the many-to-many relationship
-  def add_branch_to_college(college, branch) do
-    college
-    |> Repo.preload(:branches)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:branches, [branch | college.branches])
-    |> Repo.update()
+  def list_college_programs() do
+    Repo.all(from(d in CollegeProgram, order_by: d.college_id))
+    |> Repo.preload(:college)
+    |> Repo.preload(:program)
+
+    # |> Repo.preload(:rank_cutoffs)
   end
 
-  def remove_branch_from_college(college, branch) do
-    college
-    |> Repo.preload(:branches)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:branches, Enum.filter(college.branches, &(&1.id != branch.id)))
-    |> Repo.update()
+  def get_college_program(college_id, program_id) do
+    CollegeProgram
+    |> where(
+      [college_program],
+      college_program.college_id == ^college_id and college_program.program_id == ^program_id
+    )
+    |> Repo.all()
+    |> Repo.preload(:college)
+    |> Repo.preload(:program)
   end
+
+  def create_rank_cutoff(college_id, program_id, cutoff_params) do
+    params = Map.merge(cutoff_params, %{college_id: college_id, program_id: program_id})
+
+    %RankCutoff{}
+    |> RankCutoff.changeset(params)
+    |> Repo.insert()
+  end
+
+  def create_rank_cutoff_including_college_program(college_id, program_id, cutoff_params) do
+    if get_college_program(college_id, program_id) == [] do
+      {:ok, _college_program} =
+        create_college_program(college_id, program_id)
+
+      create_rank_cutoff(college_id, program_id, cutoff_params)
+    else
+      create_rank_cutoff(college_id, program_id, cutoff_params)
+    end
+  end
+
+  def process_table_row(row) do
+    case row do
+      {"tr", [{"class", "bg-secondary text-white"}], _} ->
+        {:skip, "Skipping header row"}
+
+      {"tr", _, cells} when length(cells) == 7 ->
+        [college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank] =
+          Enum.map(cells, &extract_cell_content/1)
+
+        if seat_type == "OPEN" do
+          process_row_data(college_name, program_name, quota, gender, opening_rank, closing_rank)
+        else
+          {:skip, "Not an OPEN category record"}
+        end
+
+      _ ->
+        {:error, "Invalid row format"}
+    end
+  end
+
+  def extract_cell_content({"td", _, content}) do
+    content
+    |> List.flatten()
+    |> Enum.find_value("", fn
+      string when is_binary(string) -> string
+      {"span", _, [value]} when is_binary(value) -> value
+      _ -> nil
+    end)
+    |> String.trim()
+  end
+
+  # this
+  def process_row_data(college_name, program_name, quota, gender, opening_rank, closing_rank) do
+    with {:ok, college_id} <- get_college!(college_name),
+         {:ok, program} <- get_program(program_name),
+         {:ok, cutoff_params} <- create_cutoff_params(quota, gender, opening_rank, closing_rank) do
+      create_rank_cutoff_including_college_program(college_id, program.id, cutoff_params)
+    else
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  # This
+  # def get_college(name) do
+  #   case Repo.get_by(College, name: name) do
+  #     nil -> {:error, "College not found: #{name}"}
+  #     college -> {:ok, college}
+  #   end
+  # end
+
+  # This
+  def get_program(program_name) do
+    # Extract program name without duration and degree type
+    details = Josaa.parse_degree_info(program_name)
+
+    ### Change this
+    case Repo.get_by(Program,
+           name: details.name,
+           duration: details.duration,
+           degree_type: details.degree_type
+         ) do
+      nil -> {:error, "Program not found: #{program_name}"}
+      program -> {:ok, program}
+    end
+  end
+
+  def create_cutoff_params(quota, gender, opening_rank, closing_rank) do
+    {:ok,
+     %{
+       quota: parse_quota(quota),
+       category: parse_gender(gender),
+       opening_rank: String.to_integer(opening_rank),
+       closing_rank: String.to_integer(closing_rank),
+       year: 2024
+     }}
+  end
+
+  def parse_quota("AI"), do: :all_india
+  def parse_quota("HS"), do: :home_state
+  def parse_quota("OS"), do: :other_state
+  def parse_quota(_), do: :all_india
+
+  def parse_gender("Gender-Neutral"), do: :gender_neutral
+  def parse_gender("Female-only (including Supernumerary)"), do: :female
+  def parse_gender(_), do: :gender_neutral
 end

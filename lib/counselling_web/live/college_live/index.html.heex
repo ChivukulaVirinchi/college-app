@@ -1,102 +1,60 @@
 <h1 class="text-4xl">Listing Colleges</h1>
-<form class="max-w-6xl my-8 mx-auto" phx-change="filter">
+<form phx-change="filter" phx-debounce="300">
+  <%= @filters["advanced_rank"] %>
   <input
     type="text"
     name="name"
+    value={@filters["name"]}
     class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
-    placeholder="Search"
-    value={@filters.name}
+    placeholder="Search by name"
   />
   <input
     type="text"
     name="location"
+    value={@filters["location"]}
     class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
-    placeholder="Search"
+    placeholder="Search by location"
   />
-  <%!-- <%= for class <- @classes do %>
-    <label class="inline-flex items-center mr-4">
-      <input
-        type="checkbox"
-        name="classes"
-        value={class}
-        checked={class in @institutes}
-        class="form-checkbox h-5 w-5 text-blue-600"
-      />
-      <span class="ml-2"><%= class %></span>
-    </label>
-  <% end %> --%>
-  <%!-- <input
-    type="text"
-    name="location"
+  <input
+    type="number"
+    name="advanced_rank"
+    value={@filters["advanced_rank"]}
     class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
-    placeholder="Search"
-  /> --%>
+    placeholder="Advanced Rank"
+  />
+  <div class="flex gap-x-6">
+    <%= for class <- [:IIT, :NIT, :IIIT, :GFTI] do %>
+      <label class="inline-flex items-center text-sm text-gray-500 ms-3 ark:text-neutral-400">
+        <input
+          type="checkbox"
+          name="class[]"
+          value={class}
+          checked={Atom.to_string(class) in @filters["class"]}
+          class="shrink-0 mt-0.5 border-gray-400/50 rounded text-blue-600 focus:ring-blue-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
+        />
+        <span class="ml-2"><%= class %></span>
+      </label>
+    <% end %>
+  </div>
+  <div phx-click-away={JS.hide(to: "#filter-card")}>
+    <button
+      phx-click={JS.toggle(to: "#filter-card")}
+      class="px-4 py-2 rounded-lg text-violet-600 bg-violet-200 hover:bg-violet-300/60"
+    >
+      <.icon class="size-4" name="hero-funnel-solid" /> Filters
+    </button>
+    <div
+      id="filter-card"
+      class="hidden max-w-sm p-4 space-y-4 transition-all duration-300 ease-in-out bg-white border border-red-600 rounded-lg min-w-xs "
+    >
+    </div>
+  </div>
 </form>
 
-<%!--  --%>
-<button
-  phx-click={JS.toggle(to: "#filter-card")}
-  class="text-violet-600 bg-violet-200 px-4 py-2 rounded-lg"
->
-  <.icon class="size-4" name="hero-funnel-solid" /> Filters
-</button>
-<div
-  phx-click-away={JS.hide(to: "#filter-card")}
-  id="filter-card"
-  class="hidden space-y-4 min-w-xs max-w-sm border border-red-600 p-4 bg-white rounded-lg transition-all duration-300 ease-in-out "
->
-  <%!-- <select phx-submit="emit" name="class" id="">
-    <%= Phoenix.HTML.Form.options_for_select(
-      [:IIT, :NIT, :IIIT, :GFTI],
-      @filters.class
-    ) %>
-  </select> --%>
-</div>
+<%!-- <.live_select field="program_filter" options={program_names()} /> --%>
 
-<%!--  --%>
-
-<div class="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 lg:mx-12 mx-6">
+<div class="grid grid-cols-1 gap-4 mx-6 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 lg:gap-8 lg:mx-12">
   <%= for {id, college} <- @streams.colleges do %>
     <CounsellingWeb.CollegeComponent.college_component id={id} college={college} />
   <% end %>
 </div>
-
-<%!-- <.table
-  id="colleges"
-  rows={@streams.colleges}
-  row_click={fn {_id, college} -> JS.navigate(~p"/colleges/#{college}") end}
->
-  <:col :let={{_id, college}} label="Name"><%= college.name %></:col>
-  <:col :let={{_id, college}} label="Established year"><%= college.established_year %></:col>
-  <:col :let={{_id, college}} label="Location"><%= college.location %></:col>
-  <:action :let={{_id, college}}>
-    <div class="sr-only">
-      <.link navigate={~p"/colleges/#{college}"}>Show</.link>
-    </div>
-    <.link patch={~p"/colleges/#{college}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, college}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: college.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
-</.table> --%>
-
-<%!-- <.modal
-  :if={@live_action in [:new, :edit]}
-  id="college-modal"
-  show
-  on_cancel={JS.patch(~p"/colleges")}
->
-  <.live_component
-    module={CounsellingWeb.CollegeLive.FormComponent}
-    id={@college.id || :new}
-    title={@page_title}
-    action={@live_action}
-    college={@college}
-    patch={~p"/colleges"}
-  />
-</.modal> --%>

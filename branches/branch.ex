@@ -5,9 +5,10 @@ defmodule Counselling.Branches.Branch do
   schema "branches" do
     field :name, :string
 
-    many_to_many :colleges, Counselling.Colleges.College,
-      join_through: Counselling.Colleges.CollegeBranch
+    # many_to_many :colleges, Counselling.Colleges.College,
+    #   join_through: Counselling.Colleges.CollegeBranch
 
+    has_many :programs, Counselling.Programs.Program
     timestamps()
   end
 
@@ -15,6 +16,7 @@ defmodule Counselling.Branches.Branch do
     branch
     |> cast(attrs, [:name])
     |> validate_required([:name])
-    |> unique_constraint(:name)
+
+    # |> unique_constraint(:name)
   end
 end
