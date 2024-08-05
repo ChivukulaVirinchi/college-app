@@ -1,38 +1,3 @@
-<%!-- <.header>
-  College <%= @college.id %>
-  <:subtitle>This is a college record from your database.</:subtitle>
-  <:actions>
-    <.link patch={~p"/colleges/#{@college}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit college</.button>
-    </.link>
-  </:actions>
-</.header>
-
-<.list>
-  <:item title="Name"><%= @college.name %></:item>
-  <:item title="Established year"><%= @college.established_year %></:item>
-  <:item title="Location"><%= @college.location %></:item>
-  <:item title="Location"><%= @college.class %></:item>
-</.list>
-
-<.back navigate={~p"/colleges"}>Back to colleges</.back>
-
-<.modal
-  :if={@live_action == :edit}
-  id="college-modal"
-  show
-  on_cancel={JS.patch(~p"/colleges/#{@college}")}
->
-  <.live_component
-    module={CounsellingWeb.CollegeLive.FormComponent}
-    id={@college.id}
-    title={@page_title}
-    action={@live_action}
-    college={@college}
-    patch={~p"/colleges/#{@college}"}
-  />
-</.modal> --%>
-
 <div class="mx-auto max-w-7xl ">
   <.link patch={~p"/colleges"}> Back to colleges </.link>
   <section class="px-4 my-12">
@@ -43,6 +8,9 @@
     />
 
     <h1 class="text-3xl font-medium text-gray-900"><%= @college.college.name %></h1>
+    <p class="pt-2 text-sm text-gray-800 lg:text-normal">
+      <%= @college.college.class %>
+    </p>
   </section>
   <section class="px-4 my-12">
     <div class="pb-2 border-b-2 border-violet-500">
@@ -124,12 +92,12 @@
                     </td>
 
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap ark:text-neutral-200">
-                      <span class="px-2.5 py-0.5 text-green-600 bg-green-100 rounded-full">
+                      <span class={"px-2.5 py-0.5 rounded-full #{get_rank_color(program.opening_rank, program.closing_rank, @advanced_rank)}"}>
                         <%= program.opening_rank %>
                       </span>
                     </td>
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap ark:text-neutral-200">
-                      <span class="px-2.5 py-0.5 text-yellow-600 bg-yellow-100 rounded-full">
+                      <span class={"px-2.5 py-0.5 text-yellow-600 bg-yellow-100 rounded-full #{get_rank_color(program.opening_rank, program.closing_rank, @advanced_rank)}"}>
                         <%= program.closing_rank %>
                       </span>
                     </td>

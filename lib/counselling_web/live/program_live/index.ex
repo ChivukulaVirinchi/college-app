@@ -3,7 +3,6 @@ defmodule CounsellingWeb.ProgramLive.Index do
   alias Counselling.Colleges
 
   def mount(_params, _session, socket) do
-    socket |> stream(:programs, Colleges.list_programs())
-    {:ok, socket}
+    {:ok, stream(socket, :programs, Colleges.list_programs())}
   end
 end

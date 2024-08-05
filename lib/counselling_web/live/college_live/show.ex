@@ -9,11 +9,29 @@ defmodule CounsellingWeb.CollegeLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"slug" => slug}, _, socket) do
+    [id_str | _] = String.split(slug, "-")
+    id = String.to_integer(id_str)
+
     {:noreply,
      socket
+     |> assign(:advanced_rank, 2000)
+     |> assign(:rank, 38000)
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:college, Colleges.get_college_program_rank_data_by_id(id))}
+  end
+
+  def get_rank_color(opening_rank, closing_rank, rank) do
+    cond do
+      rank >= closing_rank ->
+        "text-red-600 bg-red-100"
+
+      rank <= opening_rank ->
+        "text-green-600 bg-green-100"
+
+      true ->
+        "text-yellow-600 bg-yellow-100"
+    end
   end
 
   defp page_title(:show), do: "Show College"

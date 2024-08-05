@@ -2,6 +2,8 @@ defmodule Counselling.Colleges.College do
   use Ecto.Schema
   import Ecto.Changeset
 
+  # @primary_key {:id, Counselling.Colleges.CollegeId, autogenerate: true}
+  @derive {Phoenix.Param, key: :slug}
   schema "colleges" do
     field :name, :string
     field :location, :string, default: "Chennai"
@@ -10,6 +12,7 @@ defmodule Counselling.Colleges.College do
     field :class, Ecto.Enum, values: [:IIT, :NIT, :IIIT, :GFTI], default: :GFTI
     field :link_to_website, :string, default: "https://www.google.com"
     field :campus_area, :integer, default: 1
+    field :slug, :string
     # field :highlights, :string
     # field :short_name, :string
     # field :photo_locations, []
@@ -30,9 +33,21 @@ defmodule Counselling.Colleges.College do
       :nirfrank,
       :class,
       :link_to_website,
-      :campus_area
+      :campus_area,
+      :slug
     ])
     |> validate_required([:name, :established_year, :location, :nirfrank, :class])
     |> unique_constraint(:name)
+  end
+
+  # defimpl Phoenix.Param, for: Counselling.Colleges.College do
+  #   def to_param(%{id: id, slug: slug}) when not is_nil(slug) do
+  #     "#{id}-#{slug}"
+  #   end
+  # end
+  defimpl Phoenix.Param, for: Counselling.Colleges.College do
+    def to_param(%{id: id, slug: slug}) do
+      "#{id}-#{slug}"
+    end
   end
 end

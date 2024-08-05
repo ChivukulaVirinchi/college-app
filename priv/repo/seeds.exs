@@ -22,7 +22,11 @@ colleges =
 _created_colleges =
   Enum.map(colleges["colleges"], fn college ->
     {:ok, _created_college} =
-      Repo.insert(%College{name: college["name"], class: Colleges.get_class(college["name"])})
+      Repo.insert(%College{
+        name: college["name"],
+        class: Colleges.get_class(college["name"]),
+        nirfrank: NIRF.get_ranks(college["name"])
+      })
   end)
 
 IO.puts("All Colleges created successfully!")

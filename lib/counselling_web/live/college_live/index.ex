@@ -1,7 +1,7 @@
 defmodule CounsellingWeb.CollegeLive.Index do
   use CounsellingWeb, :live_view
   alias Counselling.Colleges
-  alias CounsellingWeb.CollegeComponent
+  # alias CounsellingWeb.CollegeComponent
 
   @impl true
   def mount(_params, _session, socket) do
@@ -17,10 +17,13 @@ defmodule CounsellingWeb.CollegeLive.Index do
         },
         page_title: "Colleges"
       )
-      # |> assign(:programs, Colleges.list_programs())
-      |> stream(:colleges, Colleges.list_colleges())
 
-    {:ok, socket}
+    # |> assign(:programs, Colleges.list_programs())
+
+    {:ok,
+     stream(socket, :colleges, Colleges.get_colleges_with_filter(socket.assigns.filters),
+       reset: true
+     )}
   end
 
   @impl true

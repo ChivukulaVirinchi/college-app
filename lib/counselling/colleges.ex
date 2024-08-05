@@ -22,10 +22,6 @@ defmodule Counselling.Colleges do
 
   """
 
-  # def list_colleges(params) when is_map(params) do
-  #   Flop.validate_and_run(College, params, for: College)
-  # end
-
   @doc """
   Gets a single college.
 
@@ -63,7 +59,7 @@ defmodule Counselling.Colleges do
           opening_rank: rc.opening_rank,
           closing_rank: rc.closing_rank
         },
-        order_by: [c.name, p.name, desc: rc.year]
+        order_by: [p.name]
 
     %{college: get_college_by_id!(college_id), programs: Repo.all(query)}
   end
@@ -88,11 +84,20 @@ defmodule Counselling.Colleges do
 
   def get_class(college_name) do
     cond do
-      String.contains?(college_name, "Indian Institute of Technology") -> :IIT
-      String.contains?(college_name, "National Institute of Technology") -> :NIT
-      String.contains?(college_name, "Indian Institute of Engineering Science") -> :NIT
-      String.contains?(college_name, "Indian Institute of Information Technology") -> :IIIT
-      true -> :GFTI
+      String.contains?(college_name, "Indian Institute of Technology") ->
+        :IIT
+
+      String.contains?(college_name, "National Institute of Technology") ->
+        :NIT
+
+      String.contains?(college_name, "Indian Institute of Engineering Science") ->
+        :NIT
+
+      String.contains?(college_name, "Indian Institute of Information Technology") ->
+        :IIIT
+
+      true ->
+        :GFTI
     end
   end
 
@@ -149,8 +154,6 @@ defmodule Counselling.Colleges do
   ################################################
 
   def get_colleges_with_filter(filters) when is_map(filters) do
-    IO.inspect(filters, label: "Received Filters")
-
     College
     |> build_query(filters)
     |> Repo.all()
@@ -173,23 +176,24 @@ defmodule Counselling.Colleges do
 
       {:advanced_rank, advanced_rank}, query ->
         case advanced_rank do
-          nil ->
-            query
-
           string when is_binary(string) ->
             case Integer.parse(string) do
               {rank, _} ->
                 from q in query,
-                  where: q.class == :GFTI,
+                  where: q.class == :IIT,
                   join: p in assoc(q, :programs),
                   join: rc in assoc(p, :rank_cutoffs),
                   group_by: q.id,
+                  # order_by: [desc: rc.closing_rank],
                   having: ^rank <= fragment("MAX(?)", rc.closing_rank)
 
               :error ->
                 IO.puts("Error parsing integer: #{string}")
                 query
             end
+
+          nil ->
+            query
         end
 
       _, query ->
@@ -341,7 +345,6 @@ defmodule Counselling.Colleges do
     # Extract program name without duration and degree type
     details = Josaa.parse_degree_info(program_name)
 
-    ### Change this
     case Repo.get_by(Program,
            name: details.name,
            duration: details.duration,

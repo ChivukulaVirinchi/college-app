@@ -36,7 +36,7 @@
             <table class="min-w-full divide-y divide-gray-200 ark:divide-neutral-700">
               <thead class="bg-gray-50 ark:bg-neutral-700">
                 <tr>
-                  <th scope="col" class="px-4 py-3 pe-0">
+                  <%!-- <th scope="col" class="px-4 py-3 pe-0">
                     <div class="flex items-center h-5">
                       <input
                         id="hs-table-pagination-checkbox-all"
@@ -47,12 +47,12 @@
                         Checkbox
                       </label>
                     </div>
-                  </th>
+                  </th> --%>
                   <th
                     scope="col"
                     class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
                   >
-                    Name
+                    Program Name
                   </th>
                   <th
                     scope="col"
@@ -75,8 +75,9 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 ark:divide-neutral-700">
-                <tr>
-                  <td class="py-3 ps-4">
+                <%= for {id, program} <- @streams.programs do %>
+                  <tr>
+                    <%!-- <td class="py-3 ps-4">
                     <div class="flex items-center h-5">
                       <input
                         id="hs-table-pagination-checkbox-1"
@@ -85,145 +86,29 @@
                       />
                       <label for="hs-table-pagination-checkbox-1" class="sr-only">Checkbox</label>
                     </div>
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    John Brown
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    45
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    New York No. 1 Lake Park
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-                    <button
-                      type="button"
-                      class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="py-3 ps-4">
-                    <div class="flex items-center h-5">
-                      <input
-                        id="hs-table-pagination-checkbox-2"
-                        type="checkbox"
-                        class="text-blue-600 border-gray-200 rounded focus:ring-blue-500 ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
-                      />
-                      <label for="hs-table-pagination-checkbox-2" class="sr-only">Checkbox</label>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    Jim Green
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    27
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    London No. 1 Lake Park
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-                    <button
-                      type="button"
-                      class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="py-3 ps-4">
-                    <div class="flex items-center h-5">
-                      <input
-                        id="hs-table-pagination-checkbox-3"
-                        type="checkbox"
-                        class="text-blue-600 border-gray-200 rounded focus:ring-blue-500 ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
-                      />
-                      <label for="hs-table-pagination-checkbox-3" class="sr-only">Checkbox</label>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    Joe Black
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    31
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    Sidney No. 1 Lake Park
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-                    <button
-                      type="button"
-                      class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="py-3 ps-4">
-                    <div class="flex items-center h-5">
-                      <input
-                        id="hs-table-pagination-checkbox-4"
-                        type="checkbox"
-                        class="text-blue-600 border-gray-200 rounded focus:ring-blue-500 ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
-                      />
-                      <label for="hs-table-pagination-checkbox-4" class="sr-only">Checkbox</label>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    Edward King
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    16
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    LA No. 1 Lake Park
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-                    <button
-                      type="button"
-                      class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="py-3 ps-4">
-                    <div class="flex items-center h-5">
-                      <input
-                        id="hs-table-pagination-checkbox-5"
-                        type="checkbox"
-                        class="text-blue-600 border-gray-200 rounded focus:ring-blue-500 ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
-                      />
-                      <label for="hs-table-pagination-checkbox-5" class="sr-only">Checkbox</label>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    Jim Red
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    45
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                    Melbourne No. 1 Lake Park
-                  </td>
-                  <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-                    <button
-                      type="button"
-                      class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+                  </td> --%>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-800 ark:text-neutral-200">
+                      <%= program.name %>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                      <%= program.duration %>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                      <%= program.degree_type %>
+                    </td>
+                    <%!-- <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                      <%= program.degree_type %>
+                    </td> --%>
+                    <%!-- <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
+                      <button
+                        type="button"
+                        class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
+                      >
+                        Delete
+                      </button>
+                    </td> --%>
+                  </tr>
+                <% end %>
               </tbody>
             </table>
           </div>
