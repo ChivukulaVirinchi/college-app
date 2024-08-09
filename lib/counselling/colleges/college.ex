@@ -2,17 +2,17 @@ defmodule Counselling.Colleges.College do
   use Ecto.Schema
   import Ecto.Changeset
 
-  # @primary_key {:id, Counselling.Colleges.CollegeId, autogenerate: true}
-  @derive {Phoenix.Param, key: :slug}
+  # @derive {Phoenix.Param, key: :slug}
+  @primary_key {:id, Counselling.Colleges.Permalink, autogenerate: true}
   schema "colleges" do
     field :name, :string
     field :location, :string, default: "Chennai"
     field :established_year, :integer, default: 2000
-    field :nirfrank, :integer, default: 125
     field :class, Ecto.Enum, values: [:IIT, :NIT, :IIIT, :GFTI], default: :GFTI
     field :link_to_website, :string, default: "https://www.google.com"
     field :campus_area, :integer, default: 1
     field :slug, :string
+    field :nirfrank, :integer, default: 125
     # field :highlights, :string
     # field :short_name, :string
     # field :photo_locations, []
@@ -33,21 +33,23 @@ defmodule Counselling.Colleges.College do
       :nirfrank,
       :class,
       :link_to_website,
-      :campus_area,
-      :slug
+      :campus_area
     ])
     |> validate_required([:name, :established_year, :location, :nirfrank, :class])
     |> unique_constraint(:name)
+    |> slugify_name()
   end
 
-  # defimpl Phoenix.Param, for: Counselling.Colleges.College do
-  #   def to_param(%{id: id, slug: slug}) when not is_nil(slug) do
-  #     "#{id}-#{slug}"
-  #   end
-  # end
-  defimpl Phoenix.Param, for: Counselling.Colleges.College do
-    def to_param(%{id: id, slug: slug}) do
-      "#{id}-#{slug}"
+  defp slugify_name(changeset) do
+    case fetch_change(changeset, :name) do
+      {:ok, new_name} -> put_change(changeset, :slug, slugify(new_name))
+      :error -> changeset
     end
+  end
+
+  defp slugify(str) do
+    str
+    |> String.downcase()
+    |> String.replace([" ", ","], "-")
   end
 end

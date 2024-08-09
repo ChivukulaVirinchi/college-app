@@ -92,12 +92,12 @@
                     </td>
 
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap ark:text-neutral-200">
-                      <span class={"px-2.5 py-0.5 rounded-full #{get_rank_color(program.opening_rank, program.closing_rank, @advanced_rank)}"}>
+                      <span class={"px-2.5 py-0.5 rounded-full #{get_rank_color(program.closing_rank, @advanced_rank, @mains_rank, @college.college.class)}"}>
                         <%= program.opening_rank %>
                       </span>
                     </td>
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap ark:text-neutral-200">
-                      <span class={"px-2.5 py-0.5 text-yellow-600 bg-yellow-100 rounded-full #{get_rank_color(program.opening_rank, program.closing_rank, @advanced_rank)}"}>
+                      <span class={"px-2 py-0.5 rounded-full #{get_rank_color(program.closing_rank, @advanced_rank, @mains_rank, @college.college.class)}"}>
                         <%= program.closing_rank %>
                       </span>
                     </td>

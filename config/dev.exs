@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :counselling, Counselling.Repo,
-  username: "virinchi",
-  password: "gurujada",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost",
   database: "counselling_dev",
   stacktrace: true,

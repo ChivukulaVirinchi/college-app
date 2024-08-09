@@ -101,8 +101,6 @@ defmodule Counselling.Colleges do
     end
   end
 
-  # def get_nirfrank(college_name) do
-
   # end
   @doc """
   Updates a college.
@@ -174,27 +172,21 @@ defmodule Counselling.Colleges do
       {:class, classes}, query when is_list(classes) ->
         from q in query, where: q.class in ^classes
 
-      {:advanced_rank, advanced_rank}, query ->
-        case advanced_rank do
-          string when is_binary(string) ->
-            case Integer.parse(string) do
-              {rank, _} ->
-                from q in query,
-                  where: q.class == :IIT,
-                  join: p in assoc(q, :programs),
-                  join: rc in assoc(p, :rank_cutoffs),
-                  group_by: q.id,
-                  # order_by: [desc: rc.closing_rank],
-                  having: ^rank <= fragment("MAX(?)", rc.closing_rank)
+      {:advanced_rank, advanced_rank}, query when not is_nil(advanced_rank) ->
+        from q in query,
+          where: q.class == :IIT,
+          join: rc in RankCutoff,
+          on: q.id == rc.college_id,
+          group_by: q.id,
+          having: type(^advanced_rank, :integer) <= fragment("MAX(?)", rc.closing_rank)
 
-              :error ->
-                IO.puts("Error parsing integer: #{string}")
-                query
-            end
-
-          nil ->
-            query
-        end
+      {:mains_rank, mains_rank}, query when not is_nil(mains_rank) ->
+        from q in query,
+          where: q.class != :IIT,
+          join: rc in RankCutoff,
+          on: q.id == rc.college_id,
+          group_by: q.id,
+          having: type(^mains_rank, :integer) <= fragment("MAX(?)", rc.closing_rank)
 
       _, query ->
         query
@@ -205,11 +197,6 @@ defmodule Counselling.Colleges do
     Repo.all(from(d in College, order_by: d.nirfrank))
   end
 
-  # defp sort_query(query, nil), do: query
-  # defp sort_query(query, "name_asc"), do: query |> order_by([c], asc: c.name)
-  # defp sort_query(query, "name_desc"), do: query |> order_by([c], desc: c.name)
-  # defp sort_query(query, "nirfrank_asc"), do: query |> order_by([c], asc: c.nirfrank)
-  # defp sort_query(query, "nirfrank_desc"), do: query |> order_by([c], desc: c.nirfrank)
   #################################################
 
   def get_college!(college_name) do
@@ -233,16 +220,71 @@ defmodule Counselling.Colleges do
   end
 
   def list_programs() do
-    Repo.all(from(d in Program, order_by: d.name))
+    Program |> Repo.all()
   end
 
-  def get_program!(program_name) do
+  def get_programs_with_filter(filters) when is_map(filters) do
+    Program
+    |> build_query(filters)
+    |> sort(filters[:sort_by], filters[:sort_order])
+    |> Repo.all()
+  end
+
+  def sort(query, nil, nil), do: query
+
+  def sort(query, sort_by, sort_order) do
+    sort_by = String.to_existing_atom(sort_by)
+    sort_order = String.to_existing_atom(sort_order)
+    from c in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+  end
+
+  def get_program!(program_id) do
     query =
       from c in Program,
-        where: c.name == ^program_name,
+        where: c.id == ^program_id,
         select: c
 
-    {:ok, Repo.all(query)}
+    Repo.one(query) |> Repo.preload(:colleges)
+  end
+
+  #############################################################
+  def program_query(program_id) do
+    from rc in RankCutoff,
+      join: c in College,
+      on: rc.college_id == c.id,
+      join: p in Program,
+      on: rc.program_id == p.id,
+      where: p.id == ^program_id,
+      select: %{
+        id: c.id,
+        college: c,
+        year: rc.year,
+        quota: rc.quota,
+        category: rc.category,
+        opening_rank: rc.opening_rank,
+        closing_rank: rc.closing_rank
+      }
+  end
+
+  def get_program_data(filters, program_id) when is_map(filters) do
+    program_query(program_id)
+    # |> build_query(filters)
+    |> sort_2(filters[:sort_by], filters[:sort_order])
+    |> dbg()
+    |> Repo.all()
+  end
+
+  def sort_2(query, nil, nil), do: query
+
+  def sort_2(query, sort_by, sort_order) do
+    sort_by = String.to_existing_atom(sort_by)
+    sort_order = String.to_existing_atom(sort_order)
+    from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+  end
+
+  def get_program_data(program_id) do
+    program_query(program_id)
+    |> Repo.all()
   end
 
   ############################################################
@@ -250,14 +292,6 @@ defmodule Counselling.Colleges do
     %CollegeProgram{}
     |> CollegeProgram.changeset(%{college_id: college_id, program_id: program_id})
     |> Repo.insert()
-  end
-
-  def list_college_programs() do
-    Repo.all(from(d in CollegeProgram, order_by: d.college_id))
-    |> Repo.preload(:college)
-    |> Repo.preload(:program)
-
-    # |> Repo.preload(:rank_cutoffs)
   end
 
   def get_college_program(college_id, program_id) do
@@ -292,7 +326,7 @@ defmodule Counselling.Colleges do
 
   def process_table_row(row) do
     case row do
-      {"tr", [{"class", "bg-secondary text-white"}], _} ->
+      {"tr", [{"class", "text-white bg-secondary"}], _} ->
         {:skip, "Skipping header row"}
 
       {"tr", _, cells} when length(cells) == 7 ->

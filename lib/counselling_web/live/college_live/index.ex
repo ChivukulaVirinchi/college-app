@@ -1,7 +1,8 @@
 defmodule CounsellingWeb.CollegeLive.Index do
   use CounsellingWeb, :live_view
   alias Counselling.Colleges
-  # alias CounsellingWeb.CollegeComponent
+  import CounsellingWeb.CollegeComponent
+  import LiveSelect.Component
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,36 +14,23 @@ defmodule CounsellingWeb.CollegeLive.Index do
           "location" => "",
           "class" => [],
           "advanced_rank" => "",
-          selected_programs: []
+          "mains_rank" => "",
+          selected_programs: %{}
         },
         page_title: "Colleges"
       )
 
-    # |> assign(:programs, Colleges.list_programs())
-
-    {:ok,
-     stream(socket, :colleges, Colleges.get_colleges_with_filter(socket.assigns.filters),
-       reset: true
-     )}
+    {:ok, socket}
   end
 
   @impl true
-  # def handle_params(params, _url, socket) do
-  #   {:noreply, apply_action(socket, socket.assigns.live_action, params)}
-  # end
-
   def handle_params(params, _uri, socket) do
-    # sort_by = (params["sort_by"] || "id") |> String.to_atom()
-    # sort_order = (params["sort_order"] || "asc") |> String.to_atom()
-
-    # page = (params["page"] || "1") |> String.to_integer()
-    # per_page = (params["per_page"] || "5") |> String.to_integer()
     options = %{
       name: params["name"],
       location: params["location"],
       class: params["class"],
       advanced_rank: params["advanced_rank"],
-      programs: params["programs"]
+      mains_rank: params["mains_rank"]
     }
 
     socket =
@@ -65,6 +53,16 @@ defmodule CounsellingWeb.CollegeLive.Index do
     {:noreply, stream_delete(socket, :colleges, college)}
   end
 
+  # def handle_event(
+  #       "live_select_change",
+  #       params,
+  #       socket
+  #     ) do
+  #   params["text"] |> dbg()
+  #   {:noreply, assign(socket, :programs, Colleges.get_programs_map(params["text"]))}
+
+  # end
+
   # def handle_event("create-college", _, socket) do
   #   # AnthropicApi.call_claude()
   #   for x <- AnthropicApi.call_claude().body["content"] do
@@ -81,12 +79,12 @@ defmodule CounsellingWeb.CollegeLive.Index do
   # end
 
   def handle_event("filter", filters, socket) do
-    # params = Map.put(params, "institutes", filters["institutes"])
+    filters |> dbg()
+
     filters =
       filters
       |> Map.delete("_target")
       |> update_checkbox_filters("class")
-      # |> Enum.reject(fn {_key, value} -> value == "" end)
       |> Map.new()
 
     updated_filters = Map.merge(socket.assigns.filters, filters)
@@ -95,6 +93,7 @@ defmodule CounsellingWeb.CollegeLive.Index do
      socket
      |> assign(filters: updated_filters)
      |> assign(advanced_rank: filters["advanced_rank"])
+     |> assign(mains_rank: filters["mains_rank"])
      |> push_patch(to: ~p"/colleges?#{build_query(updated_filters)}")}
   end
 
@@ -118,14 +117,5 @@ defmodule CounsellingWeb.CollegeLive.Index do
       other -> other
     end)
     |> Enum.into(%{})
-  end
-
-  def program_names() do
-    [
-      "All Types": "",
-      Fishing: "fishing",
-      Sporting: "sporting",
-      Sailing: "sailing"
-    ]
   end
 end

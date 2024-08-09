@@ -1,7 +1,5 @@
 <h1 class="text-4xl">Listing Colleges</h1>
 <form phx-change="filter" phx-debounce="300">
-  <%= @filters["advanced_rank"] %>
-
   <input
     type="text"
     name="name"
@@ -20,9 +18,24 @@
     type="number"
     name="advanced_rank"
     value={@filters["advanced_rank"]}
-    class="h-8 px-3 rounded-lg border border-gray-400/60 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
+    class="h-8 px-3 rounded-lg border border-gray-400/70 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
     placeholder="Advanced Rank"
   />
+  <input
+    type="number"
+    name="mains_rank"
+    value={@filters["mains_rank"]}
+    class="h-8 px-3 rounded-lg border border-gray-400/70 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
+    placeholder="Mains Rank"
+  />
+  <%!-- 
+  <LiveSelect.live_select
+    max_selectable={3}
+    field={@form[:selected_programs]}
+    mode={:tags}
+    options={@programs}
+  /> --%>
+
   <div class="flex gap-x-6">
     <%= for class <- [:IIT, :NIT, :IIIT, :GFTI] do %>
       <label class="inline-flex items-center text-sm text-gray-500 ms-3 ark:text-neutral-400">
@@ -37,25 +50,12 @@
       </label>
     <% end %>
   </div>
-  <div phx-click-away={JS.hide(to: "#filter-card")}>
-    <button
-      phx-click={JS.toggle(to: "#filter-card")}
-      class="px-4 py-2 rounded-lg text-violet-600 bg-violet-200 hover:bg-violet-300/60"
-    >
-      <.icon class="size-4" name="hero-funnel-solid" /> Filters
-    </button>
-    <div
-      id="filter-card"
-      class="hidden max-w-sm p-4 space-y-4 transition-all duration-300 ease-in-out bg-white border border-red-600 rounded-lg min-w-xs "
-    >
-    </div>
-  </div>
 </form>
 
 <%!-- <.live_select field="program_filter" options={program_names()} /> --%>
 
 <div class="grid grid-cols-1 gap-4 mx-6 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 lg:gap-8 lg:mx-12">
   <%= for {id, college} <- @streams.colleges do %>
-    <CounsellingWeb.CollegeComponent.college_component id={id} college={college} />
+    <.college_component id={id} college={college} />
   <% end %>
 </div>

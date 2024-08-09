@@ -1,0 +1,128 @@
+<section class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+  <%= @program.name %>
+  <%= @program.duration %>
+  <%= @program.degree_type %>
+  <br />
+  <.link patch={~p"/programs"}>Back</.link>
+  <br />
+  <.link patch={~p"/colleges"}>Colleges</.link>
+
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="overflow-hidden border ark:border-neutral-700">
+          <table class="min-w-full border border-gray-300 divide-y divide-gray-300 rounded-3xl ark:divide-neutral-700">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                >
+                  <.link
+                    phx-click="filter"
+                    phx-value-sort_by="name"
+                    phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                  >
+                    Name
+                    <.icon
+                      :if={@filters.sort_by == "duration"}
+                      name={
+                        if @filters.sort_order == "asc",
+                          do: "hero-arrow-up-solid",
+                          else: "hero-arrow-down-solid"
+                      }
+                      class="w-4 h-4 text-gray-900"
+                    />
+                  </.link>
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                >
+                  Location
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                >
+                  <.link
+                    phx-click="filter"
+                    phx-value-sort_by="opening_rank"
+                    phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                  >
+                    Opening Rank
+                    <.icon
+                      :if={@filters.sort_by == "opening_rank"}
+                      name={
+                        if @filters.sort_order == "asc",
+                          do: "hero-arrow-up-solid",
+                          else: "hero-arrow-down-solid"
+                      }
+                      class="w-4 h-4 text-gray-900"
+                    />
+                  </.link>
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                >
+                  Closing Rank
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                >
+                  Quota
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                >
+                  Category
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-end ark:text-neutral-500"
+                >
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-300 ark:divide-neutral-700">
+              <%= for {id, college} <- @streams.colleges do %>
+                <tr>
+                  <td class="max-w-sm px-6 py-4 text-sm font-medium text-gray-800 ark:text-neutral-200">
+                    <%= college.college.name %>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                    <%= college.college.location %>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                    <%= college.opening_rank %>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                    <%= college.closing_rank %>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                    <%= college.quota %>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                    <%= college.category %>
+                  </td>
+                  <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
+                    <.link
+                      patch={~p"/colleges/#{college.college}/#{@program}"}
+                      class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
+                    >
+                      View College
+                    </.link>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

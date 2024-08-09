@@ -16,21 +16,33 @@ defmodule CounsellingWeb.CollegeLive.Show do
     {:noreply,
      socket
      |> assign(:advanced_rank, 2000)
-     |> assign(:rank, 38000)
+     |> assign(:mains_rank, 38000)
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:college, Colleges.get_college_program_rank_data_by_id(id))}
   end
 
-  def get_rank_color(opening_rank, closing_rank, rank) do
-    cond do
-      rank >= closing_rank ->
-        "text-red-600 bg-red-100"
+  def get_rank_color(closing_rank, advanced_rank, mains_rank, class) do
+    rank =
+      cond do
+        class == :IIT -> advanced_rank
+        true -> mains_rank
+      end
 
-      rank <= opening_rank ->
-        "text-green-600 bg-green-100"
+    upper_value = closing_rank + closing_rank * 0.1
+    lower_value = closing_rank - closing_rank * 0.1
+
+    cond do
+      lower_value <= rank and rank <= upper_value ->
+        "text-yellow-600 bg-yellow-100"
+
+      rank <= lower_value ->
+        "text-green-600 bg-green-200/70"
+
+      rank >= upper_value ->
+        "text-red-600 bg-red-200/80"
 
       true ->
-        "text-yellow-600 bg-yellow-100"
+        ""
     end
   end
 

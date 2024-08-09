@@ -1,37 +1,40 @@
-defmodule CounsellingWeb.ProgramLive.Index do
+defmodule CounsellingWeb.ProgramLive.Show do
   use CounsellingWeb, :live_view
   alias Counselling.Colleges
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    [id_str | _] = String.split(params["slug"], "-")
+    id = String.to_integer(id_str)
+
     socket =
       socket
-      |> assign(page_title: "Programs")
-      |> assign(:filters, %{name: ""})
-      |> stream(:programs, Colleges.list_programs())
+      |> assign(:filters, %{})
+      |> assign(:program, Colleges.get_program!(id))
+      |> stream(:colleges, Colleges.get_program_data(id))
 
     {:ok, socket}
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
+  def handle_params(params, _, socket) do
     options = %{
       sort_by: params["sort_by"] || "id",
       sort_order: params["sort_order"] || "asc"
     }
 
-    # fix url
-
     socket =
       socket
       |> assign(:filters, options)
-      |> stream(:programs, Colleges.get_programs_with_filter(options), reset: true)
+      |> stream(:colleges, Colleges.get_program_data(options, socket.assigns.program.id))
 
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("filter", filters, socket) do
+    filters |> dbg()
+
     filters =
       filters
       |> Map.delete("_target")
@@ -41,16 +44,13 @@ defmodule CounsellingWeb.ProgramLive.Index do
 
     {:noreply,
      socket
-     |> push_patch(to: ~p"/programs?#{build_query(updated_filters)}")}
+     |> push_patch(to: ~p"/programs/#{socket.assigns.program}?#{build_query(updated_filters)}")}
   end
 
   def build_query(filters) do
-    filters |> dbg()
-
     filters
     |> Enum.filter(fn
       {:sort_by, "id"} -> false
-      {:name, v} when v == "" -> false
       {_, v} when is_binary(v) -> v != ""
       {_, v} when is_list(v) -> v != []
       _ -> true
@@ -69,3 +69,21 @@ defmodule CounsellingWeb.ProgramLive.Index do
     end
   end
 end
+
+#   @impl true
+#   def handle_params(params, _url, socket) do
+#     options = %{
+#       name: params["name"],
+#       sort_by: params["sort_by"] || "id",
+#       sort_order: params["sort_order"] || "asc"
+#     }
+
+#     socket =
+#       socket
+#       |> assign(:filters, options)
+#       |> stream(:programs, Colleges.get_programs_with_filter(options), reset: true)
+
+#     {:noreply, socket}
+#   end
+
+# end

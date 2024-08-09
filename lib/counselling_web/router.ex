@@ -26,6 +26,8 @@ defmodule CounsellingWeb.Router do
     live "/colleges/:id/show/edit", CollegeLive.Show, :edit
 
     live "/programs", ProgramLive.Index, :index
+    live "/programs/:slug", ProgramLive.Show, :show
+    live "/colleges/:slug/:slug", CollegeProgramLive.Show, :show
     live "/IIT", ProgramLive.Index, :index
     live "/NIT", ProgramLive.Index, :index
     live "/IIIT", ProgramLive.Index, :index
