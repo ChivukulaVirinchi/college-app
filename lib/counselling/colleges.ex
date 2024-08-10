@@ -270,7 +270,6 @@ defmodule Counselling.Colleges do
     program_query(program_id)
     # |> build_query(filters)
     |> sort_2(filters[:sort_by], filters[:sort_order])
-    |> dbg()
     |> Repo.all()
   end
 

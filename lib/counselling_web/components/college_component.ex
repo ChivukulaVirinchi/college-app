@@ -4,7 +4,7 @@ defmodule CounsellingWeb.CollegeComponent do
 
   def college_component(assigns) do
     ~H"""
-    <div class="w-full max-w-md bg-gray-200 border border-gray-300 rounded-lg shadow">
+    <div class="w-full max-w-xs border border-gray-100 rounded-lg shadow md:max-w-sm bg-gray-50">
       <img
         src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
         alt="College Image"
@@ -13,7 +13,7 @@ defmodule CounsellingWeb.CollegeComponent do
       <div class="grid gap-4 p-6">
         <div class="grid grid-cols-1 gap-2">
           <div>
-            <h2 class="text-2xl font-bold"><%= @college.name %></h2>
+            <h2 class="text-xl font-bold md:text-2xl"><%= @college.name %></h2>
             <p class="text-sm text-gray-600"><%= @college.location %></p>
           </div>
         </div>
@@ -72,7 +72,7 @@ defmodule CounsellingWeb.CollegeComponent do
       <div class="flex px-6 py-4 space-x-2 border-t border-gray-300/70">
         <.link
           patch={~p"/colleges/#{@college}"}
-          class="inline-flex px-4 py-2 text-sm font-medium text-white transition-colors rounded-md shadow bg-violet-600 hover:bg-violet-700 focus:outline-none"
+          class="px-4 py-2 text-xs font-medium text-white transition-colors rounded-md shadow lg:text-sm bg-violet-600 hover:bg-violet-700 focus:outline-none"
         >
           View College
         </.link>

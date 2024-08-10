@@ -44,7 +44,7 @@
           name="class[]"
           value={class}
           checked={Atom.to_string(class) in @filters["class"]}
-          class="shrink-0 mt-0.5 border-gray-400/50 rounded text-blue-600 focus:ring-blue-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
+          class="shrink-0 mt-0.5 border-gray-400/50 rounded text-violet-600 focus:ring-blue-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
         />
         <span class="ml-2"><%= class %></span>
       </label>
@@ -52,9 +52,7 @@
   </div>
 </form>
 
-<%!-- <.live_select field="program_filter" options={program_names()} /> --%>
-
-<div class="grid grid-cols-1 gap-4 mx-6 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 lg:gap-8 lg:mx-12">
+<div class="grid grid-cols-1 gap-4 mx-6 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 lg:gap-5 lg:mx-12">
   <%= for {id, college} <- @streams.colleges do %>
     <.college_component id={id} college={college} />
   <% end %>

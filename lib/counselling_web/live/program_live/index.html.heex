@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
-        <div class="border divide-y divide-gray-300 rounded-lg ark:border-neutral-700 ark:divide-neutral-700">
+        <div class="border divide-y divide-gray-200 rounded-lg ark:border-neutral-700 ark:divide-neutral-700">
           <div class="px-4 py-3">
             <div class="relative max-w-xs">
               <form phx-change="filter">
@@ -13,8 +13,8 @@
                   type="text"
                   name="name"
                   id="programs-search"
-                  class="block w-full px-3 py-2 text-sm rounded-lg shadow-sm border-gray-400/60 placeholder:font-medium ps-9 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-900 ark:border-neutral-700 ark:text-neutral-400 ark:placeholder-neutral-500 ark:focus:ring-neutral-600"
-                  placeholder="Search Programs"
+                  class="block w-full px-3 py-2 text-sm border-gray-200 rounded-lg shadow-sm ps-9 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-900 ark:border-neutral-700 ark:text-neutral-400 ark:placeholder-neutral-500 ark:focus:ring-neutral-600"
+                  placeholder="Search for Programs"
                 />
               </form>
               <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
@@ -37,106 +37,115 @@
             </div>
           </div>
           <div class="overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-300 ark:divide-neutral-700">
-              <thead class="bg-gray-200 ark:bg-neutral-700">
-                <tr>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
-                  >
-                    <.link
-                      phx-click="filter"
-                      phx-value-sort_by="name"
-                      phx-value-sort_order={get_sort_order(@filters[:sort_order])}
-                    >
-                      Program Name
-                      <.icon
-                        :if={@filters.sort_by == "name"}
-                        name={
-                          if @filters.sort_order == "asc",
-                            do: "hero-arrow-up-solid",
-                            else: "hero-arrow-down-solid"
-                        }
-                        class="w-4 h-4 text-gray-900"
-                      />
-                    </.link>
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
-                  >
-                    <.link
-                      phx-click="filter"
-                      phx-value-sort_by="duration"
-                      phx-value-sort_order={get_sort_order(@filters[:sort_order])}
-                    >
-                      Duration
-                      <.icon
-                        :if={@filters.sort_by == "duration"}
-                        name={
-                          if @filters.sort_order == "asc",
-                            do: "hero-arrow-up-solid",
-                            else: "hero-arrow-down-solid"
-                        }
-                        class="w-4 h-4 text-gray-900"
-                      />
-                    </.link>
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
-                  >
-                    <.link
-                      phx-click="filter"
-                      phx-value-sort_by="degree_type"
-                      phx-value-sort_order={get_sort_order(@filters[:sort_order])}
-                    >
-                      Degree Type
-                      <.icon
-                        :if={@filters.sort_by == "degree_type"}
-                        name={
-                          if @filters.sort_order == "asc",
-                            do: "hero-arrow-up-solid",
-                            else: "hero-arrow-down-solid"
-                        }
-                        class="w-4 h-4 text-gray-900"
-                      />
-                    </.link>
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-end ark:text-neutral-500"
-                  >
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-300 ark:divide-neutral-700">
-                <%= for {_, program} <- @streams.programs do %>
-                  <tr>
-                    <td class="px-6 py-4 text-sm font-medium text-gray-800 ark:text-neutral-200">
-                      <%= program.name %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                      <%= program.duration %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                      <%= program.degree_type %>
-                    </td>
+            <div class="flex flex-col">
+              <div class="-m-1.5 overflow-x-auto">
+                <div class="p-1.5 min-w-full inline-block align-middle">
+                  <div class="overflow-hidden rounded-lg ark:border-neutral-700">
+                    <table class="min-w-full divide-y divide-gray-200 ark:divide-neutral-700">
+                      <thead class="bg-gray-50 ark:bg-neutral-700">
+                        <tr>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-400"
+                          >
+                            <.link
+                              phx-click="filter"
+                              phx-value-sort_by="name"
+                              phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                            >
+                              Program Name
+                              <.icon
+                                :if={@filters.sort_by == "name"}
+                                name={
+                                  if @filters.sort_order == "asc",
+                                    do: "hero-arrow-up-solid",
+                                    else: "hero-arrow-down-solid"
+                                }
+                                class="w-4 h-4 text-gray-900"
+                              />
+                            </.link>
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-400"
+                          >
+                            <.link
+                              class="inline-flex"
+                              phx-click="filter"
+                              phx-value-sort_by="duration"
+                              phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                            >
+                              Duration
+                              <.icon
+                                :if={@filters.sort_by == "duration"}
+                                name={
+                                  if @filters.sort_order == "asc",
+                                    do: "hero-arrow-up-solid",
+                                    else: "hero-arrow-down-solid"
+                                }
+                                class="w-4 h-4 text-gray-900"
+                              />
+                            </.link>
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-400"
+                          >
+                            <.link
+                              phx-click="filter"
+                              phx-value-sort_by="degree_type"
+                              phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                            >
+                              Degree Type
+                              <.icon
+                                :if={@filters.sort_by == "degree_type"}
+                                name={
+                                  if @filters.sort_order == "asc",
+                                    do: "hero-arrow-up-solid",
+                                    else: "hero-arrow-down-solid"
+                                }
+                                class="w-4 h-4 text-gray-900"
+                              />
+                            </.link>
+                          </th>
 
-                    <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-                      <.link
-                        patch={~p"/programs/#{program}"}
-                        type="button"
-                        class="px-4 py-1 text-sm font-semibold border border-transparent rounded-lg bg-violet-200 text-violet-600 hover:bg-violet-300/70 gap-x-2 hover:text-violet-800 focus:outline-none focus:text-violet-800 ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
-                      >
-                        View Program →
-                      </.link>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-end ark:text-neutral-400"
+                          >
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-gray-200 ark:divide-neutral-700">
+                        <%= for {_, program} <- @streams.programs do %>
+                          <tr>
+                            <td class="max-w-lg px-6 py-4 text-sm font-medium text-gray-800 ark:text-neutral-200">
+                              <%= program.name %>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                              <%= program.duration %>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-800 ark:text-neutral-200">
+                              <%= program.degree_type %>
+                            </td>
+                            <td class="max-w-xs px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
+                              <.link
+                                patch={~p"/programs/#{program}"}
+                                type="button"
+                                class="px-4 py-1 text-sm font-semibold border border-transparent rounded-lg bg-violet-200 text-violet-600 hover:bg-violet-300/70 gap-x-2 hover:text-violet-800 focus:outline-none focus:text-violet-800 ark:text-blue-500 ark:hover:text-blue-400 ark:focus:text-blue-400"
+                              >
+                                View Program →
+                              </.link>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
