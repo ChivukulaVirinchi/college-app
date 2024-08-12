@@ -8,6 +8,7 @@ defmodule Counselling.Programs.Program do
     field :duration, :integer
     field :degree_type, :string
     field :slug, :string
+    # program description
     many_to_many :colleges, Counselling.Colleges.College, join_through: "college_programs"
 
     has_many :rank_cutoffs, Counselling.Ranks.RankCutoff

@@ -13,8 +13,6 @@ defmodule CounsellingWeb.CollegeLive.Index do
           "name" => "",
           "location" => "",
           "class" => [],
-          "advanced_rank" => "",
-          "mains_rank" => "",
           selected_programs: %{}
         },
         page_title: "Colleges"
@@ -25,6 +23,8 @@ defmodule CounsellingWeb.CollegeLive.Index do
 
   @impl true
   def handle_params(params, _uri, socket) do
+    params |> dbg()
+
     options = %{
       name: params["name"],
       location: params["location"],
@@ -79,8 +79,6 @@ defmodule CounsellingWeb.CollegeLive.Index do
   # end
 
   def handle_event("filter", filters, socket) do
-    filters |> dbg()
-
     filters =
       filters
       |> Map.delete("_target")
@@ -92,8 +90,8 @@ defmodule CounsellingWeb.CollegeLive.Index do
     {:noreply,
      socket
      |> assign(filters: updated_filters)
-     |> assign(advanced_rank: filters["advanced_rank"])
-     |> assign(mains_rank: filters["mains_rank"])
+     |> assign(advanced_rank: filters[:advanced_rank])
+     |> assign(mains_rank: filters[:mains_rank])
      |> push_patch(to: ~p"/colleges?#{build_query(updated_filters)}")}
   end
 

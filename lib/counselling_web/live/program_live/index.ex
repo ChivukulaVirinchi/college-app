@@ -8,7 +8,6 @@ defmodule CounsellingWeb.ProgramLive.Index do
       socket
       |> assign(page_title: "Programs")
       |> assign(:filters, %{"name" => ""})
-      |> stream(:programs, Colleges.list_programs())
 
     {:ok, socket}
   end
@@ -20,8 +19,6 @@ defmodule CounsellingWeb.ProgramLive.Index do
       sort_by: params["sort_by"] || "id",
       sort_order: params["sort_order"] || "asc"
     }
-
-    # fix url
 
     socket =
       socket

@@ -89,6 +89,7 @@ defmodule CounsellingWeb.CollegeComponent do
 
   def nirf_helper(rank) do
     cond do
+      rank == 500 -> "-"
       rank == 125 -> "100 - 150"
       rank == 175 -> "150 - 200"
       true -> rank

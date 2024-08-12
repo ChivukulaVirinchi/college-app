@@ -9,9 +9,8 @@ defmodule CounsellingWeb.ProgramLive.Show do
 
     socket =
       socket
-      |> assign(:filters, %{})
+      |> assign(:filters, %{class: [], category: []})
       |> assign(:program, Colleges.get_program!(id))
-      |> stream(:colleges, Colleges.get_program_data(id))
       |> assign(:advanced_rank, 2000)
       |> assign(:mains_rank, 38000)
 
@@ -20,8 +19,12 @@ defmodule CounsellingWeb.ProgramLive.Show do
 
   @impl true
   def handle_params(params, _, socket) do
+    params |> dbg()
+
     options = %{
-      sort_by: params["sort_by"] || "id",
+      category: params["category"] || ["gender_neutral"],
+      class: params["class"] || [],
+      sort_by: params["sort_by"] || "nirfrank",
       sort_order: params["sort_order"] || "asc"
     }
 
@@ -35,24 +38,33 @@ defmodule CounsellingWeb.ProgramLive.Show do
 
   @impl true
   def handle_event("filter", filters, socket) do
-    filters |> dbg()
-
     filters =
       filters
       |> Map.delete("_target")
+      |> update_checkbox_filters("class")
+      |> update_checkbox_filters("category")
       |> Map.new(fn {k, v} -> {String.to_existing_atom(k), v} end)
 
     updated_filters = Map.merge(socket.assigns.filters, filters)
+
+    updated_filters |> dbg()
 
     {:noreply,
      socket
      |> push_patch(to: ~p"/programs/#{socket.assigns.program}?#{build_query(updated_filters)}")}
   end
 
+  def update_checkbox_filters(filters, key) do
+    case filters[key] do
+      nil -> Map.put(filters, key, [])
+      values when is_list(values) -> Map.put(filters, key, values)
+      value -> Map.put(filters, key, [value])
+    end
+  end
+
   def build_query(filters) do
     filters
     |> Enum.filter(fn
-      {:sort_by, "id"} -> false
       {_, v} when is_binary(v) -> v != ""
       {_, v} when is_list(v) -> v != []
       _ -> true
@@ -104,21 +116,3 @@ defmodule CounsellingWeb.ProgramLive.Show do
   defp process_category(:female), do: "Female Only"
   defp process_category(_), do: "Gender Neutral"
 end
-
-#   @impl true
-#   def handle_params(params, _url, socket) do
-#     options = %{
-#       name: params["name"],
-#       sort_by: params["sort_by"] || "id",
-#       sort_order: params["sort_order"] || "asc"
-#     }
-
-#     socket =
-#       socket
-#       |> assign(:filters, options)
-#       |> stream(:programs, Colleges.get_programs_with_filter(options), reset: true)
-
-#     {:noreply, socket}
-#   end
-
-# end

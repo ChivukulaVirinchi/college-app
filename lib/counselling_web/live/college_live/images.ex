@@ -1,17 +1,10 @@
 defmodule Images do
   def get_image() do
-    {:ok, document} =
-      Req.get!(
-        "https://www.bing.com/images/search?sp=-1&lq=0&pq=%22indian+institute+of+technology+bombay%22+campus+images&sc=0-53&cvid=12827CBE38564DCF97098A67769B7D06&ghsh=0&ghacc=0&q=%22Indian+Institute+of+Technology+Bombay%22+campus+images&qft=+filterui:imagesize-custom_800_500&form=IRFLTR&first=1"
-      ).body
-      |> Floki.parse_document()
-
-    document
-    |> Floki.find("ul")
-    |> Floki.find(".dgControl_list")
-    |> Floki.find("li")
-    |> Floki.find("a")
-    |> Enum.take(4)
+    Req.get!(
+      "https://www.googleapis.com/customsearch/v1?key=AIzaSyBbYjizRwa1zjw7_ICTTP8gulnxK-BVWDA&cx=87fe0fec44b5f4faf&q=IIIT+Jabalpur+campus&searchType=image&num=7&gl=in"
+    ).body["items"]
+    |> Enum.map(fn x -> x["link"] end)
+    # |> Jason.encode!()
     |> dbg()
   end
 end

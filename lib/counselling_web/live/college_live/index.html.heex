@@ -50,6 +50,22 @@
       </label>
     <% end %>
   </div>
+  <.link
+    :if={
+      @filters != %{
+        "name" => "",
+        "location" => "",
+        "class" => [],
+        "advanced_rank" => "",
+        "mains_rank" => "",
+        selected_programs: %{}
+      }
+    }
+    class="text-violet-700"
+    navigate={~p"/colleges"}
+  >
+    Clear Filters
+  </.link>
 </form>
 
 <div class="grid grid-cols-1 gap-4 mx-6 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 lg:gap-5 lg:mx-12">

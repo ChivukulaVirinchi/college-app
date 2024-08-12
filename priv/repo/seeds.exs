@@ -42,7 +42,7 @@ _created_colleges =
   Enum.map(colleges["colleges"], fn college ->
     {:ok, _created_college} =
       Colleges.create_college(%{
-        name: college["name"],
+        name: college["name"] |> String.trim(),
         class: Colleges.get_class(college["name"]),
         nirfrank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, college["name"])
       })

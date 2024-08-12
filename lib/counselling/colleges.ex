@@ -154,6 +154,7 @@ defmodule Counselling.Colleges do
   def get_colleges_with_filter(filters) when is_map(filters) do
     College
     |> build_query(filters)
+    # |> sort_query(filters[:sort_by], filters[:sort_order])
     |> Repo.all()
 
     # |> sort_query(sort)
@@ -267,10 +268,42 @@ defmodule Counselling.Colleges do
   end
 
   def get_program_data(filters, program_id) when is_map(filters) do
+    filters |> dbg()
+
     program_query(program_id)
-    # |> build_query(filters)
+    |> build_query_2(filters)
     |> sort_2(filters[:sort_by], filters[:sort_order])
     |> Repo.all()
+  end
+
+  def build_query_2(query, filters) do
+    Enum.reduce(filters, query, fn
+      {:class, classes}, query when classes == [] ->
+        query
+
+      {:class, classes}, query when is_list(classes) ->
+        from [rc, c, p] in query, where: c.class in ^classes
+
+      {:category, categories}, query when is_list(categories) ->
+        from [rc, c, p] in query, where: rc.category in ^categories
+
+      # {:quota, quotas}, query when is_list(quotas) ->
+      #   from [rc, c, p] in query, where: rc.quota in ^quotas
+
+      _, query ->
+        query
+    end)
+  end
+
+  def count_colleges_with_no_programs do
+    query =
+      from c in College,
+        left_join: p in assoc(c, :programs),
+        where: is_nil(p.id),
+        distinct: c.id,
+        select: c.name
+
+    Repo.all(query)
   end
 
   def sort_2(query, nil, nil), do: query
@@ -278,7 +311,17 @@ defmodule Counselling.Colleges do
   def sort_2(query, sort_by, sort_order) do
     sort_by = String.to_existing_atom(sort_by)
     sort_order = String.to_existing_atom(sort_order)
-    from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+    # Write more elegantly
+    case sort_by do
+      :name -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+      :nirfrank -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+      :opening_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
+      :closing_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
+      :location -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+      :quota -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
+      :category -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
+      _ -> query
+    end
   end
 
   def get_program_data(program_id) do
@@ -354,7 +397,6 @@ defmodule Counselling.Colleges do
     |> String.trim()
   end
 
-  # this
   def process_row_data(college_name, program_name, quota, gender, opening_rank, closing_rank) do
     with {:ok, college_id} <- get_college!(college_name),
          {:ok, program} <- get_program(program_name),
