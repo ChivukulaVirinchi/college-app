@@ -1,22 +1,22 @@
 defmodule NIRF do
-  def get_college_rank_data() do
-    File.read!("lib/counselling_web/live/EngineeringRanking.html")
+  def get_college_rank_data(year) do
+    File.read!("lib/counselling_web/live/EngineeringRanking#{year}.html")
     |> Floki.parse_document!()
     |> Floki.find("#tbl_overall")
     |> Floki.find("tr")
     |> tl()
   end
 
-  def get_college_rank_data_second() do
-    File.read!("lib/counselling_web/live/EngineeringRanking150.html")
+  def get_college_rank_data_second(year) do
+    File.read!("lib/counselling_web/live/EngineeringRanking150#{year}.html")
     |> Floki.parse_document!()
     |> Floki.find(".table")
     |> Floki.find("tbody")
     |> Floki.find("tr")
   end
 
-  def get_college_rank_data_third() do
-    File.read!("lib/counselling_web/live/EngineeringRanking200.html")
+  def get_college_rank_data_third(year) do
+    File.read!("lib/counselling_web/live/EngineeringRanking200#{year}.html")
     |> Floki.parse_document!()
     |> Floki.find(".table")
     |> Floki.find("tbody")

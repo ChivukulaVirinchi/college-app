@@ -12,7 +12,6 @@ defmodule Counselling.Colleges.College do
     field :link_to_website, :string, default: "https://www.google.com"
     field :campus_area, :integer, default: 1
     field :slug, :string
-    field :nirfrank, :integer, default: 125
     # field :highlights, :string
     # field :short_name, :string
     # field :photo_locations, []
@@ -30,12 +29,11 @@ defmodule Counselling.Colleges.College do
       :name,
       :location,
       :established_year,
-      :nirfrank,
       :class,
       :link_to_website,
       :campus_area
     ])
-    |> validate_required([:name, :established_year, :location, :nirfrank, :class])
+    |> validate_required([:name, :established_year, :location, :class])
     |> unique_constraint(:name)
     |> slugify_name()
   end

@@ -16,10 +16,34 @@ alias Counselling.Colleges
 colleges =
   "lib/counselling_web/live/college-names.json" |> File.read!() |> Jason.decode!()
 
-ranking_map1 = NIRF.get_college_rank_data() |> NIRF.create_ranking_map()
-ranking_map2 = NIRF.get_college_rank_data_second() |> NIRF.create_ranking_map_150()
-ranking_map3 = NIRF.get_college_rank_data_third() |> NIRF.create_ranking_map_200()
+_created_colleges =
+  Enum.map(colleges["colleges"], fn college ->
+    {:ok, created_college} =
+      Colleges.create_college(%{
+        name: college["name"] |> String.trim(),
+        class: Colleges.get_class(college["name"])
+      })
 
+    # {:ok, _created_rank} =
+    #   Colleges.create_nirf_ranking(%{
+    #     college_id: created_college.id,
+    #     year: 2023,
+    #     nirf_rank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, created_college.name)
+    #   })
+
+  end)
+
+IO.puts("All Colleges created successfully!")
+
+
+
+
+# Create NIRF rankings
+
+  for year <- 2023..2024 do
+ranking_map1 = NIRF.get_college_rank_data(year) |> NIRF.create_ranking_map()
+ranking_map2 = NIRF.get_college_rank_data_second(year) |> NIRF.create_ranking_map_150()
+ranking_map3 = NIRF.get_college_rank_data_third(year) |> NIRF.create_ranking_map_200()
 defmodule CRanks do
   def get_rank(ranking_map1, ranking_map2, ranking_map3, college_name) do
     cond do
@@ -38,17 +62,18 @@ defmodule CRanks do
   end
 end
 
-_created_colleges =
-  Enum.map(colleges["colleges"], fn college ->
-    {:ok, _created_college} =
-      Colleges.create_college(%{
-        name: college["name"] |> String.trim(),
-        class: Colleges.get_class(college["name"]),
-        nirfrank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, college["name"])
-      })
-  end)
+for college <- Colleges.list_colleges() do
 
-IO.puts("All Colleges created successfully!")
+  {:ok, _created_rank} = Colleges.create_nirf_ranking(%{
+    college_id: college.id,
+    year: year,
+    nirf_rank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, college.name)
+    })
+  end
+
+  end
+
+
 
 ###########
 # Create programs

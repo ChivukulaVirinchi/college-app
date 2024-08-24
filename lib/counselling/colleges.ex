@@ -11,6 +11,7 @@ defmodule Counselling.Colleges do
   alias Counselling.Ranks.RankCutoff
   alias Counselling.CollegePrograms.CollegeProgram
   alias Counselling.Programs.Program
+  alias Counselling.NirfRanking
 
   @doc """
   Returns the list of colleges.
@@ -99,6 +100,12 @@ defmodule Counselling.Colleges do
       true ->
         :GFTI
     end
+  end
+
+  def create_nirf_ranking(attrs \\ %{}) do
+    %NirfRanking{}
+    |> NirfRanking.changeset(attrs)
+    |> Repo.insert()
   end
 
   # end
@@ -190,12 +197,21 @@ defmodule Counselling.Colleges do
           having: type(^mains_rank, :integer) <= fragment("MAX(?)", rc.closing_rank)
 
       _, query ->
-        query
+        from q in query,
+          join: nr in NirfRanking,
+          on: q.id == nr.college_id,
+          order_by: nr.nirf_rank
     end)
   end
 
   def list_colleges() do
-    Repo.all(from(d in College, order_by: d.nirfrank))
+    College |> Repo.all()
+  end
+
+  def get_college_rank(college_id) do
+    NirfRanking
+    |> where(college_id: ^college_id)
+    |> Repo.one()
   end
 
   #################################################
@@ -268,8 +284,6 @@ defmodule Counselling.Colleges do
   end
 
   def get_program_data(filters, program_id) when is_map(filters) do
-    filters |> dbg()
-
     program_query(program_id)
     |> build_query_2(filters)
     |> sort_2(filters[:sort_by], filters[:sort_order])
@@ -314,7 +328,7 @@ defmodule Counselling.Colleges do
     # Write more elegantly
     case sort_by do
       :name -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
-      :nirfrank -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
+      # :nirfrank -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
       :opening_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
       :closing_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
       :location -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]

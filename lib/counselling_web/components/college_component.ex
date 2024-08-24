@@ -19,7 +19,9 @@ defmodule CounsellingWeb.CollegeComponent do
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <p class="text-lg font-medium"><%= nirf_helper(@college.nirfrank) %></p>
+            <p class="text-lg font-medium">
+              <%= nirf_helper(Counselling.Colleges.get_college_rank(@college.id).nirf_rank) %>
+            </p>
             <p class="text-sm text-gray-600">NIRF Rank</p>
           </div>
 

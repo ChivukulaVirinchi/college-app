@@ -6,7 +6,6 @@ defmodule Counselling.Repo.Migrations.CreateColleges do
       add :name, :string
       add :established_year, :integer
       add :location, :string
-      add :nirfrank, :integer
       add :class, :string
       add :link_to_website, :string
       add :campus_area, :integer
