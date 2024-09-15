@@ -4,21 +4,86 @@ defmodule CounsellingWeb.CollegeLive.Show do
   alias Counselling.Colleges
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(params, _session, socket) do
+    [id_str | _] = String.split(params["slug"], "-")
+    id = String.to_integer(id_str)
+
+    socket =
+      socket
+      |> assign(:college, Colleges.get_college_by_id!(id))
+      |> assign(filters: %{category: []})
+
+    {:ok,
+     stream(
+       socket,
+       :programs,
+       Colleges.get_college_program_rank_data_by_id(id, socket.assigns.filters)
+     )}
   end
 
   @impl true
-  def handle_params(%{"slug" => slug}, _, socket) do
-    [id_str | _] = String.split(slug, "-")
-    id = String.to_integer(id_str)
+  def handle_params(params, _, socket) do
+    options = %{
+      category: params["category"] || ["gender_neutral"],
+      sort_by: params["sort_by"] || "name",
+      sort_order: params["sort_order"] || "asc"
+    }
 
     {:noreply,
      socket
      |> assign(:advanced_rank, 2000)
      |> assign(:mains_rank, 38000)
+     |> assign(:filters, options)
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:college, Colleges.get_college_program_rank_data_by_id(id))}
+     |> stream(
+       :programs,
+       Colleges.get_college_program_rank_data_by_id(socket.assigns.college.id, options),
+       reset: true
+     )}
+  end
+
+  @impl true
+  def handle_event("filter", filters, socket) do
+    filters =
+      filters
+      |> Map.delete("_target")
+      |> update_checkbox_filters("category")
+      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), v} end)
+
+    updated_filters = Map.merge(socket.assigns.filters, filters)
+
+    {:noreply,
+     socket
+     |> push_patch(to: ~p"/colleges/#{socket.assigns.college}?#{build_query(updated_filters)}")}
+  end
+
+  def update_checkbox_filters(filters, key) do
+    case filters[key] do
+      nil -> Map.put(filters, key, [])
+      values when is_list(values) -> Map.put(filters, key, values)
+      value -> Map.put(filters, key, [value])
+    end
+  end
+
+  def build_query(filters) do
+    filters
+    |> Enum.filter(fn
+      {_, v} when is_binary(v) -> v != ""
+      {_, v} when is_list(v) -> v != []
+      _ -> true
+    end)
+    |> Enum.map(fn
+      {"class", values} -> {"class", Enum.map(values, &String.to_existing_atom/1)}
+      other -> other
+    end)
+    |> Enum.into(%{})
+  end
+
+  def get_sort_order(sort_order) do
+    case sort_order do
+      "asc" -> "desc"
+      "desc" -> "asc"
+    end
   end
 
   def get_rank_color(closing_rank, advanced_rank, mains_rank, class) do

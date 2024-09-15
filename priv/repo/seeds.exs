@@ -30,54 +30,47 @@ _created_colleges =
     #     year: 2023,
     #     nirf_rank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, created_college.name)
     #   })
-
   end)
 
 IO.puts("All Colleges created successfully!")
 
-
-
-
 # Create NIRF rankings
 
-  for year <- 2023..2024 do
-ranking_map1 = NIRF.get_college_rank_data(year) |> NIRF.create_ranking_map()
-ranking_map2 = NIRF.get_college_rank_data_second(year) |> NIRF.create_ranking_map_150()
-ranking_map3 = NIRF.get_college_rank_data_third(year) |> NIRF.create_ranking_map_200()
-defmodule CRanks do
-  def get_rank(ranking_map1, ranking_map2, ranking_map3, college_name) do
-    cond do
-      NIRF.find_college_rank(ranking_map1, college_name) != nil ->
-        NIRF.find_college_rank(ranking_map1, college_name)
+for year <- [2023, 2024] do
+  ranking_map1 = NIRF.get_college_rank_data(year) |> NIRF.create_ranking_map()
+  ranking_map2 = NIRF.get_college_rank_data_second(year) |> NIRF.create_ranking_map_150()
+  ranking_map3 = NIRF.get_college_rank_data_third(year) |> NIRF.create_ranking_map_200()
 
-      NIRF.find_college_rank(ranking_map2, college_name) != nil ->
-        NIRF.find_college_rank(ranking_map2, college_name)
+  defmodule CRanks do
+    def get_rank(ranking_map1, ranking_map2, ranking_map3, college_name) do
+      cond do
+        NIRF.find_college_rank(ranking_map1, college_name) != nil ->
+          NIRF.find_college_rank(ranking_map1, college_name)
 
-      NIRF.find_college_rank(ranking_map3, college_name) != nil ->
-        NIRF.find_college_rank(ranking_map3, college_name)
+        NIRF.find_college_rank(ranking_map2, college_name) != nil ->
+          NIRF.find_college_rank(ranking_map2, college_name)
 
-      true ->
-        500
+        NIRF.find_college_rank(ranking_map3, college_name) != nil ->
+          NIRF.find_college_rank(ranking_map3, college_name)
+
+        true ->
+          500
+      end
     end
+  end
+
+  for college <- Colleges.list_colleges() do
+    {:ok, _created_rank} =
+      Colleges.create_nirf_ranking(%{
+        college_id: college.id,
+        year: year,
+        nirf_rank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, college.name)
+      })
   end
 end
 
-for college <- Colleges.list_colleges() do
-
-  {:ok, _created_rank} = Colleges.create_nirf_ranking(%{
-    college_id: college.id,
-    year: year,
-    nirf_rank: CRanks.get_rank(ranking_map1, ranking_map2, ranking_map3, college.name)
-    })
-  end
-
-  end
-
-
-
 ###########
 # Create programs
-
 programs =
   "lib/counselling_web/live/program-names.json" |> File.read!() |> Jason.decode!() |> dbg()
 

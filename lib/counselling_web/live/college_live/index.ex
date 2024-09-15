@@ -2,7 +2,6 @@ defmodule CounsellingWeb.CollegeLive.Index do
   use CounsellingWeb, :live_view
   alias Counselling.Colleges
   import CounsellingWeb.CollegeComponent
-  import LiveSelect.Component
 
   @impl true
   def mount(_params, _session, socket) do
@@ -30,12 +29,15 @@ defmodule CounsellingWeb.CollegeLive.Index do
       location: params["location"],
       class: params["class"],
       advanced_rank: params["advanced_rank"],
-      mains_rank: params["mains_rank"]
+      mains_rank: params["mains_rank"],
+      selected_programs: params["selected_programs"] || []
     }
 
     socket =
       socket
       |> stream(:colleges, Colleges.get_colleges_with_filter(options), reset: true)
+      |> assign(form: to_form(socket.assigns.filters.selected_programs))
+      |> assign(programs: Colleges.program_test(""))
 
     {:noreply, socket}
   end
@@ -58,10 +60,14 @@ defmodule CounsellingWeb.CollegeLive.Index do
   #       params,
   #       socket
   #     ) do
-  #   params["text"] |> dbg()
-  #   {:noreply, assign(socket, :programs, Colleges.get_programs_map(params["text"]))}
-
+  #   {:noreply, assign(socket, :programs, Colleges.program_test(params["text"]))}
   # end
+
+  def handle_event("live_select_change", %{"text" => text, "id" => live_select_id}, socket) do
+    send_update(LiveSelect.Component, id: live_select_id, form: Colleges.program_test(text))
+
+    {:noreply, socket}
+  end
 
   # def handle_event("create-college", _, socket) do
   #   # AnthropicApi.call_claude()
@@ -83,6 +89,7 @@ defmodule CounsellingWeb.CollegeLive.Index do
       filters
       |> Map.delete("_target")
       |> update_checkbox_filters("class")
+      |> update_checkbox_filters("selected_programs")
       |> Map.new()
 
     updated_filters = Map.merge(socket.assigns.filters, filters)

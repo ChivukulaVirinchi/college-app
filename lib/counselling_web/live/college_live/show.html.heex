@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-7xl ">
+<div class="max-w-5xl mx-auto xl:max-w-7xl">
   <.link patch={~p"/colleges"}> Back to colleges </.link>
   <section class="px-4 my-12">
     <img
@@ -7,9 +7,9 @@
       alt=""
     />
 
-    <h1 class="text-3xl font-medium text-gray-900"><%= @college.college.name %></h1>
+    <h1 class="text-3xl font-medium text-gray-900"><%= @college.name %></h1>
     <p class="pt-2 text-sm text-gray-800 lg:text-normal">
-      <%= @college.college.class %>
+      <%= @college.class %>
     </p>
   </section>
   <section class="px-4 my-12">
@@ -28,13 +28,34 @@
     <div class="pb-2 border-b-2 border-violet-500">
       <h1 id="branches" class="text-2xl font-medium text-gray-700">Programs</h1>
     </div>
+    <br />
+    <.link patch={~p"/programs"}>Back</.link>
+    <br />
+    <.link patch={~p"/colleges"}>Colleges</.link>
+
+    <%= @filters[:class] %>
+
+    <form phx-change="filter">
+      <%= for category <- [:gender_neutral, :female] do %>
+        <label class="inline-flex items-center text-sm text-gray-500 ms-3 ark:text-neutral-400">
+          <input
+            type="checkbox"
+            name="category[]"
+            value={category}
+            checked={Atom.to_string(category) in @filters[:category]}
+            class="shrink-0 mt-0.5 border-gray-400/50 rounded text-violet-600 focus:ring-blue-50 disabled:opacity-50 disabled:pointer-events-none ark:bg-neutral-800 ark:border-neutral-700 ark:checked:bg-blue-500 ark:checked:border-blue-500 ark:focus:ring-offset-gray-800"
+          />
+          <span class="ml-2"><%= process_category(category) %></span>
+        </label>
+      <% end %>
+    </form>
     <div class="flex flex-col">
       <div class="-m-1.5 overflow-x-auto">
         <div class="p-1.5 min-w-full inline-block align-middle">
           <div class="overflow-hidden">
             <table class="mx-auto divide-y divide-gray-200 min-w-max ark:divide-neutral-700">
               <caption class="pt-4 text-xs text-slate-500 ark:text-slate-400 caption-bottom">
-                Programs at <%= @college.college.name %>
+                Programs at <%= @college.name %>
               </caption>
               <thead>
                 <tr>
@@ -42,19 +63,64 @@
                     scope="col"
                     class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
                   >
-                    Program Name
+                    <.link
+                      phx-click="filter"
+                      phx-value-sort_by="name"
+                      phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                    >
+                      Name
+                      <.icon
+                        :if={@filters.sort_by == "name"}
+                        name={
+                          if @filters.sort_order == "asc",
+                            do: "hero-arrow-up-solid",
+                            else: "hero-arrow-down-solid"
+                        }
+                        class="w-4 h-4 text-gray-900"
+                      />
+                    </.link>
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
                   >
-                    Opening Rank
+                    <.link
+                      phx-click="filter"
+                      phx-value-sort_by="opening_rank"
+                      phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                    >
+                      Opening Rank
+                      <.icon
+                        :if={@filters.sort_by == "opening_rank"}
+                        name={
+                          if @filters.sort_order == "asc",
+                            do: "hero-arrow-up-solid",
+                            else: "hero-arrow-down-solid"
+                        }
+                        class="w-4 h-4 text-gray-900"
+                      />
+                    </.link>
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
                   >
-                    Closing Rank
+                    <.link
+                      phx-click="filter"
+                      phx-value-sort_by="closing_rank"
+                      phx-value-sort_order={get_sort_order(@filters[:sort_order])}
+                    >
+                      Closing Rank
+                      <.icon
+                        :if={@filters.sort_by == "closing_rank"}
+                        name={
+                          if @filters.sort_order == "asc",
+                            do: "hero-arrow-up-solid",
+                            else: "hero-arrow-down-solid"
+                        }
+                        class="w-4 h-4 text-gray-900"
+                      />
+                    </.link>
                   </th>
 
                   <th
@@ -85,24 +151,24 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 ark:divide-neutral-700">
-                <%= for program <- @college.programs do %>
+                <%= for {id, program} <- @streams.programs do %>
                   <tr>
-                    <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                      <%= program.name %>
+                    <td class="max-w-sm px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                      <%= program.program.name %>
                     </td>
 
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap ark:text-neutral-200">
-                      <span class={"px-2.5 py-0.5 rounded-full #{get_rank_color(program.closing_rank, @advanced_rank, @mains_rank, @college.college.class)}"}>
+                      <span class={"px-2.5 py-0.5 rounded-full #{get_rank_color(program.closing_rank, @advanced_rank, @mains_rank, @college.class)}"}>
                         <%= program.opening_rank %>
                       </span>
                     </td>
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap ark:text-neutral-200">
-                      <span class={"px-2 py-0.5 rounded-full #{get_rank_color(program.closing_rank, @advanced_rank, @mains_rank, @college.college.class)}"}>
+                      <span class={"px-2 py-0.5 rounded-full #{get_rank_color(program.closing_rank, @advanced_rank, @mains_rank, @college.class)}"}>
                         <%= program.closing_rank %>
                       </span>
                     </td>
-                    <td class="px-6 py-4 overflow-hidden text-sm text-gray-800 truncate lg:max-w-72 whitespace-nowrap ark:text-neutral-200">
-                      <%= program.degree_type %>
+                    <td class="max-w-xs px-6 py-4 overflow-hidden text-sm text-gray-800 truncate lg:max-w-72 ark:text-neutral-200">
+                      <%= program.program.degree_type %>
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
                       <%= process_quota(program.quota) %>
@@ -111,7 +177,15 @@
                       <%= process_category(program.category) %>
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
-                      <%= program.duration %>
+                      <%= program.program.duration %>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                      <.link
+                        patch={~p"/colleges/#{@college}/#{program.program}/"}
+                        class="text-center bg-purple-200 border-purple-600"
+                      >
+                        View Program ->
+                      </.link>
                     </td>
                   </tr>
                 <% end %>
@@ -122,12 +196,73 @@
       </div>
     </div>
   </section>
-  # Section for student reviews & ratings. Robust review system. Think
-  # Section for Placement Statistics
-  # Section for infrastructure - writeup + videos with summary
+  <%!-- Section for student reviews & ratings. Robust review system. Think
+   Section for Placement Statistics
+   Section for infrastructure - writeup + videos with summary
+   Section for student life & culture --%>
 
-  # Section for student life & culture
   <section class="px-4 my-12">
-    <div></div>
+    <div class="pb-2 border-b-2 border-violet-500">
+      <h1 id="branches" class="text-2xl font-medium text-gray-700">Rankings</h1>
+    </div>
+
+    <div class="flex flex-col">
+      <div class="-m-1.5 overflow-x-auto">
+        <div class="p-1.5 min-w-full inline-block align-middle">
+          <div class="overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200 ark:divide-neutral-700">
+              <thead>
+                <tr>
+                  <%= for year <- 2023..2024 do %>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start ark:text-neutral-500"
+                    >
+                      <%= year %>
+                    </th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="odd:bg-white even:bg-gray-100 ark:odd:bg-neutral-900 ark:even:bg-neutral-800">
+                  <%= for ranking <- Colleges.get_college_ranks(@college.id) do %>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ark:text-neutral-200">
+                      <%= ranking.nirf_rank %>
+                    </td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js">
+            </script>
+
+            <script>
+              const ctx = document.getElementById('myChart');
+
+              new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: [2023, 2024],
+                  datasets: [{
+                    label: '# of Votes',
+                    data: [1, 1],
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  scales: {
+                   
+                  }
+                }
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </div>

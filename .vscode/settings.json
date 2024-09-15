@@ -2,7 +2,7 @@
   "elixirLS.suggestSpecs": false,
   "elixirLS.dialyzerEnabled": true,
   "elixirLS.signatureAfterComplete": false,
-  "elixirLS.fetchDeps": false,
+  "elixirLS.fetchDeps": true,
 
   "files.associations": {
     "*.heex": "phoenix-heex"

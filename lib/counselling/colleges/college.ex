@@ -18,7 +18,7 @@ defmodule Counselling.Colleges.College do
 
     many_to_many :programs, Counselling.Programs.Program, join_through: "college_programs"
     has_many :rank_cutoffs, Counselling.Ranks.RankCutoff
-
+    has_many :nirf_rankings, Counselling.NirfRanking
     timestamps()
   end
 

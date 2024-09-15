@@ -28,13 +28,8 @@
     class="h-8 px-3 rounded-lg border border-gray-400/70 focus:border-gray-400 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1f293733]"
     placeholder="Mains Rank"
   />
-  <%!-- 
-  <LiveSelect.live_select
-    max_selectable={3}
-    field={@form[:selected_programs]}
-    mode={:tags}
-    options={@programs}
-  /> --%>
+
+  <LiveSelect.live_select field={@form[:selected_programs]} mode={:tags} options={@programs} />
 
   <div class="flex gap-x-6">
     <%= for class <- [:IIT, :NIT, :IIIT, :GFTI] do %>
@@ -72,4 +67,8 @@
   <%= for {id, college} <- @streams.colleges do %>
     <.college_component id={id} college={college} />
   <% end %>
+</div>
+
+<div :if={@streams.colleges.inserts == []}>
+  <h1 class="text-4xl font-bold text-center text-orange-600">Oops!! No colleges Found</h1>
 </div>

@@ -24,7 +24,7 @@ defmodule CounsellingWeb.ProgramLive.Show do
     options = %{
       category: params["category"] || ["gender_neutral"],
       class: params["class"] || [],
-      sort_by: params["sort_by"] || "nirfrank",
+      sort_by: params["sort_by"] || "nirf_rank",
       sort_order: params["sort_order"] || "asc"
     }
 
@@ -38,9 +38,12 @@ defmodule CounsellingWeb.ProgramLive.Show do
 
   @impl true
   def handle_event("filter", filters, socket) do
+    filters |> dbg()
+
     filters =
       filters
       |> Map.delete("_target")
+      |> Map.delete("_unused_category")
       |> update_checkbox_filters("class")
       |> update_checkbox_filters("category")
       |> Map.new(fn {k, v} -> {String.to_existing_atom(k), v} end)

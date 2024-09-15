@@ -21,13 +21,13 @@ defmodule CounsellingWeb.Router do
     live "/colleges/new", CollegeLive.Index, :new
     live "/colleges/:id/edit", CollegeLive.Index, :edit
 
-    live "/colleges/:slug", CollegeLive.Show, :show
+    live "/colleges/:college", CollegeLive.Show, :show
     live "/colleges/:id/Programs", CollegeLive.Show, :show
     live "/colleges/:id/show/edit", CollegeLive.Show, :edit
 
     live "/programs", ProgramLive.Index, :index
-    live "/programs/:slug", ProgramLive.Show, :show
-    live "/colleges/:slug/:slug", CollegeProgramLive.Show, :show
+    live "/programs/:program", ProgramLive.Show, :show
+    live "/colleges/:college/:program", CollegeProgramLive.Show, :show
     live "/IIT", ProgramLive.Index, :index
     live "/NIT", ProgramLive.Index, :index
     live "/IIIT", ProgramLive.Index, :index

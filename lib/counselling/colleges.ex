@@ -43,7 +43,28 @@ defmodule Counselling.Colleges do
     |> Repo.one()
   end
 
-  def get_college_program_rank_data_by_id(college_id) do
+  def sort_college_programs(query, nil, nil), do: query
+
+  def sort_college_programs(query, sort_by, sort_order) do
+    sort_by = String.to_existing_atom(sort_by)
+    sort_order = String.to_existing_atom(sort_order)
+
+    case sort_by do
+      :name -> from [rc, c, p] in query, order_by: [{^sort_order, field(p, ^sort_by)}]
+      :opening_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
+      :closing_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
+      _ -> query
+    end
+  end
+
+  def program_test(query) do
+    pattern = "%#{query}%"
+
+    query = from p in Program, where: ilike(p.name, ^pattern), select: {p.name, p.id}
+    Repo.all(query)
+  end
+
+  def get_college_program_rank_data_by_id(college_id, filters) do
     query =
       from rc in RankCutoff,
         join: c in College,
@@ -51,18 +72,19 @@ defmodule Counselling.Colleges do
         join: p in Program,
         on: rc.program_id == p.id,
         select: %{
-          name: p.name,
-          duration: p.duration,
-          degree_type: p.degree_type,
+          id: p.id,
+          program: p,
           year: rc.year,
           quota: rc.quota,
           category: rc.category,
           opening_rank: rc.opening_rank,
           closing_rank: rc.closing_rank
-        },
-        order_by: [p.name]
+        }
 
-    %{college: get_college_by_id!(college_id), programs: Repo.all(query)}
+    query
+    |> sort_college_programs(filters[:sort_by], filters[:sort_order])
+    |> build_query_2(filters)
+    |> Repo.all()
   end
 
   @doc """
@@ -158,13 +180,20 @@ defmodule Counselling.Colleges do
 
   ################################################
 
+  def order(query) do
+    from c in query,
+      join: nr in NirfRanking,
+      on: c.id == nr.college_id,
+      order_by: nr.nirf_rank,
+      where: nr.year == 2024
+  end
+
   def get_colleges_with_filter(filters) when is_map(filters) do
     College
     |> build_query(filters)
-    # |> sort_query(filters[:sort_by], filters[:sort_order])
+    |> order()
+    |> dbg()
     |> Repo.all()
-
-    # |> sort_query(sort)
   end
 
   def build_query(query, filters) do
@@ -176,6 +205,18 @@ defmodule Counselling.Colleges do
       {:location, location}, query ->
         pattern = "%#{location}%"
         from q in query, where: ilike(q.location, ^pattern)
+
+      {:selected_programs, []}, query ->
+        query
+
+      {:selected_programs, selected_programs}, query ->
+        from c in query,
+          join: rc in RankCutoff,
+          on: c.id == rc.college_id,
+          where: rc.category == :gender_neutral,
+          join: p in Program,
+          on: rc.program_id == p.id,
+          where: p.id in ^selected_programs
 
       {:class, classes}, query when is_list(classes) ->
         from q in query, where: q.class in ^classes
@@ -197,10 +238,7 @@ defmodule Counselling.Colleges do
           having: type(^mains_rank, :integer) <= fragment("MAX(?)", rc.closing_rank)
 
       _, query ->
-        from q in query,
-          join: nr in NirfRanking,
-          on: q.id == nr.college_id,
-          order_by: nr.nirf_rank
+        query
     end)
   end
 
@@ -210,8 +248,14 @@ defmodule Counselling.Colleges do
 
   def get_college_rank(college_id) do
     NirfRanking
-    |> where(college_id: ^college_id)
+    |> where(college_id: ^college_id, year: 2024)
     |> Repo.one()
+  end
+
+  def get_college_ranks(college_id) do
+    NirfRanking
+    |> where(college_id: ^college_id)
+    |> Repo.all()
   end
 
   #################################################
@@ -241,6 +285,8 @@ defmodule Counselling.Colleges do
   end
 
   def get_programs_with_filter(filters) when is_map(filters) do
+    filters |> dbg()
+
     Program
     |> build_query(filters)
     |> sort(filters[:sort_by], filters[:sort_order])
@@ -328,7 +374,6 @@ defmodule Counselling.Colleges do
     # Write more elegantly
     case sort_by do
       :name -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
-      # :nirfrank -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
       :opening_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
       :closing_rank -> from [rc, c, p] in query, order_by: [{^sort_order, field(rc, ^sort_by)}]
       :location -> from [rc, c, p] in query, order_by: [{^sort_order, field(c, ^sort_by)}]
@@ -341,6 +386,11 @@ defmodule Counselling.Colleges do
   def get_program_data(program_id) do
     program_query(program_id)
     |> Repo.all()
+  end
+
+  def program_data(college_id, program_id) do
+    query = from p in CollegeProgram, where: [program_id: ^program_id, college_id: ^college_id]
+    Repo.one(query)
   end
 
   ############################################################

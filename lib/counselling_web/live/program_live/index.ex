@@ -66,7 +66,4 @@ defmodule CounsellingWeb.ProgramLive.Index do
       "desc" -> "asc"
     end
   end
-
-  defp page_title(:show), do: "Show College"
-  defp page_title(:edit), do: "Edit College"
 end
