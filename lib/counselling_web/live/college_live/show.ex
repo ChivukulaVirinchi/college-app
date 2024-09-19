@@ -5,7 +5,7 @@ defmodule CounsellingWeb.CollegeLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    [id_str | _] = String.split(params["slug"], "-")
+    [id_str | _] = String.split(params["college"], "-")
     id = String.to_integer(id_str)
 
     socket =
@@ -17,7 +17,7 @@ defmodule CounsellingWeb.CollegeLive.Show do
      stream(
        socket,
        :programs,
-       Colleges.get_college_program_rank_data_by_id(id, socket.assigns.filters)
+       Colleges.get_college_program_rank_data_by_id(10, socket.assigns.filters)
      )}
   end
 

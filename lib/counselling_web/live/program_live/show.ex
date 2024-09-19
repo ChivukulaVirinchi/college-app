@@ -4,7 +4,7 @@ defmodule CounsellingWeb.ProgramLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    [id_str | _] = String.split(params["slug"], "-")
+    [id_str | _] = String.split(params["program"], "-")
     id = String.to_integer(id_str)
 
     socket =
