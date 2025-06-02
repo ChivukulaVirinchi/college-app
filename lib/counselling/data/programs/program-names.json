@@ -1,0 +1,1164 @@
+{
+  "programs": [
+    {
+      "name": "Aerospace Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Agricultural and Food Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Biological Sciences and Bioengineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Bio Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Biotechnology and Biochemical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Ceramic Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Chemical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Chemical Science and Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Civil Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computational Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Industrial Chemistry",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Business",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Chemical and Biochemical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science Engineering (Artificial lntelligence and Machine Learning)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science Engineering (Data Science and Analytics)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science Engineering (Human Computer lnteraction and Gaming Technology)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering (Internet of Things)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering (Avionics)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering (Cyber Security)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering with specialization in VLSI and Embedded Systems",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Artificial Intelligence and Machine Learning",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computational and Data Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering with specialization in Artificial Intelligence and Data Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electrical Engineering (IC Design and Technology)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Environmental Science and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and VLSI Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Civil and Environmental Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in General Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering (VLSI Design and Technology)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electrical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electrical Engineering (Power and Automation)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Electrical Communication Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Electrical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Engineering Physics",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Engineering Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Environmental Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Printing and Packaging Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mechatronics and Automation Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Industrial Internet of Things",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Materials Science and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Microelectronics and VLSI",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Mathematics and Computing",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Artificial Intelligence and Data Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics Engineering (VLSI Design and Technology)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Space Sciences and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mathematics and Scientific Computing",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Biological Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Aeronautical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Dairy Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Fashion and Apparel Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Electronics and Communication Engineering (Rail Engineering)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Electrical Engineering ( Rail  Engineering)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Mechanical Engineering ( Rail  Engineering)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Civil Engineering (Rail Engineering)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Artificial Intelligenece and Data Science (Transportation and Logistics)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "B.Tech in Aviation Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering (Cyber Physical System)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "VLSI Design and Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Instrumentation Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Manufacturing Science and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Materials Science and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mathematics and Computing",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mechanical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Metallurgical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Metallurgical and Materials Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Metallurgical Engineering and Materials Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "ROBOTICS and AUTOMATION",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Microelectronics and VLSI Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "CSE ( Data Science and Analytics)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "SUSTAINABLE ENERGY TECHNOLOGIES",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering (Data Science)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering ( Artificial Intelligence and Data Science)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering (Artificial Intelligence)",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Materials Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Industrial Engineering and Operations Research",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Integrated Circuit Design and Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronic Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Artificial Intelligence and Data Analytics",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mining Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mining Machinery Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Naval Architecture and Ocean Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Ocean Engineering and Naval Architecture",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Petroleum Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Production and Industrial Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Textile Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Civil and Infrastructure Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Instrumentation Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Bio Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electrical and Electronics Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Production Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Information Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Instrumentation and Control Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Industrial and Production Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Bio Medical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Telecommunication Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Industrial Design",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Metallurgy and Materials Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Carpet  and Textile Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Materials Science and Metallurgical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Food Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Food Engineering  and Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Agricultural Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Food Process Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Industrial and Systems Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Pharmaceutical Engineering and Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Electronics and Communication Engineering with specialization in Design and Manufacturing",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mechanical Engineering with specialization in Design and Manufacturing",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Smart Manufacturing",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mechatronics Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Data Science and Artificial Intelligence",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Food Technology and Management",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Artificial Intelligence",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Information Technology-Business Informatics",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Data Science and Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Artificial Intelligence and Data Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Mineral and Metallurgical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Artificial Intelligence",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Biomedical Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Engineering and Computational Mechanics",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Biosciences and Bioengineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering with specialization in Cyber Security",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Computer Science and Engineering with Major in Artificial Intelligence",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Handloom and Textile Technology",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Energy Engineering",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Biotechnology and Bioinformatics",
+      "duration": 4,
+      "degree_type": "Bachelor of Technology"
+    },
+    {
+      "name": "Chemistry",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Economics",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Mathematics and Scientific Computing",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Physics",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Earth Sciences",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "BS in Mathematics",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Statistics and Data Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Mathematics and Computing",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Applied Geology",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Exploration Geophysics",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Physics with Specialization",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Chemistry with Specialization",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "BS in Chemical Sciences",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Biological Science",
+      "duration": 4,
+      "degree_type": "Bachelor of Science"
+    },
+    {
+      "name": "Bachelor of Design",
+      "duration": 4,
+      "degree_type": "Bachelor of Design"
+    },
+    {
+      "name": "Planning",
+      "duration": 4,
+      "degree_type": "Bachelor of Planning"
+    },
+    {
+      "name": "Electronics and Communication Engineering (with Specialization of Embedded Systems and Internet of Things)",
+      "duration": 4,
+      "degree_type": "B. Tech / B. Tech (Hons.)"
+    },
+    {
+      "name": "Computer Science and Engineering (with Specialization of Data Science and Artificial Intelligence)",
+      "duration": 4,
+      "degree_type": "B. Tech / B. Tech (Hons.)"
+    },
+    {
+      "name": "Computer Science Engineering (Artificial Intelligence)",
+      "duration": 4,
+      "degree_type": "B. Tech / B. Tech (Hons.)"
+    },
+    {
+      "name": "Computer Science Engineering (Data Science)",
+      "duration": 4,
+      "degree_type": "B. Tech / B. Tech (Hons.)"
+    },
+    {
+      "name": "Architecture",
+      "duration": 5,
+      "degree_type": "Bachelor of Architecture"
+    },
+    {
+      "name": "Architecture and Planning",
+      "duration": 5,
+      "degree_type": "Bachelor of Architecture"
+    },
+    {
+      "name": "Aerospace Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Biochemical Engineering with M.Tech. in Biochemical Engineering and Biotechnology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Bioengineering with M.Tech in Biomedical Technology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Ceramic Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Mathematics and Data Science",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Computational Mathematics",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Computer Science and Engineering with Specialization in Data Science",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Computer Science and Engineering with Specialization in Cyber Security",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Electronics and Communication Engineering with Specialization in Microelectronics and VLSI System Design",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Electrical Engineering with Specialization In Power System Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Mechanical Engineering with Specialization in Manufacturing and Industrial Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Civil Engineering with Specialization in Construction Technology and Management",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Material Science and Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Mathematics and Computing Technology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Chemical Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Civil Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Computer Science and Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Electrical Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "B.Tech. in Electronics and Communication Engineering and M.Tech. in VLSI Design",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "B.Tech. in Electronics and Communication Engineering and M.Tech. in Communication Systems",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Chemical Technology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Electrical Engineering with M.Tech. in Power Electronics",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Engineering Design",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Materials Science and Technology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Mechanical Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Electronics and Communication Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Metallurgical Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Metallurgical and Materials Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Mining Engineering",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Mathematics and Computing",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Ceramic Engineering and M.Tech Industrial Ceramic",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Engineering Physics",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Industrial Chemistry",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Pharmaceutical Engineering and Technology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Biotechnology",
+      "duration": 5,
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)"
+    },
+    {
+      "name": "Geological Technology",
+      "duration": 5,
+      "degree_type": "Integrated Master of Technology"
+    },
+    {
+      "name": "Geophysical Technology",
+      "duration": 5,
+      "degree_type": "Integrated Master of Technology"
+    },
+    {
+      "name": "Applied Geology",
+      "duration": 5,
+      "degree_type": "Integrated Master of Technology"
+    },
+    {
+      "name": "Applied Geophysics",
+      "duration": 5,
+      "degree_type": "Integrated Master of Technology"
+    },
+    {
+      "name": "Materials Engineering",
+      "duration": 5,
+      "degree_type": "Integrated Master of Technology"
+    },
+    {
+      "name": "B.Tech (Chemical Science and Technology) - MBA in Hospital and Health Care Management (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Civil Engineering) - MBA (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Computer Science and Engineering) - MBA in Digital Business Management (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Electronics and Communication Engineering) - MBA in Hospital and Healthcare Management (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Engineering Physics) - MBA (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Mathematics and Computing) - MBA in Digital Business Management (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Metallurgical and Materials Engineering) - MBA (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Electrical and Electronics Engineering) - MBA (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Artificial Intelligence and Data Science) - MBA in Digital Business Management (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Chemical Engineering) - MBA in Hospital and Health Care Management (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "B.Tech (Mechanical Engineering) - MBA (IIM Mumbai)",
+      "duration": 5,
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)"
+    },
+    {
+      "name": "Chemistry",
+      "duration": 5,
+      "degree_type": "Integrated Master of Science"
+    },
+    {
+      "name": "Mathematics and Computing",
+      "duration": 5,
+      "degree_type": "Integrated Master of Science"
+    },
+    {
+      "name": "Physics",
+      "duration": 5,
+      "degree_type": "Integrated Master of Science"
+    },
+    {
+      "name": "Mathematics",
+      "duration": 5,
+      "degree_type": "Integrated Master of Science"
+    },
+    {
+      "name": "Life Science",
+      "duration": 5,
+      "degree_type": "Integrated Master of Science"
+    },
+    {
+      "name": "Quantitative Economics and Data Science",
+      "duration": 5,
+      "degree_type": "Integrated Master of Science"
+    },
+    {
+      "name": "Physics",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)"
+    },
+    {
+      "name": "Chemistry",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)"
+    },
+    {
+      "name": "Mathematics and Computing",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)"
+    },
+    {
+      "name": "Chemical Sciences",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)"
+    },
+    {
+      "name": "Economics",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)"
+    },
+    {
+      "name": "Interdisciplinary Sciences",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)"
+    },
+    {
+      "name": "B. Tech in CE. - M. Tech.  in Geotechnical Engineering",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B. Tech in CE. - M. Tech.  in Structural Engineering",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B. Tech. (CSE) and M.Tech in CSE",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B. Tech. (ECE) -M. Tech. in VLSI",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B. Tech. (EEE)-M. Tech. in (Power and. Control)",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B. Tech. (Mathematics and Computing) M. Tech. in (Mathematics and Computing)",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B. Tech. (ME) - M. Tech. in Mechatronics",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "B.Tech in Mechanical Engineering and M.Tech in AI and Robotics",
+      "duration": 5,
+      "degree_type": "B.Tech. + M.Tech./MS (Dual Degree)"
+    },
+    {
+      "name": "Integrated B. Tech.(IT) and M. Tech (IT)",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and M. Tech."
+    },
+    {
+      "name": "Integrated B. Tech.- M. Tech in Metallurgical and Materials Engineering",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and M. Tech."
+    },
+    {
+      "name": "Integrated B. Tech. - M. Tech in Electrical Engineering",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and M. Tech."
+    },
+    {
+      "name": "Integrated B. Tech. - M. Tech in Civil Engineering",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and M. Tech."
+    },
+    {
+      "name": "Integrated B. Tech. - M. Tech in Computer Science and Engineering",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and M. Tech."
+    },
+    {
+      "name": "Artificial Intelligence",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and M. Tech."
+    },
+    {
+      "name": "Integrated B. Tech.(IT) and MBA",
+      "duration": 5,
+      "degree_type": "Integrated B. Tech. and MBA"
+    },
+    {
+      "name": "Chemical Engineering",
+      "duration": 5,
+      "degree_type": "Integrated Masters in Technology"
+    },
+    {
+      "name": "BS in Economics with MBA (IIM Bodh Gaya)",
+      "duration": 5,
+      "degree_type": "Bachelor of Science and MBA (Dual Degree)"
+    }
+  ]
+}

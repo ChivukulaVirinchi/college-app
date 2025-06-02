@@ -1,0 +1,416 @@
+<Layouts.app flash={@flash}>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200" phx-hook="FavoritesHook" id="favorites-container">
+
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-blue-600">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative px-3 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-12 lg:py-16">
+      <!-- Navigation -->
+      <nav class="mb-6 sm:mb-8">
+        <.link 
+          patch={~p"/colleges"} 
+          class="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors group"
+        >
+          <svg class="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to colleges
+        </.link>
+      </nav>
+
+      <!-- Hero Content -->
+      <div class="text-center">
+        <div class="mb-3 sm:mb-4">
+          <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3">
+            <%= @college.class %> Institution
+          </span>
+        </div>
+        
+        <h1 class="mb-3 text-2xl font-bold tracking-tight text-white sm:mb-4 sm:text-3xl lg:text-5xl">
+          <%= @college.name %>
+        </h1>
+        
+        <p class="mb-4 text-base text-white/90 sm:mb-6 sm:text-lg lg:text-xl">
+          <%= @college.location %> • Established <%= @college.established_year %>
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+          <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
+            <svg class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+            <%= @college.campus_area %> Acres Campus
+          </span>
+          
+          <%= if @college.nirf_rankings != [] do %>
+            <% latest_ranking = hd(@college.nirf_rankings) %>
+            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
+              <svg class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+              NIRF Rank #<%= latest_ranking.nirf_rank %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="px-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <!-- College Image Section -->
+    <section class="relative mb-6 -mt-6 sm:mb-8 sm:-mt-8 lg:mb-12 lg:-mt-12">
+      <div class="relative overflow-hidden bg-white shadow-2xl rounded-xl sm:rounded-2xl">
+        <div class="aspect-w-16 aspect-h-9 sm:aspect-h-6">
+          <img
+            class="object-cover w-full h-40 sm:h-48 lg:h-80"
+            src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
+            alt="campus"
+            loading="lazy"
+          />
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        
+        <!-- Quick Actions Overlay -->
+        <div class="absolute bottom-3 right-3 sm:bottom-4 sm:right-4">
+          <div class="flex space-x-2">
+            <button 
+              type="button"
+              id="favorite-btn-overlay"
+              class="p-2 text-white bg-black/20 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-black/30 transition-colors"
+              title="Add to favorites"
+              data-id={@college.id}
+              data-type="college"
+              onclick={"toggleFavorite('#{@college.id}', null, null, 'college')"}
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </button>
+            <button 
+              type="button"
+              class="p-2 text-white bg-black/20 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-black/30 transition-colors"
+              title="Share college"
+              onclick={"shareCollege('#{@college.name}', '#{url(CounsellingWeb.Endpoint, ~p"/colleges/#{@college.id}")}')"}
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats Grid -->
+    <section class="mb-6 sm:mb-8 lg:mb-12">
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 lg:gap-6">
+        <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
+          <div class="text-xl font-bold text-violet-600 dark:text-violet-400 sm:text-2xl lg:text-3xl">
+            <%= if @college.nirf_rankings != [] do %>
+              <%= hd(@college.nirf_rankings).nirf_rank %>
+            <% else %>
+              <span class="text-gray-400 dark:text-gray-500">-</span>
+            <% end %>
+          </div>
+          <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">NIRF Rank</div>
+        </div>
+        
+        <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
+          <div class="text-xl font-bold text-green-600 dark:text-green-400 sm:text-2xl lg:text-3xl">
+            <%= @college.established_year %>
+          </div>
+          <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Established</div>
+        </div>
+        
+        <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
+          <div class="text-xl font-bold text-blue-600 dark:text-blue-400 sm:text-2xl lg:text-3xl">
+            <%= @college.campus_area %>
+          </div>
+          <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Acres</div>
+        </div>
+        
+        <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
+          <div class="text-xl font-bold text-orange-600 dark:text-orange-400 sm:text-2xl lg:text-3xl">
+            <%= @college.class %>
+          </div>
+          <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Type</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
+      <!-- Left Column -->
+      <div class="space-y-6 lg:col-span-2 lg:space-y-8">
+        <!-- About Section -->
+        <section class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 lg:p-8 sm:shadow-lg sm:rounded-2xl">
+          <div class="flex items-center mb-4 sm:mb-6">
+            <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4"></div>
+            <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl lg:text-2xl">About the College</h2>
+          </div>
+          <div class="prose prose-sm prose-gray dark:prose-invert max-w-none sm:prose-base">
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+              <%= @college.name %> is a prestigious <%= @college.class %> institution located in <%= @college.location %>, 
+              established in <%= @college.established_year %>. The college spans across <%= @college.campus_area %> acres 
+              and is known for its excellence in engineering education and research. With state-of-the-art facilities and 
+              distinguished faculty, the institution has been consistently ranked among the top engineering colleges in India.
+            </p>
+          </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 lg:p-8 sm:shadow-lg sm:rounded-2xl">
+          <div class="flex items-center justify-between mb-4 sm:mb-6">
+            <div class="flex items-center">
+              <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4"></div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl lg:text-2xl">Programs & Cutoffs</h2>
+            </div>
+            <.link 
+              patch={~p"/programs"} 
+              class="text-sm font-medium text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 transition-colors"
+            >
+              View All →
+            </.link>
+          </div>
+          
+          <!-- Programs Table -->
+          <div class="overflow-hidden border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl">
+            <.live_table 
+              fields={fields()} 
+              filters={filters()} 
+              options={@options} 
+              streams={@streams}
+              class="min-w-full"
+            />
+          </div>
+        </section>
+
+        <!-- Rankings History -->
+        <%= if @college.nirf_rankings != [] do %>
+          <section class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 lg:p-8 sm:shadow-lg sm:rounded-2xl">
+            <div class="flex items-center mb-4 sm:mb-6">
+              <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4"></div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl lg:text-2xl">NIRF Rankings</h2>
+            </div>
+            
+            <div class="overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full min-w-full">
+                  <thead>
+                    <tr class="border-b border-gray-200 dark:border-gray-600">
+                      <%= for year <- 2023..2024 do %>
+                        <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white sm:px-4 sm:py-3">
+                          <%= year %>
+                        </th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <%= for year <- 2023..2024 do %>
+                        <td class="px-3 py-2 text-sm text-gray-700 dark:text-gray-300 sm:px-4 sm:py-3">
+                          <%= case Enum.find(@college.nirf_rankings, fn r -> r.year == year end) do %>
+                            <% nil -> %>
+                              <span class="text-gray-400 dark:text-gray-500">-</span>
+                            <% ranking -> %>
+                              <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/30 rounded-full">
+                                #<%= ranking.nirf_rank %>
+                              </span>
+                          <% end %>
+                        </td>
+                      <% end %>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- Chart Container -->
+              <div class="mt-6 sm:mt-8" phx-hook="ChartsHook" id="chart-container">
+                <canvas 
+                  id="rankingsChart" 
+                  class="w-full h-48 sm:h-64"
+                  data-rankings={Jason.encode!(Enum.map(@college.nirf_rankings, fn r -> %{year: r.year, rank: r.nirf_rank} end))}
+                ></canvas>
+              </div>
+            </div>
+          </section>
+        <% end %>
+
+        <!-- Key Highlights -->
+        <section class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 lg:p-8 sm:shadow-lg sm:rounded-2xl">
+          <div class="flex items-center mb-4 sm:mb-6">
+            <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4"></div>
+            <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl lg:text-2xl">Key Highlights</h2>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 sm:gap-4">
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0 w-5 h-5 mt-1 sm:w-6 sm:h-6">
+                <svg class="w-5 h-5 text-green-500 dark:text-green-400 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white sm:text-base">NAAC Accredited</h3>
+                <p class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Accredited with highest grade</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0 w-5 h-5 mt-1 sm:w-6 sm:h-6">
+                <svg class="w-5 h-5 text-green-500 dark:text-green-400 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white sm:text-base">Research Excellence</h3>
+                <p class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Strong research programs</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0 w-5 h-5 mt-1 sm:w-6 sm:h-6">
+                <svg class="w-5 h-5 text-green-500 dark:text-green-400 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white sm:text-base">Industry Partnerships</h3>
+                <p class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Strong industry collaborations</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0 w-5 h-5 mt-1 sm:w-6 sm:h-6">
+                <svg class="w-5 h-5 text-green-500 dark:text-green-400 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white sm:text-base">Modern Infrastructure</h3>
+                <p class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">State-of-the-art facilities</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="space-y-4 lg:space-y-6">
+        <!-- Quick Actions -->
+        <div class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 sm:shadow-lg sm:rounded-2xl">
+          <h3 class="mb-3 text-base font-semibold text-gray-900 dark:text-white sm:mb-4 sm:text-lg">Quick Actions</h3>
+          <div class="space-y-2 sm:space-y-3">
+            <.link
+              href={@college.link_to_website}
+              target="_blank"
+              class="flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-white transition-colors bg-violet-600 hover:bg-violet-700 dark:bg-violet-700 dark:hover:bg-violet-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 sm:px-4 sm:py-3"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+              Visit Website
+            </.link>
+            
+            <button 
+              type="button"
+              id="favorite-btn-main"
+              class="flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-violet-700 dark:text-violet-300 transition-colors bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 rounded-lg hover:bg-violet-100 dark:hover:bg-violet-900/50 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 sm:px-4 sm:py-3"
+              data-id={@college.id}
+              data-type="college"
+              onclick={"toggleFavorite('#{@college.id}', null, null, 'college')"}
+              title="Add to favorites"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+              Add to Favorites
+            </button>
+            
+            <button 
+              type="button"
+              class="flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 sm:px-4 sm:py-3"
+              onclick={"shareCollege('#{@college.name}', '#{url(CounsellingWeb.Endpoint, ~p"/colleges/#{@college.id}")}')"}
+              title="Share college"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+              </svg>
+              Share College
+            </button>
+          </div>
+        </div>
+
+        <!-- College Information -->
+        <div class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 sm:shadow-lg sm:rounded-2xl">
+          <h3 class="mb-3 text-base font-semibold text-gray-900 dark:text-white sm:mb-4 sm:text-lg">College Information</h3>
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-start space-x-2 sm:space-x-3">
+              <svg class="w-4 h-4 mt-1 text-gray-400 dark:text-gray-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900 dark:text-white">Location</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm"><%= @college.location %></div>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-2 sm:space-x-3">
+              <svg class="w-4 h-4 mt-1 text-gray-400 dark:text-gray-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900 dark:text-white">Established</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm"><%= @college.established_year %></div>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-2 sm:space-x-3">
+              <svg class="w-4 h-4 mt-1 text-gray-400 dark:text-gray-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900 dark:text-white">Institution Type</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm"><%= @college.class %></div>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-2 sm:space-x-3">
+              <svg class="w-4 h-4 mt-1 text-gray-400 dark:text-gray-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+              <div>
+                <div class="text-sm font-medium text-gray-900 dark:text-white">Campus Size</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm"><%= @college.campus_area %> Acres</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Similar Colleges -->
+        <div class="p-4 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-6 sm:shadow-lg sm:rounded-2xl">
+          <h3 class="mb-3 text-base font-semibold text-gray-900 dark:text-white sm:mb-4 sm:text-lg">Similar Colleges</h3>
+          <div class="space-y-2 sm:space-y-3">
+            <div class="p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+              <div class="text-sm font-medium text-gray-900 dark:text-white">IIT Bombay</div>
+              <div class="text-xs text-gray-600 dark:text-gray-400">Mumbai • NIRF Rank: 3</div>
+            </div>
+            <div class="p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+              <div class="text-sm font-medium text-gray-900 dark:text-white">IIT Madras</div>
+              <div class="text-xs text-gray-600 dark:text-gray-400">Chennai • NIRF Rank: 1</div>
+            </div>
+            <div class="p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+              <div class="text-sm font-medium text-gray-900 dark:text-white">IIT Kanpur</div>
+              <div class="text-xs text-gray-600 dark:text-gray-400">Kanpur • NIRF Rank: 4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</Layouts.app>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

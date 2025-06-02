@@ -1,0 +1,511 @@
+<Layouts.app flash={@flash}>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+
+<!-- Hero Section -->
+    <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-blue-600">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="relative px-3 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-12 lg:py-16">
+        <!-- Navigation -->
+        <div class="text-center">
+          <div class="mb-3 sm:mb-4">
+            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3">
+              Side-by-Side Analysis
+            </span>
+          </div>
+
+          <h1 class="mb-3 text-2xl font-bold tracking-tight text-white sm:mb-4 sm:text-3xl lg:text-5xl">
+            Compare Colleges
+          </h1>
+
+          <p class="mb-4 text-base text-white/90 sm:mb-6 sm:text-lg lg:text-xl">
+            Compare up to 4 colleges side by side to make an informed decision
+          </p>
+
+          <div class="mb-4 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-sm text-white/80 max-w-2xl mx-auto">
+            <div class="flex items-start space-x-2">
+              <svg
+                class="w-4 h-4 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                >
+                </path>
+              </svg>
+              <div>
+                <strong>Quick Guide:</strong>
+                Search and add colleges below to compare NIRF rankings, cutoffs, fees, and facilities side-by-side. Click + Compare on any college card to add it here.
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
+              <svg
+                class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                >
+                </path>
+              </svg>
+              Detailed Comparison
+            </span>
+
+            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
+              <svg
+                class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                >
+                </path>
+              </svg>
+              Up to 4 Colleges
+            </span>
+
+            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
+              <svg
+                class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                >
+                </path>
+              </svg>
+              Real-time Data
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Main Content -->
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <!-- Add College Section -->
+      <section class="relative mb-6 -mt-4 sm:mb-8 sm:-mt-8 lg:mb-12 lg:-mt-12">
+        <div class="bg-white dark:bg-gray-800 shadow-2xl border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl">
+          <div class="p-4 sm:p-6 lg:p-8">
+            <div class="mb-6 p-4 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800 rounded-xl sm:p-6">
+              <div class="flex items-center mb-3 sm:mb-4">
+                <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4">
+                </div>
+                <h3 class="text-lg font-bold text-violet-900 dark:text-violet-100 sm:text-xl">
+                  Add Colleges to Compare
+                </h3>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <.form for={%{}} phx-change="search_college" phx-debounce="300">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Search College Name
+                      <span class="text-xs text-gray-500">
+                        (Type to search all JOSAA colleges)
+                      </span>
+                      Search and Add Colleges
+                    </label>
+                    <div class="relative">
+                      <input
+                        type="text"
+                        placeholder="Type college name to search..."
+                        name="search"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+                      />
+                      <svg
+                        class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        >
+                        </path>
+                      </svg>
+                    </div>
+                  </.form>
+                </div>
+
+                <div
+                  :if={@search_results != []}
+                  class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg max-h-48 overflow-y-auto"
+                >
+                  <%= for college <- @search_results do %>
+                    <button
+                      type="button"
+                      phx-click="add_college"
+                      phx-value-college_id={college.id}
+                      class={[
+                        "w-full px-4 py-3 text-left border-b border-gray-100 dark:border-gray-600 last:border-b-0 transition-colors",
+                        if college.id in @selected_college_ids do
+                          "opacity-50 cursor-not-allowed bg-gray-100 dark:bg-gray-700"
+                        else
+                          "hover:bg-gray-50 dark:hover:bg-gray-600"
+                        end
+                      ]}
+                      disabled={college.id in @selected_college_ids}
+                    >
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <div class="font-medium text-gray-900 dark:text-white">
+                            {college.name}
+                          </div>
+                          <div class="text-sm text-gray-500 dark:text-gray-400">
+                            {college.location}
+                          </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <%= if college.nirf_rank do %>
+                            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 rounded-full">
+                              NIRF #{college.nirf_rank}
+                            </span>
+                          <% end %>
+                          <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/30 rounded-full">
+                            {format_college_class(college.class)}
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  <% end %>
+                </div>
+
+                <div :if={@selected_college_ids != []}>
+                  <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Selected Colleges ({length(@selected_college_ids)}/{@max_colleges})
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    <div
+                      :for={college <- @colleges}
+                      class="flex items-center gap-2 px-3 py-1 bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 rounded-full"
+                    >
+                      <span class="text-sm font-medium">{college.name}</span>
+                      <button
+                        type="button"
+                        phx-click="remove_college"
+                        phx-value-college_id={college.id}
+                        class="hover:text-violet-900 dark:hover:text-violet-100 transition-colors"
+                      >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                          >
+                          </path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <div class="bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+          <div class="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-600">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4">
+                </div>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl lg:text-2xl">
+                  College Comparison
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-full">
+              <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-48">
+                  Name
+                  </th>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <th class="px-6 py-4 text-center text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-64">
+                      <%= if college do %>
+                        {college.name}
+                      <% else %>
+                        -
+                      <% end %>
+                    </th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <!-- College Images -->
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    Campus
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-center">
+                      <%= if college do %>
+                        <img
+                          class="w-full h-24 object-cover rounded-lg"
+                          src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
+                          alt={college.name}
+                        />
+                      <% else %>
+                        <div class="w-full h-24 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                          <span class="text-gray-400 dark:text-gray-500 text-sm">
+                            No College Selected
+                          </span>
+                        </div>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+<!-- Basic Information -->
+                <tr class="bg-gray-50 dark:bg-gray-700/50">
+                  <td
+                    class="px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700"
+                    colspan="5"
+                  >
+                    Basic Information
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    Location
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-sm text-center text-gray-700 dark:text-gray-300">
+                      <%= if college do %>
+                        {college.location}
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    Established Year
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-sm text-center text-gray-700 dark:text-gray-300">
+                      <%= if college do %>
+                        {college.established_year}
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    Institution Type
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-center">
+                      <%= if college do %>
+                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/30 rounded-full">
+                          {format_college_class(college.class)}
+                        </span>
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    Campus Area (Acres)
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-sm text-center font-semibold text-blue-600 dark:text-blue-400">
+                      <%= if college do %>
+                        {college.campus_area}
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+<!-- Rankings -->
+                <tr class="bg-gray-50 dark:bg-gray-700/50">
+                  <td
+                    class="px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700"
+                    colspan="5"
+                  >
+                    Rankings & Recognition
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    NIRF Ranking 2024
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-center">
+                      <%= if college do %>
+                        <% rank = get_nirf_rank(college) %>
+                        <%= if rank do %>
+                          <span class="inline-flex items-center px-3 py-1 text-sm font-bold text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 rounded-full">
+                            #{rank}
+                          </span>
+                        <% else %>
+                          <span class="text-gray-400 dark:text-gray-500">Not Ranked</span>
+                        <% end %>
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    NIRF Ranking 2023
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-center">
+                      <%= if college do %>
+                        <% rank = get_nirf_rank(college, 2023) %>
+                        <%= if rank do %>
+                          <span class="inline-flex items-center px-3 py-1 text-sm font-bold text-yellow-700 dark:text-yellow-300 bg-yellow-100 dark:bg-yellow-900/30 rounded-full">
+                            #{rank}
+                          </span>
+                        <% else %>
+                          <span class="text-gray-400 dark:text-gray-500">Not Ranked</span>
+                        <% end %>
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+                <tr :if={length(@colleges) >= 2} class="bg-gray-50 dark:bg-gray-700/50">
+                  <td
+                    class="px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700"
+                    colspan="5"
+                  >
+                    Popular Programs - Cutoff Ranks (2024)
+                  </td>
+                </tr>
+
+                <tr :for={program <- @common_programs}>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    {program.name}
+                  </td>
+                  <.table_data
+                    :for={college <- @colleges}
+                    rank_cutoff={
+                      Enum.find(
+                        Ranks.get_rank_cutoffs(college.id, program.id) |> Repo.all(),
+                        fn x -> x.year == 2024 end
+                      )
+                    }
+                  />
+                </tr>
+
+<!-- Quick Links -->
+                <tr class="bg-gray-50 dark:bg-gray-700/50">
+                  <td
+                    class="px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700"
+                    colspan="5"
+                  >
+                    Actions
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    View Details
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-center">
+                      <%= if college do %>
+                        <.link
+                          navigate={~p"/colleges/#{college}"}
+                          class="inline-flex items-center px-3 py-1 text-sm font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 rounded-lg hover:bg-violet-200 dark:hover:bg-violet-900/50 transition-colors"
+                        >
+                          View College
+                        </.link>
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    Remove from Comparison
+                  </td>
+                  <%= for i <- 0..(@max_colleges - 1) do %>
+                    <% college = get_college_at_index(@colleges, i) %>
+                    <td class="px-6 py-4 text-center">
+                      <%= if college do %>
+                        <button
+                          type="button"
+                          phx-click="remove_college"
+                          phx-value-college_id={college.id}
+                          class="inline-flex items-center px-3 py-1 text-sm font-medium text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                        >
+                          Remove
+                        </button>
+                      <% else %>
+                        <span class="text-gray-400 dark:text-gray-500">-</span>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CompareStorageHook for localStorage management from LiveView events -->
+    <div phx-hook="CompareStorageHook" id="compare-live-storage-hook" style="display: none;"></div>
+  </div>
+</Layouts.app>
