@@ -65,20 +65,29 @@ defmodule CounsellingWeb.CollegeComponent2 do
 
   def college_component2(assigns) do
     ~H"""
-    <div class="bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group hover:-translate-y-1" data-college-name={@record.college_name}>
+    <div
+      class="bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+      data-college-name={@record.college.name}
+    >
       <div class="relative">
-        <img
+        <%!-- <img
           class="w-full h-32 sm:h-36 object-cover group-hover:scale-105 transition-transform duration-200"
           src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
-          alt={"#{@record.college_name} campus"}
+          alt={"#{@record.college.name} campus"}
+          loading="lazy"
+        /> --%>
+        <img
+          class="w-full h-32 sm:h-36 object-cover group-hover:scale-105 transition-transform duration-200"
+          src={"/#{@record.college.photo_path}"}
+          alt={"#{@record.college.name} campus"}
           loading="lazy"
         />
         <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
           <button
-            id={"favorite-btn-#{@record.college_id}"}
+            id={"favorite-btn-#{@record.college.id}"}
             class="p-1.5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
-            data-id={@record.college_id}
-            data-program-id={@record.id}
+            data-id={@record.college.id}
+            data-program-id={@record.program.id}
             data-type="college_program"
             phx-hook="FavoriteButton"
             title="Add to favorites"
@@ -95,8 +104,8 @@ defmodule CounsellingWeb.CollegeComponent2 do
           </button>
         </div>
         <div class="absolute top-2 left-2 sm:top-3 sm:left-3">
-          <span class={"inline-flex items-center px-2 py-1 text-xs font-medium rounded-full #{class_badge_colors(@record.college_class)}"}>
-            {@record.college_class}
+          <span class={"inline-flex items-center px-2 py-1 text-xs font-medium rounded-full #{class_badge_colors(@record.college.class)}"}>
+            {@record.college.class}
           </span>
         </div>
       </div>
@@ -105,7 +114,7 @@ defmodule CounsellingWeb.CollegeComponent2 do
         <div class="flex items-start justify-between mb-4">
           <div class="flex-1 min-w-0 pr-4">
             <div class="flex items-center flex-wrap gap-2 mb-2">
-              <span class={"inline-flex items-center px-2 py-1 text-xs font-medium rounded-full border #{rank_badge_colors(@record.college_class)}"}>
+              <span class={"inline-flex items-center px-2 py-1 text-xs font-medium rounded-full border #{rank_badge_colors(@record.college.class)}"}>
                 NIRF #{format_rank(@record.rank)}
               </span>
             </div>
@@ -113,9 +122,9 @@ defmodule CounsellingWeb.CollegeComponent2 do
               <h3
                 class="font-bold text-gray-900 dark:text-white text-base sm:text-lg leading-tight group-hover/title:text-violet-600 dark:group-hover/title:text-violet-400 transition-colors duration-200"
                 style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word;"
-                title={@record.college_name}
+                title={@record.college.name}
               >
-                {@record.college_name}
+                {@record.college.name}
               </h3>
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center leading-relaxed">
@@ -140,7 +149,7 @@ defmodule CounsellingWeb.CollegeComponent2 do
                 >
                 </path>
               </svg>
-              {@record.college_location}
+              {@record.college.location}
             </p>
           </div>
         </div>
@@ -162,8 +171,8 @@ defmodule CounsellingWeb.CollegeComponent2 do
 
         <div class="space-y-2">
           <.link
-            navigate={~p"/colleges/#{@record.college_id}/programs/#{@record.id}"}
-            class={"block w-full px-4 py-3 text-sm font-semibold text-white rounded-lg transition-all duration-200 text-center group/button #{action_button_colors(@record.college_class)} hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800"}
+            navigate={~p"/colleges/#{@record.college}/programs/#{@record.program}"}
+            class={"block w-full px-4 py-3 text-sm font-semibold text-white rounded-lg transition-all duration-200 text-center group/button #{action_button_colors(@record.college.class)} hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800"}
           >
             <span class="flex items-center justify-center">
               <span class="truncate">View Program Details & Cutoffs</span>
@@ -180,18 +189,11 @@ defmodule CounsellingWeb.CollegeComponent2 do
           </.link>
 
           <div class="flex gap-2">
-            <%!-- <.link
-              patch={~p"/colleges/#{@record.college_id}"}
-              class="flex-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-center"
-            >
-              View College
-            </.link> --%>
-
             <button
               type="button"
-              id={"compare-btn-#{@record.college_id}"}
+              id={"compare-btn-#{@record.college.id}"}
               phx-hook="CompareButtonHook"
-              data-compare-college-id={@record.college_id}
+              data-compare-college-id={@record.college.id}
               class="flex-1 px-3 py-2 text-sm font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-lg hover:bg-emerald-200 dark:hover:bg-emerald-900/50 transition-colors text-center"
             >
               <span class="compare-text">+ Add to Compare</span>

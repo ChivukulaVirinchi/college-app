@@ -19,70 +19,34 @@ defmodule CounsellingWeb.ProgramLive.Index do
 
   def filters do
     [
-      btech:
-        Boolean.new(:btech, "degree_type", %{
-          label: "B.Tech",
-          condition: dynamic([p], p.degree_type == "Bachelor of Technology")
-        }),
-      bmtech:
-        Boolean.new(:bmtech, "degree_type", %{
-          label: "B.Tech + M.Tech",
-          condition:
-            dynamic([p], p.degree_type == "Bachelor and Master of Technology (Dual Degree)")
-        }),
-      bsc:
-        Boolean.new(:bsc, "degree_type", %{
-          label: "B.Sc",
-          condition: dynamic([p], p.degree_type == "Bachelor of Science")
-        }),
-      bscmsc:
-        Boolean.new(:bscmsc, "degree_type", %{
-          label: "B.Sc + M.Sc",
-          condition:
-            dynamic(
-              [p],
-              p.degree_type == "Bachelor of Science and Master of Science (Dual Degree)"
-            )
-        }),
-      barch:
-        Boolean.new(:barch, "degree_type", %{
-          label: "B.Arch",
-          condition: dynamic([p], p.degree_type == "Bachelor of Architecture")
-        }),
-      btechmba:
-        Boolean.new(:btechmba, "degree_type", %{
-          label: "B.Tech + MBA (Integrated)",
-          condition: dynamic([p], p.degree_type == "Integrated B. Tech. and MBA")
-        }),
-      btechmtech:
-        Boolean.new(:btechmtech, "degree_type", %{
-          label: "B.Tech + M.Tech (Integrated)",
-          condition: dynamic([p], p.degree_type == "Integrated B. Tech. and M. Tech.")
+      limit_results:
+        Transformer.new("limit_results", %{
+          query_transformer: &degree_type/2
         }),
       four_years:
         Boolean.new(:duration, "duration", %{
           label: "4 Years",
           condition: dynamic([p], p.duration == 4)
         }),
-        five_years:
-          Boolean.new(:duration, "duration", %{
-            label: "5 Years",
-            condition: dynamic([p], p.duration == 5)
-          })
+      five_years:
+        Boolean.new(:duration, "duration", %{
+          label: "5 Years",
+          condition: dynamic([p], p.duration == 5)
+        })
     ]
   end
 
-  # defp process_degree_type("Bachelor and Master of Technology (Dual Degree)"),
-  #   do: "B.Tech + M.Tech"
+  def degree_type(query, %{"degree_type" => "All Degrees"}) do
+    query
+  end
 
-  # defp process_degree_type("Bachelor of Science"), do: "B.Sc"
+  def degree_type(query, %{"degree_type" => value}) do
+    query |> where([p], p.degree_type == ^value)
+  end
 
-  # defp process_degree_type("Bachelor of Science and Master of Science (Dual Degree)"),
-  #   do: "B.Sc + M.Sc"
-
-  # defp process_degree_type("Bachelor of Architecture"), do: "B.Arch"
-  # defp process_degree_type("Integrated B. Tech. and MBA"), do: "B.Tech + MBA"
-  # defp process_degree_type("Integrated B. Tech. and M. Tech."), do: "B.Tech + M.Tech"
+  def degree_type(query, _params) do
+    query
+  end
 
   def table_options do
     %{

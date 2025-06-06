@@ -59,11 +59,20 @@ defmodule CounsellingWeb.CollegeComponent do
 
   def college_component(assigns) do
     ~H"""
-    <div class="bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group hover:-translate-y-1" data-college-name={@record.college.name}>
+    <div
+      class="bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+      data-college-name={@record.college.name}
+    >
       <div class="relative">
-        <img
+        <%!-- <img
           class="w-full h-32 sm:h-36 object-cover group-hover:scale-105 transition-transform duration-200"
           src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
+          alt={"#{@record.college.name} campus"}
+          loading="lazy"
+        /> --%>
+        <img
+          class="w-full h-32 sm:h-36 object-cover group-hover:scale-105 transition-transform duration-200"
+          src={"/#{@record.college.photo_path}"}
           alt={"#{@record.college.name} campus"}
           loading="lazy"
         />

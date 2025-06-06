@@ -6,15 +6,14 @@ defmodule Counselling.Colleges.College do
 
   schema "colleges" do
     field :name, :string
-    field :location, :string, default: "Chennai"
-    field :established_year, :integer, default: 2000
+    field :location, :string
+    field :established_year, :integer
     field :class, Ecto.Enum, values: [:IIT, :NIT, :IIIT, :GFTI], default: :GFTI
-    field :link_to_website, :string
-    field :campus_area, :integer, default: 1
+    field :website, :string
+    field :campus_area, :integer
     field :slug, :string
-    # field :highlights, :string
-    # field :short_name, :string
     field :photo_path, :string
+    field :description, :string
 
     many_to_many :programs, Counselling.Programs.Program, join_through: "college_programs"
 
@@ -31,10 +30,12 @@ defmodule Counselling.Colleges.College do
       :location,
       :established_year,
       :class,
-      :link_to_website,
+      :website,
+      :photo_path,
+      :description,
       :campus_area
     ])
-    |> validate_required([:name, :established_year, :location, :class])
+    |> validate_required([:name, :established_year, :location, :class, :description])
     |> unique_constraint(:name)
     |> slugify_name()
   end

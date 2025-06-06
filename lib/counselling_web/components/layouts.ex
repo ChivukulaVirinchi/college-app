@@ -37,7 +37,7 @@ defmodule CounsellingWeb.Layouts do
           <div class="flex items-center justify-between h-16">
             <!-- Logo and Brand -->
             <div class="flex items-center">
-              <.link navigate="/" class="flex items-center space-x-3 group">
+              <.link href="/" class="flex items-center space-x-3 group">
                 <div class="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-violet-600 to-purple-600 rounded-xl group-hover:scale-105 transition-transform">
                   <svg
                     class="w-6 h-6 text-white"
@@ -196,132 +196,23 @@ defmodule CounsellingWeb.Layouts do
   """
   def theme_toggle(assigns) do
     ~H"""
-    <div class="relative flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <div
-        id="theme-slider"
-        class="absolute w-1/3 h-full bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 transition-all duration-200 ease-in-out"
-        style="left: 0;"
-      />
-
-      <button
-        phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "system"})}
-        class="relative flex items-center justify-center p-2 w-1/3 transition-colors z-10 hover:text-violet-600 dark:hover:text-violet-400 text-gray-600 dark:text-gray-400"
-        data-theme-button="system"
-        title="System theme"
-      >
-        <.icon name="hero-computer-desktop-micro" class="size-4" />
-      </button>
+    <div class="card relative flex flex-row items-center border-2 border-gray-300 dark:border-0 dark:bg-gray-700 bg-gray-200/50 rounded-full">
+      <div class="absolute w-1/2 h-full rounded-full bg-gray-50 dark:bg-gray-900 brightness-200 left-0 [[data-theme=dark]_&]:left-1/2 transition-[left] duration-200 ease-in-out" />
 
       <button
         phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "light"})}
-        class="relative flex items-center justify-center p-2 w-1/3 transition-colors z-10 hover:text-violet-600 dark:hover:text-violet-400 text-gray-600 dark:text-gray-400"
-        data-theme-button="light"
-        title="Light theme"
+        class="flex items-center justify-center p-2 cursor-pointer w-1/2 relative z-10 [[data-theme=light]_&]:opacity-100 [[data-theme=dark]_&]:opacity-75 hover:opacity-100 transition-opacity"
       >
-        <.icon name="hero-sun-micro" class="size-4" />
+        <.icon name="hero-sun-micro" class="size-4 dark:text-neutral-400" />
       </button>
 
       <button
         phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "dark"})}
-        class="relative flex items-center justify-center p-2 w-1/3 transition-colors z-10 hover:text-violet-600 dark:hover:text-violet-400 text-gray-600 dark:text-gray-400"
-        data-theme-button="dark"
-        title="Dark theme"
+        class="flex items-center justify-center p-2 cursor-pointer w-1/2 relative z-10 [[data-theme=dark]_&]:opacity-100 [[data-theme=light]_&]:opacity-75 hover:opacity-100 transition-opacity"
       >
-        <.icon name="hero-moon-micro" class="size-4" />
+        <.icon name="hero-moon-micro" class="size-4 dark:text-neutral-200" />
       </button>
     </div>
-
-    <script>
-      (() => {
-        const THEME_KEY = 'phx:theme';
-
-        const getSystemTheme = () => {
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        };
-
-        const getCurrentTheme = () => {
-          return localStorage.getItem(THEME_KEY) || 'system';
-        };
-
-        const getEffectiveTheme = (theme = getCurrentTheme()) => {
-          return theme === 'system' ? getSystemTheme() : theme;
-        };
-
-        const updateThemeToggle = () => {
-          const currentTheme = getCurrentTheme();
-          const slider = document.getElementById('theme-slider');
-          const buttons = document.querySelectorAll('[data-theme-button]');
-
-          if (!slider || !buttons.length) return;
-
-          const positions = {
-            'system': '0%',
-            'light': '33.333%',
-            'dark': '66.666%'
-          };
-
-          slider.style.left = positions[currentTheme] || positions['system'];
-
-          buttons.forEach(btn => {
-            const buttonTheme = btn.dataset.themeButton;
-            const isActive = buttonTheme === currentTheme;
-
-            if (isActive) {
-              btn.classList.add('text-violet-600', 'dark:text-violet-400');
-              btn.classList.remove('text-gray-600', 'dark:text-gray-400');
-            } else {
-              btn.classList.remove('text-violet-600', 'dark:text-violet-400');
-              btn.classList.add('text-gray-600', 'dark:text-gray-400');
-            }
-          });
-        };
-
-        const applyTheme = (theme = getCurrentTheme()) => {
-          const html = document.documentElement;
-          const effectiveTheme = getEffectiveTheme(theme);
-
-          html.classList.toggle('dark', effectiveTheme === 'dark');
-        };
-
-        const handleThemeChange = (event) => {
-          const theme = event.detail.theme;
-          localStorage.setItem(THEME_KEY, theme);
-          applyTheme(theme);
-          updateThemeToggle();
-        };
-
-        const initTheme = () => {
-          const savedTheme = getCurrentTheme();
-          applyTheme(savedTheme);
-
-          setTimeout(updateThemeToggle, 10);
-        };
-
-        window.addEventListener('phx:set-theme', handleThemeChange);
-
-        window.addEventListener('storage', (e) => {
-          if (e.key === THEME_KEY) {
-            const newTheme = e.newValue || 'system';
-            applyTheme(newTheme);
-            updateThemeToggle();
-          }
-        });
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-          const currentTheme = getCurrentTheme();
-          if (currentTheme === 'system') {
-            applyTheme('system');
-
-          }
-        });
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initTheme);
-        } else {
-          initTheme();
-        }
-      })();
-    </script>
     """
   end
 end

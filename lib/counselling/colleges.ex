@@ -54,7 +54,9 @@ defmodule Counselling.Colleges do
       join: rc in RankCutoff,
       as: :rank_cutoff,
       on: rc.college_program_id == cp.id,
-      where: c.id == ^id,
+      where:
+        c.id == ^id and
+          rc.year == 2024,
       order_by: [asc: p.name],
       select: %{
         college: c,
@@ -188,7 +190,8 @@ defmodule Counselling.Colleges do
 
   def get_program_id(program_name) do
     # Extract program name without duration and degree type
-    details = Josaa.parse_degree_info(program_name)
+    details =
+      program_name |> String.trim() |> String.replace(~r/\s+/, " ") |> Josaa.parse_degree_info()
 
     case Repo.get_by(Program,
            name: details.name,
@@ -201,7 +204,7 @@ defmodule Counselling.Colleges do
   end
 
   def get_college_id(college_name) do
-    case Repo.get_by(College, name: college_name) do
+    case Repo.get_by(College, name: String.trim(college_name) |> String.replace(~r/\s+/, " ")) do
       %College{id: id} -> {:ok, id}
     end
   end

@@ -94,7 +94,10 @@ defmodule CounsellingWeb.CollegeLive.Show do
     }
 
     ~H"""
-    <.link class="hover:text-blue-400" navigate={~p"/colleges/#{@record.college}/programs/#{@program}"}>
+    <.link
+      class="hover:text-blue-400"
+      navigate={~p"/colleges/#{@record.college}/programs/#{@program}"}
+    >
       {@program.name}
     </.link>
     """
@@ -113,10 +116,6 @@ defmodule CounsellingWeb.CollegeLive.Show do
   # defp process_degree_type("Bachelor of Architecture"), do: "B.Arch"
   # defp process_degree_type("Integrated B. Tech. and MBA"), do: "B.Tech + MBA"
   # defp process_degree_type("Integrated B. Tech. and M. Tech."), do: "B.Tech + M.Tech"
-
-  def table_options do
-    %{}
-  end
 
   defp process_quota(:all_india), do: "AI"
   defp process_quota(:home_state), do: "HS"

@@ -64,11 +64,12 @@ config :live_table,
   repo: Counselling.Repo,
   pubsub: Counselling.PubSub,
   defaults: %{pagination: %{enabled: false}, exports: %{enabled: false}}
-import Config
 
 # Gemini API configuration
 config :counselling,
-  gemini_api_key: System.get_env("GEMINI_API_KEY")
+  claude_api_key: "API_KEY_HERE",
+  google_search_engine_id: "YOUR_GOOGLE_SEARCH_ENGINE_ID_HERE",
+  google_search_api_key: "YOUR_GOOGLE_SEARCH_API_KEY_HERE"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

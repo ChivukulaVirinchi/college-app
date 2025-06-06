@@ -13,16 +13,28 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
               <!-- Helper Info -->
               <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                 <div class="flex items-start space-x-3">
-                  <svg class="w-5 h-5 mt-0.5 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  <svg
+                    class="w-5 h-5 mt-0.5 text-blue-600 dark:text-blue-400 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    >
+                    </path>
                   </svg>
                   <div class="text-sm text-blue-800 dark:text-blue-200">
-                    <strong>Program Guide:</strong> Each program shows opening/closing ranks for different quotas (All India, Home State, Other State) and categories. Enter your rank in the college filters to see personalized eligibility across all programs.
+                    <strong>Program Guide:</strong>
+                    Each program shows opening/closing ranks for different quotas (All India, Home State, Other State) and categories. Enter your rank in the college filters to see personalized eligibility across all programs.
                   </div>
                 </div>
               </div>
-
-              <!-- Quick Search -->
+              
+    <!-- Quick Search -->
               <div class="mb-8 p-6 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800 rounded-xl sm:p-8">
                 <div class="flex items-center mb-6 sm:mb-8">
                   <div class="w-1 h-8 mr-4 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-10 sm:mr-5">
@@ -35,7 +47,8 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
                   <!-- Search Field - Full width on mobile, 1/3 on large screens -->
                   <div class="lg:col-span-1">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Search Programs <span class="text-xs text-gray-500">(By branch name or specialization)</span>
+                      Search Programs
+                      <span class="text-xs text-gray-500">(By branch name or specialization)</span>
                     </label>
                     <div class="relative">
                       <input
@@ -67,10 +80,45 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
     <!-- Filter Groups - Stack on mobile, side by side on large screens -->
                   <div class="grid gap-4 sm:grid-cols-2 lg:col-span-2 lg:gap-6">
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Degree Type <span class="text-xs text-gray-500">(B.Tech, M.Tech, etc.)</span>
-                      </label>
-                      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                      <.form
+                        for={%{}}
+                        phx-debounce={get_in(@table_options, [:search, :debounce])}
+                        phx-change="sort"
+                      >
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Degree Type
+                          <span class="text-xs text-gray-500">(B.Tech, M.Tech, etc.)</span>
+                        </label>
+                        <div>
+                          <select
+                            name="filters[limit_results][degree_type]"
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+                          >
+                            <option selected={
+                              Map.get(@options["filters"], :limit_results) &&
+                                Map.get(@options["filters"], :limit_results).options.applied_data[
+                                  "degree_type"
+                                ] ==
+                                  "All Degrees"
+                            }>
+                              All Degrees
+                            </option>
+                            <option
+                              :for={degree_type <- Counselling.Programs.list_program_types()}
+                              selected={
+                                Map.get(@options["filters"], :limit_results) &&
+                                  Map.get(@options["filters"], :limit_results).options.applied_data[
+                                    "degree_type"
+                                  ] ==
+                                    degree_type
+                              }
+                            >
+                              {degree_type}
+                            </option>
+                          </select>
+                        </div>
+                      </.form>
+                      <%!-- <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
                         <.input
                           :for={
                             {id, %Boolean{key: "degree_type", options: %{label: label}}} <- @filters
@@ -80,11 +128,14 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
                           label={label}
                           checked={Map.has_key?(@options["filters"], id)}
                         />
-                      </div>
+                      </div> --%>
                     </div>
                     <div>
                       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Duration <span class="text-xs text-gray-500">(4 years for B.Tech, 2 years for M.Tech)</span>
+                        Duration
+                        <span class="text-xs text-gray-500">
+                          (4 years for B.Tech, 2 years for M.Tech)
+                        </span>
                       </label>
                       <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
                         <.input

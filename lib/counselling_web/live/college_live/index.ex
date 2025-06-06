@@ -170,6 +170,10 @@ defmodule CounsellingWeb.CollegeLive.Index do
     query |> exclude(:order_by) |> order_by([c], c.name)
   end
 
+  def sort_query(query, %{"sort_by" => "Established Year"}) do
+    query |> exclude(:order_by) |> order_by([c], c.established_year)
+  end
+
   def sort_query(query, %{"sort_by" => "Name (Z-A)"}) do
     query |> exclude(:order_by) |> order_by([c], desc: c.name)
   end

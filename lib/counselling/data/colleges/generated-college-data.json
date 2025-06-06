@@ -1,0 +1,957 @@
+{
+  "Gurukula Kangri Vishwavidyalaya, Haridwar": {
+    "campus_area_acres": 200,
+    "description": "Gurukula Kangri Vishwavidyalaya is a historic educational institution with roots in the traditional Gurukul system of education, now transformed into a modern university offering technical and professional courses. Located in the spiritual city of Haridwar, the university combines traditional Indian educational values with contemporary academic programs.",
+    "established_year": 1902,
+    "image_path": "images/colleges/gurukula_kangri_vishwavidyalaya_haridwar_1.jpg",
+    "location": "Haridwar, Uttarakhand",
+    "official_website": "https://gkv.ac.in"
+  },
+  "Sardar Vallabhbhai National Institute of Technology, Surat": {
+    "campus_area_acres": 250,
+    "description": "Sardar Vallabhbhai National Institute of Technology (SVNIT) is a premier engineering institution established as a National Institute of Technology, offering high-quality technical education and research opportunities. The institute is known for its strong academic programs, research initiatives, and industry-oriented approach to engineering education.",
+    "established_year": 1961,
+    "image_path": "images/colleges/sardar_vallabhbhai_national_institute_of_technology_surat_1.jpg",
+    "location": "Surat, Gujarat",
+    "official_website": "https://www.svnit.ac.in"
+  },
+  "National Institute of Technology, Jamshedpur": {
+    "campus_area_acres": 254,
+    "description": "National Institute of Technology, Jamshedpur is a premier engineering institution established under the NIT system, offering high-quality technical education and research opportunities. The institute is known for its strong academic programs in engineering and technology, with a focus on producing skilled professionals who contribute to technological innovation.",
+    "established_year": 1960,
+    "image_path": "images/colleges/national_institute_of_technology_jamshedpur_2.jpg",
+    "location": "Jamshedpur, Jharkhand",
+    "official_website": "https://nitjsr.ac.in"
+  },
+  "Indian Institute of Information Technology (IIIT)Kota, Rajasthan": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology (IIIT) Kota is a premier technical institute focused on delivering high-quality education in information technology and computer science. The institute aims to produce skilled IT professionals and researchers who can contribute to India's technological advancement.",
+    "established_year": 2013,
+    "image_path": "images/colleges/indian_institute_of_information_technology_iiitkota_rajasthan_1.jpg",
+    "location": "Kota, Rajasthan",
+    "official_website": "https://www.iiitk.ac.in/"
+  },
+  "National Institute of Technology, Manipur": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Technology, Manipur is a premier technical education institution established to provide high-quality engineering and technology education in the northeastern region of India. The institute offers undergraduate and postgraduate programs across multiple engineering disciplines, contributing to the technical skill development of students in Manipur and surrounding areas.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_manipur_1.jpg",
+    "location": "Imphal, Manipur",
+    "official_website": "https://nitmanipur.ac.in/"
+  },
+  "National Institute of Technology Nagaland": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Technology Nagaland is a premier technical education institution established to provide high-quality engineering and technology education in Northeast India. The college offers undergraduate and postgraduate programs across multiple engineering disciplines, contributing to the technological development of the northeastern region.",
+    "established_year": 2009,
+    "image_path": "images/colleges/national_institute_of_technology_nagaland_1.jpg",
+    "location": "Dimapur, Nagaland",
+    "official_website": "https://www.nitnagaland.ac.in"
+  },
+  "J.K. Institute of Applied Physics and Technology, Department of Electronics and Communication, University of Allahabad- Allahabad": {
+    "campus_area_acres": 1200,
+    "description": "J.K. Institute of Applied Physics and Technology is a specialized department within the University of Allahabad focusing on advanced electronics and communication engineering education. The institute is known for its strong research orientation and provides comprehensive technical education in electronic systems and communication technologies.",
+    "established_year": 1887,
+    "image_path": "images/colleges/jk_institute_of_applied_physics_and_technology_department_of_electronics_and_communication_university_of_allahabad_allahabad_1.jpg",
+    "location": "Allahabad, Uttar Pradesh",
+    "official_website": "https://www.allduniv.ac.in"
+  },
+  "Indian institute of information technology, Raichur, Karnataka": {
+    "campus_area_acres": 100,
+    "description": "Indian Institute of Information Technology (IIIT) Raichur is a premier technical institution focused on delivering high-quality education in information technology and engineering. The institute is part of the IIIT network and aims to produce skilled professionals in cutting-edge technological domains.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_information_technology_raichur_karnataka_1.jpg",
+    "location": "Raichur, Karnataka",
+    "official_website": "https://www.iiit-raichur.ac.in/"
+  },
+  "Indian Institute of Technology Guwahati": {
+    "campus_area_acres": 685,
+    "description": "IIT Guwahati is a premier technical institution known for its world-class research and engineering education in northeastern India. The institute offers cutting-edge programs across multiple engineering disciplines and is recognized for its strong focus on innovation and interdisciplinary research.",
+    "established_year": 1994,
+    "image_path": "images/colleges/indian_institute_of_technology_guwahati_1.png",
+    "location": "Guwahati, Assam",
+    "official_website": "https://www.iitg.ac.in"
+  },
+  "Ghani Khan Choudhary Institute of Engineering and Technology, Malda, West Bengal": {
+    "campus_area_acres": 25,
+    "description": "Ghani Khan Choudhary Institute of Engineering and Technology is a prominent engineering college in West Bengal, offering technical education to students in the region. The institute focuses on providing quality engineering education and preparing students for careers in various technological fields.",
+    "established_year": 2007,
+    "image_path": "images/colleges/ghani_khan_choudhary_institute_of_engineering_and_technology_malda_west_bengal_2.jpg",
+    "location": "Malda, West Bengal",
+    "official_website": "https://gkciet.ac.in"
+  },
+  "Motilal Nehru National Institute of Technology Allahabad": {
+    "campus_area_acres": 240,
+    "description": "Motilal Nehru National Institute of Technology (MNNIT) is a premier technical institute recognized as an Institute of National Importance by the Government of India. It offers top-quality engineering and technology education with a strong reputation for academic excellence and research in various engineering disciplines.",
+    "established_year": 1961,
+    "image_path": "images/colleges/motilal_nehru_national_institute_of_technology_allahabad_2.jpg",
+    "location": "Allahabad, Uttar Pradesh",
+    "official_website": "https://www.mnnit.ac.in"
+  },
+  "Indian Institute of Technology (BHU) Varanasi": {
+    "campus_area_acres": 514,
+    "description": "IIT (BHU) Varanasi is a prestigious technical institute that originated from the Banaras Hindu University and was converted to an IIT in 2012. It is renowned for its strong engineering programs, research excellence, and historical connection to one of India's oldest universities.",
+    "established_year": 2012,
+    "image_path": "images/colleges/indian_institute_of_technology_bhu_varanasi_1.jpg",
+    "location": "Varanasi, Uttar Pradesh",
+    "official_website": "https://www.iitbhu.ac.in/"
+  },
+  "Mizoram University, Aizawl": {
+    "campus_area_acres": 302,
+    "description": "Mizoram University is a premier central university located in the northeastern state of Mizoram, offering quality higher education with a focus on regional development and academic excellence. The university plays a crucial role in promoting higher education and research in the northeastern region of India.",
+    "established_year": 2001,
+    "image_path": "images/colleges/mizoram_university_aizawl_1.jpg",
+    "location": "Aizawl, Mizoram",
+    "official_website": "https://mzu.edu.in"
+  },
+  "National Institute of Technology Hamirpur": {
+    "campus_area_acres": 110,
+    "description": "National Institute of Technology Hamirpur is a premier technical education institution established as a Regional Engineering College and later upgraded to an NIT. It offers undergraduate and postgraduate programs in engineering and sciences, known for its strong academic reputation and quality research in technical disciplines.",
+    "established_year": 1986,
+    "image_path": "images/colleges/national_institute_of_technology_hamirpur_1.jpg",
+    "location": "Hamirpur, Himachal Pradesh",
+    "official_website": "https://www.nith.ac.in"
+  },
+  "Indian Institute of Information Technology Bhopal": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology (IIIT) Bhopal is a premier technical institute focused on advanced information technology and computer science education. The institute is dedicated to producing top-tier IT professionals and researchers through rigorous academic programs and cutting-edge technological training.",
+    "established_year": 2017,
+    "image_path": "images/colleges/indian_institute_of_information_technology_bhopal_1.jpg",
+    "location": "Bhopal, Madhya Pradesh",
+    "official_website": "https://www.iiitbhopal.ac.in/"
+  },
+  "Indian Institute of Handloom Technology(IIHT), Varanasi": {
+    "campus_area_acres": 10,
+    "description": "The Indian Institute of Handloom Technology is a specialized institution focused on technical education in textile and handloom engineering. It plays a crucial role in preserving and advancing India's rich textile heritage through technical training and research in handloom technologies.",
+    "established_year": 1964,
+    "image_path": "images/colleges/indian_institute_of_handloom_technologyiiht_varanasi_2.jpg",
+    "location": "Varanasi, Uttar Pradesh",
+    "official_website": "https://iiht.edu.in"
+  },
+  "National Institute of Technology, Tiruchirappalli": {
+    "campus_area_acres": 254,
+    "description": "NIT Tiruchirappalli is a premier engineering institution and one of the most prestigious National Institutes of Technology in India. It offers top-quality undergraduate and postgraduate programs in engineering and science, with a strong reputation for academic excellence and research.",
+    "established_year": 1964,
+    "image_path": "images/colleges/national_institute_of_technology_tiruchirappalli_1.jpg",
+    "location": "Tiruchirappalli, Tamil Nadu",
+    "official_website": "https://www.nitt.edu"
+  },
+  "Indian Institute of Information Technology(IIIT) Kilohrad, Sonepat, Haryana": {
+    "campus_area_acres": 50,
+    "description": "IIIT Kilohrad is a specialized information technology and engineering institute located in Sonepat, Haryana. The institution focuses on providing high-quality technical education in the field of information technology and computer science, preparing students for innovative careers in the digital technology sector.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_information_technologyiiit_kilohrad_sonepat_haryana_1.png",
+    "location": "Sonepat, Haryana",
+    "official_website": "https://iiitsonepat.ac.in/"
+  },
+  "National Institute of Technology Arunachal Pradesh": {
+    "campus_area_acres": 200,
+    "description": "National Institute of Technology Arunachal Pradesh is a premier technical education institution established to provide high-quality engineering education in the northeastern region of India. The college offers undergraduate and postgraduate programs across multiple engineering disciplines, contributing to the technical development of Arunachal Pradesh and the surrounding northeastern states.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_arunachal_pradesh_1.jpg",
+    "location": "Yupia, Arunachal Pradesh",
+    "official_website": "https://nitap.ac.in"
+  },
+  "Indian Institute of Information Technology (IIIT) Ranchi": {
+    "campus_area_acres": null,
+    "description": "IIIT Ranchi is a premier technical institute focused on information technology and computer science education. It is part of the Indian Institutes of Information Technology (IIIT) network, known for providing high-quality technical education and strong industry connections.",
+    "established_year": 2017,
+    "image_path": "images/colleges/indian_institute_of_information_technology_iiit_ranchi_1.jpg",
+    "location": "Ranchi, Jharkhand",
+    "official_website": "https://iiitranchi.ac.in/"
+  },
+  "Indian Institute of Information Technology Tiruchirappalli": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology Tiruchirappalli (IIITT) is a premier technical institution focused on advancing information technology and computer science education. The institute is dedicated to providing high-quality technical education and research opportunities in cutting-edge technological domains.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_information_technology_tiruchirappalli_1.jpg",
+    "location": "Tiruchirappalli, Tamil Nadu",
+    "official_website": "https://www.iiitt.ac.in/"
+  },
+  "Punjab Engineering College, Chandigarh": {
+    "campus_area_acres": 75,
+    "description": "Punjab Engineering College (PEC) is a prestigious government-funded technical institution known for its excellent engineering education and research capabilities. Located in Chandigarh, the college offers a wide range of undergraduate and postgraduate engineering programs with a strong emphasis on innovation and industry collaboration.",
+    "established_year": 1947,
+    "image_path": "images/colleges/punjab_engineering_college_chandigarh_1.jpg",
+    "location": "Chandigarh, Punjab",
+    "official_website": "https://pec.ac.in"
+  },
+  "Birla Institute of Technology, Mesra,  Ranchi": {
+    "campus_area_acres": 250,
+    "description": "Birla Institute of Technology (BIT Mesra) is a premier technical education institution known for its strong engineering programs and research contributions. Established by the Birla Education Trust, it is recognized as a deemed university with a reputation for academic excellence and industry-oriented technical education.",
+    "established_year": 1955,
+    "image_path": "images/colleges/birla_institute_of_technology_mesra_ranchi_1.jpg",
+    "location": "Ranchi, Jharkhand",
+    "official_website": "https://www.bitmesra.ac.in"
+  },
+  "Atal Bihari Vajpayee Indian Institute of Information Technology and Management Gwalior": {
+    "campus_area_acres": 85,
+    "description": "Atal Bihari Vajpayee Indian Institute of Information Technology and Management (ABVIIITM) is a premier institution specializing in technology and management education. The college is named after former Indian Prime Minister Atal Bihari Vajpayee and focuses on providing high-quality interdisciplinary education in information technology and management.",
+    "established_year": 2000,
+    "image_path": "images/colleges/atal_bihari_vajpayee_indian_institute_of_information_technology_and_management_gwalior_1.jpg",
+    "location": "Gwalior, Madhya Pradesh",
+    "official_website": "https://www.iiitm.ac.in"
+  },
+  "Indian Institute of Information Technology(IIIT) Dharwad": {
+    "campus_area_acres": 100,
+    "description": "IIIT Dharwad is a premier technical institution focused on information technology and computer science education. Established as part of the Indian Institutes of Information Technology (IIIT) network, the college provides high-quality technical education with a strong emphasis on research and innovation in digital technologies.",
+    "established_year": 2014,
+    "image_path": "images/colleges/indian_institute_of_information_technologyiiit_dharwad_1.jpg",
+    "location": "Dharwad, Karnataka",
+    "official_website": "https://www.iiitdwd.ac.in/"
+  },
+  "School of Engineering, Tezpur University, Napaam, Tezpur": {
+    "campus_area_acres": 285,
+    "description": "Tezpur University is a premier central university known for its strong engineering and research programs in Northeast India. The School of Engineering offers multidisciplinary technical education with a focus on innovative research and industry-relevant curriculum.",
+    "established_year": 1994,
+    "image_path": "images/colleges/school_of_engineering_tezpur_university_napaam_tezpur_1.jpg",
+    "location": "Tezpur, Assam",
+    "official_website": "https://www.tezu.ernet.in"
+  },
+  "Birla Institute of Technology, Deoghar Off-Campus": {
+    "campus_area_acres": 50,
+    "description": "Birla Institute of Technology (BIT) Deoghar Off-Campus is an extension of the renowned BIT Mesra, offering quality engineering education in Jharkhand. The campus provides modern infrastructure and focuses on technical education with industry-relevant curriculum.",
+    "established_year": 2016,
+    "image_path": "images/colleges/birla_institute_of_technology_deoghar_offcampus_1.jpg",
+    "location": "Deoghar, Jharkhand",
+    "official_website": "https://www.bitmesra.ac.in/"
+  },
+  "Gati Shakti Vishwavidyalaya, Vadodara": {
+    "campus_area_acres": 50,
+    "description": "Gati Shakti Vishwavidyalaya is a specialized technical institution focused on infrastructure and transportation engineering. The college aims to develop skilled professionals who can contribute to India's infrastructure development and logistics sector.",
+    "established_year": 2022,
+    "image_path": "images/colleges/gati_shakti_vishwavidyalaya_vadodara_1.jpg",
+    "location": "Vadodara, Gujarat",
+    "official_website": "https://gsvv.ac.in"
+  },
+  "Indian Institute of Technology Hyderabad": {
+    "campus_area_acres": 630,
+    "description": "IIT Hyderabad is a premier technical institution known for its cutting-edge research and innovative engineering education. The institute focuses on interdisciplinary learning and has a strong emphasis on research and development in advanced technological domains.",
+    "established_year": 2008,
+    "image_path": "images/colleges/indian_institute_of_technology_hyderabad_1.jpg",
+    "location": "Hyderabad, Telangana",
+    "official_website": "https://iith.ac.in"
+  },
+  "Indian Institute of Technology (ISM) Dhanbad": {
+    "campus_area_acres": 393,
+    "description": "IIT (ISM) Dhanbad is a premier technical institute specializing in mining, energy, and geological sciences, transformed from the historic Indian School of Mines into an Indian Institute of Technology in 2016. It is renowned for its expertise in earth sciences and engineering, with strong industry connections in the mining and energy sectors.",
+    "established_year": 1926,
+    "image_path": "images/colleges/indian_institute_of_technology_ism_dhanbad_1.jpg",
+    "location": "Dhanbad, Jharkhand",
+    "official_website": "https://www.iitism.ac.in"
+  },
+  "National Institute of Technology, Kurukshetra": {
+    "campus_area_acres": 250,
+    "description": "National Institute of Technology, Kurukshetra is a premier technical education institution established as a Regional Engineering College and later upgraded to NIT status. The college is renowned for its strong engineering programs, research capabilities, and consistently high placement rates in various engineering disciplines.",
+    "established_year": 1963,
+    "image_path": "images/colleges/national_institute_of_technology_kurukshetra_1.jpg",
+    "location": "Kurukshetra, Haryana",
+    "official_website": "https://nitkkr.ac.in"
+  },
+  "National Institute of Technology Sikkim": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Technology Sikkim is a premier technical education institution established to promote engineering and technological education in the northeastern region of India. The college offers undergraduate and postgraduate programs in various engineering disciplines, focusing on quality technical education and research in a scenic Himalayan setting.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_sikkim_1.jpg",
+    "location": "Ravangla, Sikkim",
+    "official_website": "https://nitsikkim.ac.in"
+  },
+  "School of Studies of Engineering and Technology, Guru Ghasidas Vishwavidyalaya, Bilaspur": {
+    "campus_area_acres": 500,
+    "description": "Guru Ghasidas Vishwavidyalaya is a prominent state university located in Bilaspur, offering engineering education through its School of Studies of Engineering and Technology. The institution focuses on providing quality technical education and research opportunities in various engineering disciplines.",
+    "established_year": 1983,
+    "image_path": "images/colleges/school_of_studies_of_engineering_and_technology_guru_ghasidas_vishwavidyalaya_bilaspur_1.jpg",
+    "location": "Bilaspur, Chhattisgarh",
+    "official_website": "https://www.ggu.ac.in"
+  },
+  "Indian Institute of Technology Jammu": {
+    "campus_area_acres": 250,
+    "description": "IIT Jammu is a premier technical institution established as part of the Indian Institutes of Technology (IIT) network, focusing on high-quality engineering and technological education. Located in the strategic region of Jammu, the institute offers cutting-edge research opportunities and world-class engineering programs across multiple disciplines.",
+    "established_year": 2016,
+    "image_path": "images/colleges/indian_institute_of_technology_jammu_1.jpg",
+    "location": "Jammu, Jammu and Kashmir",
+    "official_website": "https://iitjammu.ac.in/"
+  },
+  "National Institute of Technology  Agartala": {
+    "campus_area_acres": 182,
+    "description": "National Institute of Technology Agartala is a premier technical education institution located in Northeast India, offering high-quality undergraduate and postgraduate engineering programs. The college is known for its strong academic environment and contributes significantly to technical education in the Northeastern region of India.",
+    "established_year": 2009,
+    "image_path": "images/colleges/national_institute_of_technology_agartala_2.jpg",
+    "location": "Agartala, Tripura",
+    "official_website": "https://www.nita.ac.in"
+  },
+  "Birla Institute of Technology, Patna Off-Campus": {
+    "campus_area_acres": 50,
+    "description": "Birla Institute of Technology (BIT) Patna is a prestigious off-campus extension of the renowned BIT Mesra, offering quality engineering education in Bihar. The institute provides modern technical education with a focus on innovative learning and industry-relevant curriculum.",
+    "established_year": 2011,
+    "image_path": "images/colleges/birla_institute_of_technology_patna_offcampus_1.jpg",
+    "location": "Patna, Bihar",
+    "official_website": "https://www.bitpatna.ac.in"
+  },
+  "Central institute of Technology Kokrajar, Assam": {
+    "campus_area_acres": 100,
+    "description": "Central Institute of Technology Kokrajhar (CIT Kokrajhar) is a premier technical education institution located in the Bodoland Territorial Region of Assam. The institute focuses on providing quality engineering and technical education to students from Northeast India, with a special emphasis on promoting technical skills in the region.",
+    "established_year": 2010,
+    "image_path": "images/colleges/central_institute_of_technology_kokrajar_assam_1.jpg",
+    "location": "Kokrajhar, Assam",
+    "official_website": "https://www.citkokrajhar.ac.in/"
+  },
+  "National Institute of Food Technology Entrepreneurship and Management, Thanjavur": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Food Technology Entrepreneurship and Management (NIFTEM) is a unique specialized institution focusing on food technology, entrepreneurship, and management education. It offers innovative programs that bridge technical and managerial aspects of the food industry, preparing students for cutting-edge careers in food sector innovation and leadership.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_food_technology_entrepreneurship_and_management_thanjavur_1.jpg",
+    "location": "Thanjavur, Tamil Nadu",
+    "official_website": "https://www.niftem.ac.in/"
+  },
+  "National Institute of Technology, Warangal": {
+    "campus_area_acres": 250,
+    "description": "National Institute of Technology, Warangal (NIT-W) is one of the first five NITs established in India and is renowned for its exceptional engineering education and research. The institute offers undergraduate and postgraduate programs across multiple engineering disciplines and is known for its strong academic reputation and industry connections.",
+    "established_year": 1959,
+    "image_path": "images/colleges/national_institute_of_technology_warangal_1.jpg",
+    "location": "Warangal, Telangana",
+    "official_website": "https://www.nitw.ac.in"
+  },
+  "National Institute of Technology, Rourkela": {
+    "campus_area_acres": 192,
+    "description": "National Institute of Technology (NIT) Rourkela is a premier technical institution known for its excellent engineering education and research facilities. It is one of the National Institutes of Technology established by the Government of India, offering high-quality undergraduate and postgraduate programs across multiple engineering disciplines.",
+    "established_year": 1961,
+    "image_path": "images/colleges/national_institute_of_technology_rourkela_1.jpg",
+    "location": "Rourkela, Odisha",
+    "official_website": "https://nitrkl.ac.in"
+  },
+  "National Institute of Technology, Mizoram": {
+    "campus_area_acres": 200,
+    "description": "National Institute of Technology (NIT) Mizoram is a premier technical education institution established to provide high-quality engineering and technical education in the northeastern region of India. The institute offers undergraduate and postgraduate programs across multiple engineering disciplines, contributing to the technological development of Mizoram and the surrounding northeastern states.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_mizoram_1.jpg",
+    "location": "Aizawl, Mizoram",
+    "official_website": "https://www.nitmz.ac.in/"
+  },
+  "Indian Institute of Technology Indore": {
+    "campus_area_acres": 500,
+    "description": "IIT Indore is a premier technical institution established as part of the Indian Institutes of Technology (IIT) network, known for its world-class engineering education and cutting-edge research facilities. The institute offers undergraduate, postgraduate, and doctoral programs across multiple engineering and scientific disciplines, with a strong emphasis on innovation and research-driven learning.",
+    "established_year": 2009,
+    "image_path": "images/colleges/indian_institute_of_technology_indore_1.jpg",
+    "location": "Indore, Madhya Pradesh",
+    "official_website": "https://www.iiti.ac.in"
+  },
+  "Indian Institute of Engineering Science and Technology, Shibpur": {
+    "campus_area_acres": 193,
+    "description": "Indian Institute of Engineering Science and Technology (IIEST) Shibpur is a premier technical institution with a rich legacy, originally established as Bengal Engineering College. It is a national-level institute known for its excellent engineering education and research programs across multiple disciplines.",
+    "established_year": 1856,
+    "image_path": "images/colleges/indian_institute_of_engineering_science_and_technology_shibpur_1.jpg",
+    "location": "Shibpur, West Bengal",
+    "official_website": "https://www.iiest.ac.in/"
+  },
+  "Indian Institute of Technology Jodhpur": {
+    "campus_area_acres": 254,
+    "description": "IIT Jodhpur is a premier technical institute established as part of the Indian Institutes of Technology (IIT) system, known for its rigorous engineering education and research programs. The institute focuses on innovative technological education and cutting-edge research in various engineering and science disciplines.",
+    "established_year": 2008,
+    "image_path": "images/colleges/indian_institute_of_technology_jodhpur_1.jpg",
+    "location": "Jodhpur, Rajasthan",
+    "official_website": "https://www.iitj.ac.in/"
+  },
+  "Indian Institute of Information Technology, Allahabad": {
+    "campus_area_acres": 105,
+    "description": "Indian Institute of Information Technology (IIIT Allahabad) is a premier technical institute specializing in information technology and computer science education. It is renowned for its strong academic programs, research contributions, and high-quality technical education in emerging digital technologies.",
+    "established_year": 1999,
+    "image_path": "images/colleges/indian_institute_of_information_technology_allahabad_1.jpg",
+    "location": "Allahabad, Uttar Pradesh",
+    "official_website": "https://www.iiita.ac.in"
+  },
+  "National Institute of Technology, Silchar": {
+    "campus_area_acres": 250,
+    "description": "National Institute of Technology, Silchar is a premier technical education institution in Northeast India, offering undergraduate and postgraduate engineering programs. The institute is known for its strong academic reputation, research facilities, and contributions to technological education in the region.",
+    "established_year": 1967,
+    "image_path": "images/colleges/national_institute_of_technology_silchar_1.webp",
+    "location": "Silchar, Assam",
+    "official_website": "https://www.nits.ac.in"
+  },
+  "Dr. B R Ambedkar National Institute of Technology, Jalandhar": {
+    "campus_area_acres": 150,
+    "description": "Dr. B R Ambedkar National Institute of Technology (NIT Jalandhar) is a premier technical education institution established as a National Institute of Technology, offering world-class engineering and technology education. The institute is known for its strong academic programs, research initiatives, and excellent placement record in various engineering disciplines.",
+    "established_year": 1987,
+    "image_path": "images/colleges/dr_b_r_ambedkar_national_institute_of_technology_jalandhar_1.jpg",
+    "location": "Jalandhar, Punjab",
+    "official_website": "https://nitj.ac.in"
+  },
+  "University of Hyderabad": {
+    "campus_area_acres": 2300,
+    "description": "The University of Hyderabad is a premier central university known for its research-driven academic environment and interdisciplinary approach to higher education. It is recognized as a Centre of Excellence by the University Grants Commission and offers world-class research facilities across multiple disciplines.",
+    "established_year": 1974,
+    "image_path": "images/colleges/university_of_hyderabad_2.jpg",
+    "location": "Hyderabad, Telangana",
+    "official_website": "https://uohyd.ac.in/"
+  },
+  "School of Planning and Architecture: Vijayawada": {
+    "campus_area_acres": 50,
+    "description": "School of Planning and Architecture (SPA) Vijayawada is a premier institution specializing in architecture and urban planning education. It is part of the prestigious SPA network and offers innovative design programs that prepare students for professional careers in architectural and urban design.",
+    "established_year": 2008,
+    "image_path": "images/colleges/school_of_planning_and_architecture_vijayawada_1.jpg",
+    "location": "Vijayawada, Andhra Pradesh",
+    "official_website": "https://www.spavjy.ac.in/"
+  },
+  "Indian Institute of Information Technology, Vadodara International Campus Diu (IIITVICD)": {
+    "campus_area_acres": null,
+    "description": "IIIT Vadodara International Campus Diu is a specialized technical institute focusing on information technology and digital education. It is part of the Indian Institute of Information Technology (IIIT) network, known for providing high-quality technical education with a modern curriculum in information technology.",
+    "established_year": 2016,
+    "image_path": "images/colleges/indian_institute_of_information_technology_vadodara_international_campus_diu_iiitvicd_1.jpg",
+    "location": "Diu, Gujarat",
+    "official_website": "https://www.iiitvadodara.ac.in/"
+  },
+  "Central University of Rajasthan, Rajasthan": {
+    "campus_area_acres": 521,
+    "description": "Central University of Rajasthan is a premier public university established to provide high-quality technical and interdisciplinary education in the state of Rajasthan. The university offers multiple engineering and science programs with a focus on research and innovation in emerging technological domains.",
+    "established_year": 2009,
+    "image_path": "images/colleges/central_university_of_rajasthan_rajasthan_1.jpg",
+    "location": "Bandarsindri, Rajasthan",
+    "official_website": "https://www.curaj.ac.in"
+  },
+  "Indian Institute of Technology Gandhinagar": {
+    "campus_area_acres": 400,
+    "description": "IIT Gandhinagar is a premier technical institute known for its innovative interdisciplinary approach to engineering education and research. The institute emphasizes holistic learning with a strong focus on creativity, critical thinking, and global perspectives in technical education.",
+    "established_year": 2008,
+    "image_path": "images/colleges/indian_institute_of_technology_gandhinagar_1.jpg",
+    "location": "Gandhinagar, Gujarat",
+    "official_website": "https://www.iitgn.ac.in"
+  },
+  "Indian Institute of Technology Delhi": {
+    "campus_area_acres": 125,
+    "description": "IIT Delhi is a premier engineering and technology institute recognized as one of the top-ranked technical universities in India. It offers world-class research and academic programs across multiple engineering disciplines, with a strong emphasis on innovation and technological advancement.",
+    "established_year": 1961,
+    "image_path": "images/colleges/indian_institute_of_technology_delhi_1.jpg",
+    "location": "New Delhi, Delhi",
+    "official_website": "https://www.iitd.ac.in/"
+  },
+  "Institute of Engineering and Technology, Dr. H. S. Gour University. Sagar (A Central University)": {
+    "campus_area_acres": 200,
+    "description": "The Institute of Engineering and Technology at Dr. H. S. Gour University is a prominent engineering education center located in central India. It is part of a central university known for providing quality technical education and research opportunities to students in the Madhya Pradesh region.",
+    "established_year": 2004,
+    "image_path": "images/colleges/institute_of_engineering_and_technology_dr_h_s_gour_university_sagar_a_central_university_1.jpg",
+    "location": "Sagar, Madhya Pradesh",
+    "official_website": "https://dhsgsu.edu.in"
+  },
+  "Indian Institute of Technology Palakkad": {
+    "campus_area_acres": 250,
+    "description": "IIT Palakkad is a premier technical institution established as part of the Indian Institutes of Technology network, offering world-class engineering and scientific education. The campus is known for its modern infrastructure and focus on innovative technological research and interdisciplinary learning.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_technology_palakkad_1.jpg",
+    "location": "Palakkad, Kerala",
+    "official_website": "https://www.iitpkd.ac.in/"
+  },
+  "National Institute of Technology Puducherry": {
+    "campus_area_acres": 100,
+    "description": "National Institute of Technology Puducherry is a premier engineering institution established under the Ministry of Education to provide high-quality technical education. The college offers undergraduate and postgraduate programs in various engineering disciplines with a focus on research and innovation.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_puducherry_1.jpg",
+    "location": "Karaikal, Puducherry",
+    "official_website": "https://nitpy.ac.in"
+  },
+  "Malaviya National Institute of Technology Jaipur": {
+    "campus_area_acres": 250,
+    "description": "Malaviya National Institute of Technology (MNIT) Jaipur is a premier technical institute recognized as an Institute of National Importance by the Government of India. It offers world-class engineering and technology education with a strong emphasis on research and innovation across multiple disciplines.",
+    "established_year": 1963,
+    "image_path": "images/colleges/malaviya_national_institute_of_technology_jaipur_1.jpg",
+    "location": "Jaipur, Rajasthan",
+    "official_website": "https://mnit.ac.in"
+  },
+  "National Institute of Technology, Uttarakhand": {
+    "campus_area_acres": 100,
+    "description": "National Institute of Technology, Uttarakhand is a premier technical education institution established as part of the NIT system to provide high-quality engineering and technology education in the Uttarakhand region. The institute offers undergraduate and postgraduate programs across multiple engineering disciplines, focusing on academic excellence and research innovation.",
+    "established_year": 2009,
+    "image_path": "images/colleges/national_institute_of_technology_uttarakhand_1.jpg",
+    "location": "Srinagar, Uttarakhand",
+    "official_website": "https://nituk.ac.in"
+  },
+  "Indian Institute of Handloom Technology, Salem": {
+    "campus_area_acres": 20,
+    "description": "Indian Institute of Handloom Technology is a specialized institution focused on advanced education and research in textile and handloom technology. The college plays a crucial role in preserving and innovating traditional textile craftsmanship while preparing students for technical careers in the textile industry.",
+    "established_year": 1993,
+    "image_path": "images/colleges/indian_institute_of_handloom_technology_salem_1.jpg",
+    "location": "Salem, Tamil Nadu",
+    "official_website": "https://iiht.ac.in"
+  },
+  "National Institute of Advanced Manufacturing Technology, Ranchi": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Advanced Manufacturing Technology (NIAMT) is a premier technical institute specializing in advanced manufacturing technologies and engineering education. The institute focuses on cutting-edge research and training in manufacturing processes, industrial automation, and technological innovation.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_advanced_manufacturing_technology_ranchi_1.jpg",
+    "location": "Ranchi, Jharkhand",
+    "official_website": "https://niamt.ac.in"
+  },
+  "Indian Institute of Technology Kanpur": {
+    "campus_area_acres": 1055,
+    "description": "IIT Kanpur is a premier technology institute known for its cutting-edge research, innovative curriculum, and strong emphasis on interdisciplinary learning. Established as one of the first Indian Institutes of Technology, it has been a pioneering institution in engineering education and technological innovation in India.",
+    "established_year": 1959,
+    "image_path": "images/colleges/indian_institute_of_technology_kanpur_1.jpg",
+    "location": "Kanpur, Uttar Pradesh",
+    "official_website": "https://www.iitk.ac.in"
+  },
+  "Indian Institute of Technology Goa": {
+    "campus_area_acres": 100,
+    "description": "IIT Goa is a premier technical institution established as part of the Indian Institutes of Technology (IIT) network, known for its high-quality engineering education and research. The institute offers undergraduate and postgraduate programs with a focus on cutting-edge technological education and innovation.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_technology_goa_1.jpg",
+    "location": "Goa, Goa",
+    "official_website": "https://www.iitgoa.ac.in"
+  },
+  "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY SENAPATI MANIPUR": {
+    "campus_area_acres": 50,
+    "description": "IIIT Senapati is a specialized technical institution focusing on information technology and computer science education in the northeastern region of India. The institute aims to develop skilled IT professionals and contribute to the technological advancement of Manipur and the surrounding areas.",
+    "established_year": 2016,
+    "image_path": "images/colleges/indian_institute_of_information_technology_senapati_manipur_1.jpeg",
+    "location": "Senapati, Manipur",
+    "official_website": "https://www.iiitsenapati.ac.in"
+  },
+  "Indian Institute of Technology Madras": {
+    "campus_area_acres": 620,
+    "description": "IIT Madras is a premier engineering and research institute consistently ranked as one of the top technical universities in India. Known for its world-class research facilities, innovative academic programs, and strong industry collaborations, the institute has been a leader in technological education and development.",
+    "established_year": 1959,
+    "image_path": "images/colleges/indian_institute_of_technology_madras_1.jpg",
+    "location": "Chennai, Tamil Nadu",
+    "official_website": "https://www.iitm.ac.in"
+  },
+  "Indian Institute of Information Technology(IIIT), Vadodara, Gujrat": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology (IIIT) Vadodara is a premier technical institute focused on providing high-quality education in information technology and computer science. The institute is dedicated to producing skilled professionals and researchers in cutting-edge technological domains.",
+    "established_year": 2013,
+    "image_path": "images/colleges/indian_institute_of_information_technologyiiit_vadodara_gujrat_2.jpg",
+    "location": "Vadodara, Gujarat",
+    "official_website": "https://iiitvadodara.ac.in/"
+  },
+  "National Institute of Food Technology Entrepreneurship and Management, Kundli": {
+    "campus_area_acres": 52,
+    "description": "National Institute of Food Technology Entrepreneurship and Management (NIFTEM) is a unique specialized institution focused on food technology, entrepreneurship, and management education. It offers innovative programs that bridge technical knowledge with food industry management, preparing students for leadership roles in the food sector.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_food_technology_entrepreneurship_and_management_kundli_1.jpg",
+    "location": "Kundli, Haryana",
+    "official_website": "https://www.niftem.ac.in/"
+  },
+  "Indian Institute of Technology Mandi": {
+    "campus_area_acres": 534,
+    "description": "IIT Mandi is a premier technology institution established as part of the Indian Institutes of Technology (IIT) network, known for its innovative engineering education and research in a scenic Himalayan campus. The institute focuses on cutting-edge technological education and interdisciplinary research approaches.",
+    "established_year": 2009,
+    "image_path": "images/colleges/indian_institute_of_technology_mandi_1.jpg",
+    "location": "Mandi, Himachal Pradesh",
+    "official_website": "https://www.iitmandi.ac.in/"
+  },
+  "Institute of Infrastructure, Technology, Research and Management-Ahmedabad": {
+    "campus_area_acres": 30,
+    "description": "IITRAM is a specialized institute focusing on infrastructure and technology education, offering advanced engineering programs with a strong emphasis on research and practical applications in infrastructure development.",
+    "established_year": 2014,
+    "image_path": "images/colleges/institute_of_infrastructure_technology_research_and_managementahmedabad_1.jpg",
+    "location": "Ahmedabad, Gujarat",
+    "official_website": "https://www.iitram.ac.in/"
+  },
+  "Jawaharlal Nehru University, Delhi": {
+    "campus_area_acres": 1000,
+    "description": "Jawaharlal Nehru University (JNU) is a prestigious central university known for its strong academic reputation and research-oriented environment. Located in New Delhi, it is renowned for its humanities, social sciences, and interdisciplinary academic programs, with a significant focus on social justice and academic excellence.",
+    "established_year": 1969,
+    "image_path": "images/colleges/jawaharlal_nehru_university_delhi_1.jpeg",
+    "location": "Delhi, Delhi",
+    "official_website": "https://www.jnu.ac.in"
+  },
+  "National Institute of Technology Delhi": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Technology Delhi is a premier technical education institution that offers undergraduate and postgraduate engineering programs. It is recognized for its high-quality technical education, research opportunities, and strong industry connections in the national capital region.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_delhi_1.jpg",
+    "location": "New Delhi, Delhi",
+    "official_website": "https://nitdelhi.ac.in"
+  },
+  "Indian Institute of Technology Kharagpur": {
+    "campus_area_acres": 2100,
+    "description": "IIT Kharagpur is the first and oldest Indian Institute of Technology, renowned for its exceptional engineering education and research capabilities. It is a premier institution that has consistently been ranked among the top technical universities in India, producing world-class engineers and researchers.",
+    "established_year": 1951,
+    "image_path": "images/colleges/indian_institute_of_technology_kharagpur_1.jpg",
+    "location": "Kharagpur, West Bengal",
+    "official_website": "https://www.iitkgp.ac.in/"
+  },
+  "Visvesvaraya National Institute of Technology, Nagpur": {
+    "campus_area_acres": 330,
+    "description": "Visvesvaraya National Institute of Technology (VNIT) is a premier engineering institution named after the legendary Indian engineer Sir M. Visvesvaraya. It is a centrally funded technical institute known for its high-quality engineering education and research across multiple disciplines.",
+    "established_year": 1960,
+    "image_path": "images/colleges/visvesvaraya_national_institute_of_technology_nagpur_1.jpg",
+    "location": "Nagpur, Maharashtra",
+    "official_website": "https://vnit.ac.in"
+  },
+  "Indian Institute of Information Technology (IIIT), Sri City, Chittoor": {
+    "campus_area_acres": 200,
+    "description": "IIIT Sri City is a specialized technical institute focusing on information technology and computer science education. It is part of the prestigious IIIT network, known for producing high-quality IT professionals and researchers with strong industry-aligned curriculum.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_information_technology_iiit_sri_city_chittoor_1.png",
+    "location": "Sri City, Andhra Pradesh",
+    "official_website": "https://iiits.ac.in/"
+  },
+  "Indian Institute of Information Technology(IIIT) Kalyani, West Bengal": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology (IIIT) Kalyani is a premier technical institution focused on advanced information technology and computer science education. The institute is dedicated to providing high-quality technical education and research opportunities in cutting-edge technological domains.",
+    "established_year": 2014,
+    "image_path": "images/colleges/indian_institute_of_information_technologyiiit_kalyani_west_bengal_1.jpg",
+    "location": "Kalyani, West Bengal",
+    "official_website": "https://iiitkalyani.ac.in/"
+  },
+  "National Institute of Technology, Andhra Pradesh": {
+    "campus_area_acres": 250,
+    "description": "National Institute of Technology, Andhra Pradesh (NIT-AP) is a premier technical education institution established under the Ministry of Education's National Institutes of Technology (NIT) system. The college offers undergraduate and postgraduate engineering programs with a strong focus on research and innovation in various technical disciplines.",
+    "established_year": 2015,
+    "image_path": "images/colleges/national_institute_of_technology_andhra_pradesh_1.webp",
+    "location": "Tadepalligudem, Andhra Pradesh",
+    "official_website": "https://nitap.ac.in"
+  },
+  "Indian Institute of Technology Roorkee": {
+    "campus_area_acres": 365,
+    "description": "IIT Roorkee is one of the oldest and most prestigious technical institutions in India, originally established as the Thomason College of Civil Engineering. It is renowned for its exceptional engineering education, cutting-edge research, and has produced numerous distinguished alumni who have made significant contributions to various fields of technology and innovation.",
+    "established_year": 1847,
+    "image_path": "images/colleges/indian_institute_of_technology_roorkee_1.jpg",
+    "location": "Roorkee, Uttarakhand",
+    "official_website": "https://www.iitr.ac.in/"
+  },
+  "National Institute of Technology Durgapur": {
+    "campus_area_acres": 185,
+    "description": "National Institute of Technology Durgapur is a premier technical education institution established as a center of excellence in engineering and technological education. It is known for its strong academic programs, research contributions, and industry-aligned curriculum in various engineering disciplines.",
+    "established_year": 1963,
+    "image_path": "images/colleges/national_institute_of_technology_durgapur_2.jpg",
+    "location": "Durgapur, West Bengal",
+    "official_website": "https://www.nitdgp.ac.in"
+  },
+  "Indian Institute of Information Technology(IIIT) Kottayam": {
+    "campus_area_acres": 25,
+    "description": "Indian Institute of Information Technology (IIIT) Kottayam is a premier technical institution focused on providing high-quality education in information technology and computer science. The institute is dedicated to nurturing innovative tech talent and supporting cutting-edge research in digital technologies.",
+    "established_year": 2017,
+    "image_path": "images/colleges/indian_institute_of_information_technologyiiit_kottayam_1.jpg",
+    "location": "Kottayam, Kerala",
+    "official_website": "https://www.iiitk.ac.in"
+  },
+  "Assam University, Silchar": {
+    "campus_area_acres": 285,
+    "description": "Assam University is a prominent public university located in Silchar, known for its strong engineering and technical education programs. The university plays a crucial role in higher education development in northeastern India, offering diverse academic opportunities across multiple disciplines.",
+    "established_year": 1994,
+    "image_path": "images/colleges/assam_university_silchar_1.webp",
+    "location": "Silchar, Assam",
+    "official_website": "https://www.aus.ac.in"
+  },
+  "Indian Institute of Information Technology Design and Manufacturing Kurnool, Andhra Pradesh": {
+    "campus_area_acres": 200,
+    "description": "IIITDM Kurnool is a premier technical institute focused on design and manufacturing engineering, established as part of the Indian Institutes of Information Technology (IIIT) network. The institute specializes in creating engineers with strong skills in design, innovation, and advanced manufacturing technologies.",
+    "established_year": 2015,
+    "image_path": "images/colleges/indian_institute_of_information_technology_design_and_manufacturing_kurnool_andhra_pradesh_1.jpg",
+    "location": "Kurnool, Andhra Pradesh",
+    "official_website": "https://iiitdmk.ac.in/"
+  },
+  "National Institute of Technology Karnataka, Surathkal": {
+    "campus_area_acres": 280,
+    "description": "National Institute of Technology Karnataka (NITK) is a premier technical institution known for its exceptional engineering education and research capabilities. Located in Surathkal, the institute offers world-class undergraduate and postgraduate programs across multiple engineering disciplines. NITK is renowned for its strong industry connections and high-quality research output.",
+    "established_year": 1960,
+    "image_path": "images/colleges/national_institute_of_technology_karnataka_surathkal_1.jpg",
+    "location": "Surathkal, Karnataka",
+    "official_website": "https://www.nitk.ac.in"
+  },
+  "School of Planning and Architecture, Bhopal": {
+    "campus_area_acres": 50,
+    "description": "School of Planning and Architecture (SPA Bhopal) is a premier national-level institute specializing in architecture and urban planning education. It is one of the few specialized institutions in India dedicated to training professionals in architectural design and urban development.",
+    "established_year": 2008,
+    "image_path": "images/colleges/school_of_planning_and_architecture_bhopal_1.jpg",
+    "location": "Bhopal, Madhya Pradesh",
+    "official_website": "https://www.spabhopal.ac.in/"
+  },
+  "Indian Institute of Technology Bhilai": {
+    "campus_area_acres": 220,
+    "description": "Indian Institute of Technology (IIT) Bhilai is a premier technical institution established as part of the expansion of the prestigious IIT network in India. The institute offers high-quality undergraduate and postgraduate engineering education with a focus on cutting-edge research and innovation in technological fields.",
+    "established_year": 2009,
+    "image_path": "images/colleges/indian_institute_of_technology_bhilai_1.jpg",
+    "location": "Bhilai, Chhattisgarh",
+    "official_website": "https://www.iitbhilai.ac.in/"
+  },
+  "School of Planning and Architecture, New Delhi": {
+    "campus_area_acres": 25,
+    "description": "School of Planning and Architecture (SPA) is a premier national-level institution specializing in architecture, urban planning, and design education. Recognized as a top-tier institute, it offers high-quality professional programs and is known for its innovative approach to architectural and urban design education.",
+    "established_year": 1941,
+    "image_path": "images/colleges/school_of_planning_and_architecture_new_delhi_1.jpg",
+    "location": "New Delhi, Delhi",
+    "official_website": "https://spa.edu.in/"
+  },
+  "National Institute of Electronics and Information Technology, Aurangabad (Maharashtra)": {
+    "campus_area_acres": null,
+    "description": "National Institute of Electronics and Information Technology (NIELIT) Aurangabad is a premier technical education institution focused on electronics, information technology, and digital skills training. The institute offers specialized courses in cutting-edge technology domains and provides industry-relevant skill development programs.",
+    "established_year": 2008,
+    "image_path": "images/colleges/national_institute_of_electronics_and_information_technology_aurangabad_maharashtra_1.jpg",
+    "location": "Aurangabad, Maharashtra",
+    "official_website": "https://nielit.gov.in/aurangabad"
+  },
+  "National Institute of Technology Patna": {
+    "campus_area_acres": 170,
+    "description": "National Institute of Technology Patna is a premier engineering institution established as a College of Engineering under Bihar College of Engineering. It is a centrally funded technical institute that offers undergraduate and postgraduate programs in various engineering disciplines with a strong focus on research and innovation.",
+    "established_year": 1886,
+    "image_path": "images/colleges/national_institute_of_technology_patna_2.jpg",
+    "location": "Patna, Bihar",
+    "official_website": "https://www.nitp.ac.in"
+  },
+  "Indian Institute of Carpet Technology,  Bhadohi": {
+    "campus_area_acres": 10,
+    "description": "The Indian Institute of Carpet Technology is a specialized institution focused on advanced education and research in carpet technology and textile engineering. It plays a crucial role in supporting India's renowned carpet manufacturing industry, particularly in the Bhadohi region known for its carpet production.",
+    "established_year": 1990,
+    "image_path": "images/colleges/indian_institute_of_carpet_technology_bhadohi_1.jpg",
+    "location": "Bhadohi, Uttar Pradesh",
+    "official_website": "https://iict.ac.in"
+  },
+  "Indian Institute of Technology Ropar": {
+    "campus_area_acres": 510,
+    "description": "IIT Ropar is a premier technical institute established as part of the Indian Institutes of Technology system, known for its cutting-edge engineering education and research. The institute focuses on innovative technological education and interdisciplinary research, preparing students for leadership roles in engineering and technology.",
+    "established_year": 2008,
+    "image_path": "images/colleges/indian_institute_of_technology_ropar_1.jpg",
+    "location": "Rupnagar, Punjab",
+    "official_website": "https://www.iitrpr.ac.in/"
+  },
+  "CU Jharkhand": {
+    "campus_area_acres": 150,
+    "description": "Central University of Jharkhand is a premier public university focused on engineering and technical education in the state of Jharkhand. The institution offers modern infrastructure and aims to provide quality technical education to students from the region and beyond.",
+    "established_year": 2009,
+    "image_path": "images/colleges/cu_jharkhand_1.jpg",
+    "location": "Ranchi, Jharkhand",
+    "official_website": "https://cuj.ac.in"
+  },
+  "International Institute of Information Technology, Bhubaneswar": {
+    "campus_area_acres": 25,
+    "description": "International Institute of Information Technology, Bhubaneswar (IIIT Bhubaneswar) is a premier technical institute focused on advanced computer science and information technology education. The institute is known for its strong research orientation and cutting-edge technology programs in computer science and engineering.",
+    "established_year": 2013,
+    "image_path": "images/colleges/international_institute_of_information_technology_bhubaneswar_1.jpg",
+    "location": "Bhubaneswar, Odisha",
+    "official_website": "https://www.iiitbh.ac.in/"
+  },
+  "Central University of Haryana": {
+    "campus_area_acres": 200,
+    "description": "Central University of Haryana is a premier public university established to provide quality higher education in technical and research domains. The university offers multidisciplinary academic programs with a focus on engineering, sciences, and humanities, contributing to the educational landscape of Haryana.",
+    "established_year": 2009,
+    "image_path": "images/colleges/central_university_of_haryana_1.jpg",
+    "location": "Mahendragarh, Haryana",
+    "official_website": "https://cuh.ac.in"
+  },
+  "National Institute of Technology Goa": {
+    "campus_area_acres": 50,
+    "description": "National Institute of Technology Goa is a premier technical education institution established to provide high-quality engineering and technology education in the state of Goa. The institute offers undergraduate and postgraduate programs across multiple engineering disciplines, focusing on academic excellence and research-driven learning.",
+    "established_year": 2010,
+    "image_path": "images/colleges/national_institute_of_technology_goa_1.jpg",
+    "location": "Ponda, Goa",
+    "official_website": "https://nitgoa.ac.in"
+  },
+  "Indian Institute of Technology Bombay": {
+    "campus_area_acres": 550,
+    "description": "IIT Bombay is a premier national-level technical research university known for its world-class engineering education and cutting-edge research across multiple disciplines. Consistently ranked among the top engineering institutions in India, it has a strong reputation for innovation, advanced research, and producing highly skilled technological professionals.",
+    "established_year": 1958,
+    "image_path": "images/colleges/indian_institute_of_technology_bombay_1.jpg",
+    "location": "Mumbai, Maharashtra",
+    "official_website": "https://www.iitb.ac.in"
+  },
+  "Maulana Azad National Institute of Technology Bhopal": {
+    "campus_area_acres": 250,
+    "description": "Maulana Azad National Institute of Technology (MANIT) is a premier government engineering institution recognized as an Institute of National Importance. It offers high-quality technical education across multiple engineering disciplines and is known for its strong research programs and industry connections.",
+    "established_year": 1960,
+    "image_path": "images/colleges/maulana_azad_national_institute_of_technology_bhopal_1.jpg",
+    "location": "Bhopal, Madhya Pradesh",
+    "official_website": "https://www.manit.ac.in/"
+  },
+  "North-Eastern Hill University, Shillong": {
+    "campus_area_acres": 400,
+    "description": "North-Eastern Hill University (NEHU) is a premier public university located in the picturesque city of Shillong, known for its strong focus on research and higher education in the Northeastern region of India. The university offers a wide range of engineering and interdisciplinary programs, contributing significantly to technical education in the northeastern states.",
+    "established_year": 1973,
+    "image_path": "images/colleges/northeastern_hill_university_shillong_1.jpg",
+    "location": "Shillong, Meghalaya",
+    "official_website": "https://www.nehu.ac.in"
+  },
+  "Indian Institute of Information Technology Lucknow": {
+    "campus_area_acres": null,
+    "description": "Indian Institute of Information Technology (IIIT) Lucknow is a premier technical institution specializing in information technology and computer science education. The institute focuses on providing high-quality technical education and research in cutting-edge technological domains.",
+    "established_year": 2017,
+    "image_path": "images/colleges/indian_institute_of_information_technology_lucknow_1.jpg",
+    "location": "Lucknow, Uttar Pradesh",
+    "official_website": "https://www.iiitl.ac.in/"
+  },
+  "Indian Institute of Information Technology Guwahati": {
+    "campus_area_acres": 125,
+    "description": "Indian Institute of Information Technology Guwahati is a premier technical institute focused on advanced information technology and computer science education. The institute is part of the national IIIT network and aims to produce top-tier technology professionals and researchers in the northeastern region of India.",
+    "established_year": 2013,
+    "image_path": "images/colleges/indian_institute_of_information_technology_guwahati_1.jpg",
+    "location": "Guwahati, Assam",
+    "official_website": "https://www.iiitg.ac.in/"
+  },
+  "Chhattisgarh Swami Vivekanada Technical University, Bhilai (CSVTU Bhilai)": {
+    "campus_area_acres": 100,
+    "description": "Chhattisgarh Swami Vivekananda Technical University is a prominent state technical university dedicated to engineering and technological education in Chhattisgarh. The university plays a crucial role in promoting technical education and skill development for students in the central Indian region.",
+    "established_year": 2004,
+    "image_path": "images/colleges/chhattisgarh_swami_vivekanada_technical_university_bhilai_csvtu_bhilai_1.jpeg",
+    "location": "Bhilai, Chhattisgarh",
+    "official_website": "https://csvtu.ac.in/"
+  },
+  "Shri Mata Vaishno Devi University, Katra, Jammu and Kashmir": {
+    "campus_area_acres": 250,
+    "description": "Shri Mata Vaishno Devi University is a prominent technical education institution located near the famous Vaishno Devi shrine, offering comprehensive engineering and technology programs. The university is known for its picturesque mountain campus and strong focus on research and innovation in technical education.",
+    "established_year": 2002,
+    "image_path": "images/colleges/shri_mata_vaishno_devi_university_katra_jammu_and_kashmir_1.jpg",
+    "location": "Katra, Jammu and Kashmir",
+    "official_website": "https://www.smvdu.ac.in/"
+  },
+  "National Institute of Technology, Srinagar": {
+    "campus_area_acres": null,
+    "description": "National Institute of Technology, Srinagar is a premier technical education institution established under the Ministry of Education's NIT system. It offers undergraduate and postgraduate engineering programs with a focus on high-quality technical education in the challenging and scenic Kashmir region.",
+    "established_year": 2002,
+    "image_path": "images/colleges/national_institute_of_technology_srinagar_1.jpg",
+    "location": "Srinagar, Jammu and Kashmir",
+    "official_website": "https://nitsri.ac.in"
+  },
+  "Indian Institute of Technology Dharwad": {
+    "campus_area_acres": 250,
+    "description": "IIT Dharwad is a premier technical institution established as part of the Indian Institutes of Technology (IIT) network, focusing on high-quality engineering and technological education. The institute offers undergraduate and postgraduate programs in engineering and sciences, emphasizing research, innovation, and academic excellence.",
+    "established_year": 2016,
+    "image_path": "images/colleges/indian_institute_of_technology_dharwad_2.jpg",
+    "location": "Dharwad, Karnataka",
+    "official_website": "https://www.iitdh.ac.in/"
+  },
+  "Indian Institute of Technology Bhubaneswar": {
+    "campus_area_acres": 936,
+    "description": "IIT Bhubaneswar is a premier technical institution established as part of the expansion of the Indian Institutes of Technology network. The institute offers world-class engineering and research programs, known for its strong academic rigor and cutting-edge research facilities in various engineering disciplines.",
+    "established_year": 2008,
+    "image_path": "images/colleges/indian_institute_of_technology_bhubaneswar_1.webp",
+    "location": "Bhubaneswar, Odisha",
+    "official_website": "https://www.iitbbs.ac.in/"
+  },
+  "International Institute of Information Technology, Naya Raipur": {
+    "campus_area_acres": 50,
+    "description": "International Institute of Information Technology, Naya Raipur (IIIT-NR) is a premier technical institute focusing on information technology and computer science education. The institute is known for its strong research orientation and industry-aligned curriculum in emerging technological domains.",
+    "established_year": 2015,
+    "image_path": "images/colleges/international_institute_of_information_technology_naya_raipur_1.jpg",
+    "location": "Naya Raipur, Chhattisgarh",
+    "official_website": "https://www.iiit-nr.ac.in"
+  },
+  "National Institute of Technology Raipur": {
+    "campus_area_acres": 534,
+    "description": "National Institute of Technology Raipur is a premier engineering institution established under the Ministry of Education, offering high-quality technical education and research opportunities. The institute is known for its strong academic programs in engineering and technology, with a focus on producing skilled professionals and innovative researchers.",
+    "established_year": 2004,
+    "image_path": "images/colleges/national_institute_of_technology_raipur_1.jpg",
+    "location": "Raipur, Chhattisgarh",
+    "official_website": "https://www.nitrr.ac.in/"
+  },
+  "Indian Institute of Information Technology (IIIT) Nagpur": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology (IIIT) Nagpur is a premier technical institution focused on advanced information technology and computer science education. The institute is dedicated to producing high-quality IT professionals and researchers through innovative academic programs and industry-aligned curriculum.",
+    "established_year": 2016,
+    "location": "Nagpur, Maharashtra",
+    "official_website": "https://www.iiit-nagpur.ac.in/"
+  },
+  "Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacture Jabalpur": {
+    "campus_area_acres": 230,
+    "description": "Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacture (PDPM IIITDM) Jabalpur is a premier technical institute focused on innovative engineering education in information technology, design, and manufacturing domains. The institute offers specialized undergraduate and postgraduate programs with a strong emphasis on interdisciplinary learning and industry-relevant skills.",
+    "established_year": 2005,
+    "location": "Jabalpur, Madhya Pradesh",
+    "official_website": "https://iiitdmj.ac.in/"
+  },
+  "Indian Institute of Information Technology(IIIT) Una, Himachal Pradesh": {
+    "campus_area_acres": 54,
+    "description": "IIIT Una is a prestigious technical institute established under the Ministry of Education's initiative to promote specialized information technology education. The institute focuses on providing high-quality technical education in computer science and information technology domains, preparing students for leading roles in the digital technology landscape.",
+    "established_year": 2015,
+    "location": "Una, Himachal Pradesh",
+    "official_website": "https://iiitu.ac.in/"
+  },
+  "National Institute of Technology Calicut": {
+    "campus_area_acres": 350,
+    "description": "National Institute of Technology Calicut (NIT Calicut) is a premier technical education institution known for its strong engineering programs and research capabilities. It is one of the 31 National Institutes of Technology in India, offering undergraduate and postgraduate courses across multiple engineering disciplines.",
+    "established_year": 1961,
+    "location": "Calicut, Kerala",
+    "official_website": "https://www.nitc.ac.in/"
+  },
+  "Sant Longowal Institute of Engineering and Technology": {
+    "campus_area_acres": 182,
+    "description": "Sant Longowal Institute of Engineering and Technology (SLIET) is a premier autonomous institute recognized by the Government of India, offering specialized engineering and technology education. The institute is known for its strong focus on technical education and research in various engineering disciplines.",
+    "established_year": 1989,
+    "image_path": "images/colleges/sant_longowal_institute_of_engineering_and_technology_1.jpg",
+    "location": "Longowal, Punjab",
+    "official_website": "https://sliet.ac.in"
+  },
+  "Indian Institute of Technology Patna": {
+    "campus_area_acres": 200,
+    "description": "IIT Patna is a premier technical institution established as part of the Indian Institutes of Technology system, known for its high-quality engineering education and research. The institute offers undergraduate, postgraduate, and doctoral programs across multiple engineering and science disciplines, with a strong emphasis on cutting-edge technological innovation.",
+    "established_year": 2008,
+    "image_path": "images/colleges/indian_institute_of_technology_patna_1.jpg",
+    "location": "Patna, Bihar",
+    "official_website": "https://www.iitp.ac.in"
+  },
+  "Puducherry Technological University, Puducherry": {
+    "campus_area_acres": 100,
+    "description": "Puducherry Technological University is a leading technical education institution in the Union Territory of Puducherry, offering quality engineering and technology programs. The university is known for its modern infrastructure and focus on innovative technical education in South India.",
+    "established_year": 2007,
+    "image_path": "images/colleges/puducherry_technological_university_puducherry_1.jpg",
+    "location": "Puducherry, Puducherry",
+    "official_website": "https://ptu.ac.in"
+  },
+  "Indian Institute of Information Technology Bhagalpur": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology Bhagalpur is a premier technical institute focused on providing high-quality education in information technology and engineering. The institute aims to develop skilled professionals who can contribute to India's technological advancement and digital innovation.",
+    "established_year": 2016,
+    "image_path": "images/colleges/indian_institute_of_information_technology_bhagalpur_1.jpg",
+    "location": "Bhagalpur, Bihar",
+    "official_website": "https://iiitbh.ac.in/"
+  },
+  "Indian Institute of Information Technology (IIIT) Pune": {
+    "campus_area_acres": null,
+    "description": "IIIT Pune is a premier technical institute focusing on information technology and computer science education. It is part of the Indian Institutes of Information Technology (IIIT) network, known for its rigorous academic programs and strong industry connections.",
+    "established_year": 2017,
+    "location": "Pune, Maharashtra",
+    "official_website": "https://www.iiitp.ac.in/"
+  },
+  "Indian Institute of Information Technology Surat": {
+    "campus_area_acres": null,
+    "description": "Indian Institute of Information Technology Surat is a premier technical institution focused on advancing information technology education and research. The institute provides cutting-edge undergraduate and postgraduate programs in computer science and engineering disciplines.",
+    "established_year": 2016,
+    "location": "Surat, Gujarat",
+    "official_website": "https://www.iiitsurat.ac.in/"
+  },
+  "Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram": {
+    "campus_area_acres": 220,
+    "description": "IIITDM Kancheepuram is a premier national institute focused on design and manufacturing engineering, offering specialized undergraduate and postgraduate programs. The institute is known for its innovative curriculum that integrates design, technology, and engineering disciplines.",
+    "established_year": 2007,
+    "location": "Kancheepuram, Tamil Nadu",
+    "official_website": "https://www.iiitdm.ac.in/"
+  },
+  "Indian Institute of Information Technology, Agartala": {
+    "campus_area_acres": 50,
+    "description": "Indian Institute of Information Technology, Agartala (IIIT Agartala) is a premier technical institution focusing on advanced information technology and computer science education. The college plays a crucial role in developing technical human resources for the northeastern region of India, providing high-quality engineering and technology programs.",
+    "established_year": 2015,
+    "location": "Agartala, Tripura",
+    "official_website": "https://www.iiitag.ac.in/"
+  },
+  "Indian Institute of Technology Tirupati": {
+    "campus_area_acres": 371,
+    "description": "IIT Tirupati is a premier technical institution established as part of the Indian Institutes of Technology (IIT) network, known for its rigorous engineering education and research programs. Located in the historic city of Tirupati, the institute focuses on cutting-edge technological education and innovation in various engineering disciplines.",
+    "established_year": 2015,
+    "location": "Tirupati, Andhra Pradesh",
+    "official_website": "https://www.iittp.ac.in/"
+  },
+  "Institute of Chemical Technology, Mumbai: Indian Oil Odisha Campus, Bhubaneswar": {
+    "campus_area_acres": 50,
+    "description": "Institute of Chemical Technology (ICT) is a premier national-level institution specializing in chemical engineering, pharmaceuticals, and chemical technology. This specific campus in Bhubaneswar is a collaboration with Indian Oil Corporation, offering specialized technical education in chemical and petroleum-related disciplines.",
+    "established_year": 2015,
+    "location": "Bhubaneswar, Odisha",
+    "official_website": "https://www.ict.edu.in"
+  },
+  "Central University of Jammu": {
+    "campus_area_acres": 180,
+    "description": "Central University of Jammu is a premier higher education institution established to provide quality technical and academic education in the Jammu region. The university offers various undergraduate and postgraduate programs with a focus on research and innovative learning approaches.",
+    "established_year": 2011,
+    "location": "Jammu, Jammu and Kashmir",
+    "official_website": "https://www.cujammu.ac.in/"
+  },
+  "National Institute of Technology Meghalaya": {
+    "campus_area_acres": 210,
+    "description": "National Institute of Technology Meghalaya is a premier technical education institution established to provide high-quality engineering and technology education in Northeast India. The college offers undergraduate and postgraduate programs across multiple engineering disciplines, focusing on academic excellence and research innovation.",
+    "established_year": 2010,
+    "location": "Shillong, Meghalaya",
+    "official_website": "https://www.nitm.ac.in"
+  },
+  "North Eastern Regional Institute of Science and Technology, Nirjuli-791109 (Itanagar),Arunachal Pradesh": {
+    "campus_area_acres": 250,
+    "description": "North Eastern Regional Institute of Science and Technology (NERIST) is a premier technical education institution dedicated to developing engineering talent in Northeast India. The college offers multi-disciplinary engineering programs and plays a crucial role in promoting technical education in the challenging northeastern region of India.",
+    "established_year": 1984,
+    "location": "Nirjuli, Arunachal Pradesh",
+    "official_website": "https://nerist.ac.in"
+  }
+}

@@ -44,14 +44,8 @@ defmodule Counselling.Programs do
           rc.quota in [:all_india, :other_state],
       order_by: [asc: nr.nirf_rank],
       select: %{
-        id: p.id,
-        name: p.name,
-        duration: p.duration,
-        degree_type: p.degree_type,
-        college_name: c.name,
-        college_id: c.id,
-        college_location: c.location,
-        college_class: c.class,
+        program: p,
+        college: c,
         rank: nr.nirf_rank,
         opening_rank: rc.opening_rank,
         closing_rank: rc.closing_rank
@@ -78,7 +72,19 @@ defmodule Counselling.Programs do
         id: p.id,
         name: p.name
       }
-    ) 
+    )
+    |> Repo.all()
+  end
+
+  def list_program_types() do
+    from(p in Program,
+      distinct: p.degree_type,
+      select: p.degree_type,
+      order_by: [
+        asc: fragment("CASE WHEN ? = 'Bachelor of Technology' THEN 0 ELSE 1 END", p.degree_type),
+        asc: p.degree_type
+      ]
+    )
     |> Repo.all()
   end
 end

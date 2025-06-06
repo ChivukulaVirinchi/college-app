@@ -121,7 +121,7 @@
           <div class="aspect-w-16 aspect-h-9 sm:aspect-h-6">
             <img
               class="object-cover w-full h-40 sm:h-48 lg:h-80"
-              src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
+              src={"/#{@college.photo_path}"}
               alt="campus"
               loading="lazy"
             />
@@ -237,10 +237,7 @@
             </div>
             <div class="prose prose-sm prose-gray dark:prose-invert max-w-none sm:prose-base">
               <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {@college.name} is a prestigious {@college.class} institution located in {@college.location},
-                established in {@college.established_year}. The college spans across {@college.campus_area} acres
-                and is known for its excellence in engineering education and research. With state-of-the-art facilities and
-                distinguished faculty, the institution has been consistently ranked among the top engineering colleges in India.
+                {@college.description}
               </p>
             </div>
           </section>
@@ -353,7 +350,7 @@
             </h3>
             <div class="space-y-2 sm:space-y-3">
               <.link
-                href={@college.link_to_website}
+                href={@college.website}
                 target="_blank"
                 class="flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-white transition-colors bg-violet-600 hover:bg-violet-700 dark:bg-violet-700 dark:hover:bg-violet-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 sm:px-4 sm:py-3"
               >

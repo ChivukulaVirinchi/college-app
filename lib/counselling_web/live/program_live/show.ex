@@ -18,14 +18,7 @@ defmodule CounsellingWeb.ProgramLive.Show do
   end
 
   def fields do
-    [
-      college_name: %{
-        label: "College Name",
-        sortable: true,
-        assoc: {:college, :name},
-        searchable: true
-      }
-    ]
+    []
   end
 
   def filters do

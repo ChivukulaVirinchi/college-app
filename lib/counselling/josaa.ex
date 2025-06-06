@@ -7,7 +7,7 @@ defmodule Josaa do
     |> Floki.find("select#college")
     |> Floki.find("option")
     |> Enum.drop(2)
-    |> Enum.map(fn {_, _, [name]} -> name end)
+    |> Enum.map(fn {_, _, [name]} -> name |> String.trim() end)
     |> write_to_json("colleges", "lib/counselling/data/colleges/college-names.json")
   end
 
@@ -44,7 +44,7 @@ defmodule Josaa do
     case Regex.named_captures(regex, degree_string) do
       %{"name" => name, "duration" => duration, "program" => program} ->
         %{
-          name: name,
+          name: String.trim(name),
           duration: String.to_integer(duration),
           degree_type: program
         }
