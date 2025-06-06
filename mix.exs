@@ -61,8 +61,7 @@ defmodule Counselling.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:req, "~> 0.5.10"},
-      # {:live_table, github: "gurujada/live_table", branch: "master"}
-      {:live_table, path: "../../live_table", override: true}
+      {:live_table, git: "https://github.com/gurujada/live_table", branch: "master"}
     ]
   end
 

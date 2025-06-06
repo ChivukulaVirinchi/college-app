@@ -147,7 +147,7 @@ defmodule Counselling.ImageDownloader do
           {:halt, {:ok, relative_path}}
 
         {:error, reason} ->
-          Logger.warn("Failed to download image #{index + 1} for #{college_name}: #{reason}")
+          IO.puts("Failed to download image #{index + 1} for #{college_name}: #{reason}")
           {:cont, {:error, "No images could be downloaded"}}
       end
     end)
