@@ -9,5 +9,8 @@ defmodule Counselling.Repo.Migrations.CreateNirfRankings do
 
       timestamps()
     end
+
+    create index(:nirf_rankings, [:college_id, :year])
+    create index(:nirf_rankings, [:year, :nirf_rank])
   end
 end

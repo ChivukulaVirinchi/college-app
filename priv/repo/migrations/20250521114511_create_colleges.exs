@@ -17,5 +17,8 @@ defmodule Counselling.Repo.Migrations.CreateColleges do
     end
 
     create unique_index(:colleges, [:name])
+    create index(:colleges, [:class])
+    create index(:colleges, [:location])
+    create index(:colleges, [:class, :location])
   end
 end

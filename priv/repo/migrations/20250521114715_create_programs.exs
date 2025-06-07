@@ -12,5 +12,8 @@ defmodule Counselling.Repo.Migrations.CreatePrograms do
     end
 
     create unique_index(:programs, [:name, :duration, :degree_type])
+    create index(:programs, [:name])
+    create index(:programs, [:degree_type])
+    create index(:programs, [:name, :degree_type])
   end
 end

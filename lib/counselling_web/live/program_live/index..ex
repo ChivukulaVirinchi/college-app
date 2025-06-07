@@ -47,63 +47,52 @@ defmodule CounsellingWeb.ProgramLive.Index do
   def rank_filter(query, %{"value" => rank}) do
     number = String.to_integer(rank)
 
-    from(p in query,
-      join: cp in Counselling.CollegePrograms.CollegeProgram,
-      on: p.id == cp.program_id,
-      join: rc in Counselling.Ranks.RankCutoff,
-      on: rc.college_program_id == cp.id,
-      join: c in Counselling.Colleges.College,
-      on: c.id == cp.college_id,
-      where:
-        rc.year == 2024 and rc.category == :gender_neutral and
-          rc.quota in [:all_india, :other_state] and
-          (rc.closing_rank >= ^number or
-             rc.closing_rank +
-               fragment(
-                 """
-                   CASE ?
-                     WHEN 'IIT' THEN ? * 0.05 *
-                       CASE WHEN ? <= 1000 THEN 0.8
-                            WHEN ? <= 5000 THEN 1.0
-                            WHEN ? <= 20000 THEN 1.2
-                            ELSE 1.5 END
-                     WHEN 'NIT' THEN ? * 0.08 *
-                       CASE WHEN ? <= 1000 THEN 0.8
-                            WHEN ? <= 5000 THEN 1.0
-                            WHEN ? <= 20000 THEN 1.2
-                            ELSE 1.5 END
-                     WHEN 'IIIT' THEN ? * 0.12 *
-                       CASE WHEN ? <= 1000 THEN 0.8
-                            WHEN ? <= 5000 THEN 1.0
-                            WHEN ? <= 20000 THEN 1.2
-                            ELSE 1.5 END
-                     ELSE ? * 0.15 *
-                       CASE WHEN ? <= 1000 THEN 0.8
-                            WHEN ? <= 5000 THEN 1.0
-                            WHEN ? <= 20000 THEN 1.2
-                            ELSE 1.5 END
-                   END
-                 """,
-                 c.class,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank,
-                 rc.closing_rank
-               ) >= ^number),
-      distinct: p.id
-    )
+    # Get program IDs that have at least one eligible college_program
+    eligible_program_ids =
+      from(cp in Counselling.CollegePrograms.CollegeProgram,
+        join: rc in Counselling.Ranks.RankCutoff,
+        on: rc.college_program_id == cp.id,
+        join: c in Counselling.Colleges.College,
+        on: c.id == cp.college_id,
+        where:
+          rc.year == 2024 and
+            rc.category == :gender_neutral and
+            rc.quota in [:all_india, :other_state] and
+            (rc.closing_rank >= ^number or
+               rc.closing_rank +
+                 fragment(
+                   """
+                     CASE ?
+                       WHEN 'IIT' THEN ? * 0.05 * CASE WHEN ? <= 1000 THEN 0.8 WHEN ? <= 5000 THEN 1.0 WHEN ? <= 20000 THEN 1.2 ELSE 1.5 END
+                       WHEN 'NIT' THEN ? * 0.08 * CASE WHEN ? <= 1000 THEN 0.8 WHEN ? <= 5000 THEN 1.0 WHEN ? <= 20000 THEN 1.2 ELSE 1.5 END
+                       WHEN 'IIIT' THEN ? * 0.12 * CASE WHEN ? <= 1000 THEN 0.8 WHEN ? <= 5000 THEN 1.0 WHEN ? <= 20000 THEN 1.2 ELSE 1.5 END
+                       ELSE ? * 0.15 * CASE WHEN ? <= 1000 THEN 0.8 WHEN ? <= 5000 THEN 1.0 WHEN ? <= 20000 THEN 1.2 ELSE 1.5 END
+                     END
+                   """,
+                   c.class,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank,
+                   rc.closing_rank
+                 ) >= ^number),
+        select: cp.program_id,
+        distinct: true
+      )
+
+    # Simple IN clause - much faster
+    from(p in query, where: p.id in subquery(eligible_program_ids))
   end
 
   def degree_type(query, %{"degree_type" => "All Degrees"}) do

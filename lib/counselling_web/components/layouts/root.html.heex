@@ -54,6 +54,17 @@
         window.addEventListener("phx:set-theme", ({ detail: { theme } }) => setTheme(theme));
       })();
     </script>
+    
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSDMMF18JD">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JSDMMF18JD');
+    </script>
   </head>
   <body class="b-gray-50 dark:bg-gray-900">
     {@inner_content}

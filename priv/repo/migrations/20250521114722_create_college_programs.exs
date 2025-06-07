@@ -10,5 +10,7 @@ defmodule Counselling.Repo.Migrations.CreateCollegePrograms do
     end
 
     create unique_index(:college_programs, [:college_id, :program_id])
+    create index(:college_programs, [:program_id])
+    create index(:college_programs, [:college_id])
   end
 end
