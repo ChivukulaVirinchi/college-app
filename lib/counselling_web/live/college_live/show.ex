@@ -103,19 +103,14 @@ defmodule CounsellingWeb.CollegeLive.Show do
     """
   end
 
-  # defp process_degree_type("Bachelor of Technology"), do: "B.Tech"
-
-  # defp process_degree_type("Bachelor and Master of Technology (Dual Degree)"),
-  #   do: "B.Tech + M.Tech"
-
-  # defp process_degree_type("Bachelor of Science"), do: "B.Sc"
-
-  # defp process_degree_type("Bachelor of Science and Master of Science (Dual Degree)"),
-  #   do: "B.Sc + M.Sc"
-
-  # defp process_degree_type("Bachelor of Architecture"), do: "B.Arch"
-  # defp process_degree_type("Integrated B. Tech. and MBA"), do: "B.Tech + MBA"
-  # defp process_degree_type("Integrated B. Tech. and M. Tech."), do: "B.Tech + M.Tech"
+  def nirf_helper(rank) do
+    cond do
+      rank == 500 -> "-"
+      rank == 125 -> "100 - 150"
+      rank == 175 -> "150 - 200"
+      true -> rank
+    end
+  end
 
   defp process_quota(:all_india), do: "AI"
   defp process_quota(:home_state), do: "HS"

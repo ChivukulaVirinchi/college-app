@@ -40,9 +40,7 @@ defmodule Counselling.ImageDownloader do
     end
   end
 
-  def download_missing_images do
-    # File.mkdir_p!(@images_dir)
-
+  def generate_missing_banners do
     case load_college_data() do
       {:ok, college_data} ->
         colleges_without_images =
@@ -51,14 +49,28 @@ defmodule Counselling.ImageDownloader do
             image_path = Map.get(data, "image_path")
             is_nil(image_path) or image_path == ""
           end)
-          |> Enum.map(fn {name, _data} -> name end)
+          |> Enum.map(fn {name, data} -> {name, data} end)
 
         Logger.info("Found #{length(colleges_without_images)} colleges without images")
 
         if length(colleges_without_images) > 0 do
-          Logger.info("Starting download for missing images...")
-          process_colleges_for_images(colleges_without_images, college_data)
-          Logger.info("Completed downloading missing images")
+          Logger.info("Starting banner generation...")
+
+          colleges_without_images
+          |> Enum.each(fn {college_name, college_data} ->
+            case Counselling.CollegeBannerGenerator.generate_banner_for_college(
+                   college_name,
+                   college_data
+                 ) do
+              {:ok, path} ->
+                Logger.info("✓ Generated banner for #{college_name}: #{path}")
+
+              {:error, reason} ->
+                Logger.error("✗ Failed to generate banner for #{college_name}: #{reason}")
+            end
+          end)
+
+          Logger.info("Completed banner generation")
         else
           Logger.info("All colleges already have images!")
         end
@@ -68,6 +80,34 @@ defmodule Counselling.ImageDownloader do
         {:error, reason}
     end
   end
+
+  # def download_missing_images do
+
+  #   case load_college_data() do
+  #     {:ok, college_data} ->
+  #       colleges_without_images =
+  #         college_data
+  #         |> Enum.filter(fn {_name, data} ->
+  #           image_path = Map.get(data, "image_path")
+  #           is_nil(image_path) or image_path == ""
+  #         end)
+  #         |> Enum.map(fn {name, _data} -> name end)
+
+  #       Logger.info("Found #{length(colleges_without_images)} colleges without images")
+
+  #       if length(colleges_without_images) > 0 do
+  #         Logger.info("Starting download for missing images...")
+  #         process_colleges_for_images(colleges_without_images, college_data)
+  #         Logger.info("Completed downloading missing images")
+  #       else
+  #         Logger.info("All colleges already have images!")
+  #       end
+
+  #     {:error, reason} ->
+  #       Logger.error("Failed to load college data: #{reason}")
+  #       {:error, reason}
+  #   end
+  # end
 
   defp load_college_data do
     file_path = "priv/static/generated_college_data.json"

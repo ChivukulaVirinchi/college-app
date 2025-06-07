@@ -4,7 +4,7 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
   alias Counselling.Ranks
   alias Counselling.Colleges
   alias Counselling.Programs
-alias CounsellingWeb.RankComponent
+  alias CounsellingWeb.RankComponent
 
   @impl true
   def mount(params, _session, socket) do
@@ -18,7 +18,7 @@ alias CounsellingWeb.RankComponent
     college = Colleges.get_college!(college_id)
     program = Programs.get_program!(program_id)
 
-    rank_cutoffs = Ranks.get_rank_cutoffs(college_id, program_id) |> Counselling.Repo.all()
+    rank_cutoffs = Ranks.get_rank_cutoffs(college_id, program_id)
     chart_data = format_chart_data(rank_cutoffs)
 
     socket =
@@ -32,23 +32,12 @@ alias CounsellingWeb.RankComponent
     {:ok, socket}
   end
 
-  defp process_degree_type("Bachelor of Technology"), do: "B.Tech"
-
-  defp process_degree_type("Bachelor and Master of Technology (Dual Degree)"),
-    do: "B.Tech + M.Tech"
-
-  defp process_degree_type("Bachelor of Science"), do: "B.Sc"
-
-  defp process_degree_type("Bachelor of Science and Master of Science (Dual Degree)"),
-    do: "B.Sc + M.Sc"
-
-  defp process_degree_type("Bachelor of Architecture"), do: "B.Arch"
-  defp process_degree_type("Integrated B. Tech. and MBA"), do: "B.Tech + MBA"
-  defp process_degree_type("Integrated B. Tech. and M. Tech."), do: "B.Tech + M.Tech"
-
-  defp process_quota(:all_india), do: "All India"
-  defp process_quota(:home_state), do: "Home State"
-  defp process_quota(:other_state), do: "Other State"
+  def process_quota(:all_india), do: "All India"
+  def process_quota(:home_state), do: "Home State"
+  def process_quota(:other_state), do: "Other State"
+  def process_quota(:go), do: "Goa"
+  def process_quota(:jk), do: "J & K"
+  def process_quota(:la), do: "Ladakh"
 
   defp process_category(:gender_neutral), do: "Gender Neutral"
   defp process_category(:female), do: "Female Only"

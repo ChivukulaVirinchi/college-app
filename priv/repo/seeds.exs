@@ -137,9 +137,9 @@ Enum.each(corrections, fn {college_name, year, rank} ->
 
   if college do
     NirfRankings.update_ranking(college_name, year, rank)
-    # IO.puts("Updated NIRF rank for #{college_name} in #{year} to #{rank}")
+    #   IO.puts("Updated NIRF rank for #{college_name} in #{year} to #{rank}")
     # else
-    # IO.puts("No college found for name: #{college_name}")
+    #   IO.puts("No college found for name: #{college_name}")
   end
 end)
 

@@ -52,10 +52,10 @@ defmodule CounsellingWeb.CollegeComponent do
       "bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-gray-500"
 
   # Helper function to format NIRF rank display
-  defp format_rank(rank) when rank >= 500, do: "500+"
-  defp format_rank(rank) when rank >= 200, do: "200+"
-  defp format_rank(rank) when rank >= 100, do: "100+"
-  defp format_rank(rank), do: to_string(rank)
+  # defp format_rank(rank) when rank >= 500, do: "500+"
+  # defp format_rank(rank) when rank >= 200, do: "200+"
+  # defp format_rank(rank) when rank >= 100, do: "100+"
+  # defp format_rank(rank), do: to_string(rank)
 
   def college_component(assigns) do
     ~H"""
@@ -108,7 +108,7 @@ defmodule CounsellingWeb.CollegeComponent do
           <div class="flex-1 min-w-0 pr-4">
             <div class="flex items-center flex-wrap gap-2 mb-2">
               <span class={"inline-flex items-center px-2 py-1 text-xs font-medium rounded-full border #{rank_badge_colors(@record.college.class)}"}>
-                NIRF #{format_rank(@record.rank)}
+                NIRF {nirf_helper(@record.rank)}
               </span>
             </div>
             <div class="group/title relative mb-2">
@@ -200,7 +200,7 @@ defmodule CounsellingWeb.CollegeComponent do
       rank == 500 -> "-"
       rank == 125 -> "100 - 150"
       rank == 175 -> "150 - 200"
-      true -> rank
+      true -> "##{rank}"
     end
   end
 

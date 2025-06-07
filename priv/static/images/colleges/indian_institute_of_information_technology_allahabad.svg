@@ -1,0 +1,42 @@
+<svg width="800" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+  <stop offset="0%" style="stop-color:#6b7280;stop-opacity:1" />
+  <stop offset="100%" style="stop-color:#4b5563;stop-opacity:1" />
+</linearGradient>
+
+    <pattern id="dots" patternUnits="userSpaceOnUse" width="20" height="20">
+      <circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#gradient)"/>
+  <rect width="100%" height="100%" fill="url(#dots)"/>
+
+  <!-- Geometric accent -->
+  <polygon points="0,0 150,0 100,300" fill="#6b7280" opacity="0.1"/>
+
+  <!-- Institution badge -->
+  <rect x="40" y="40" width="80" height="30" rx="15" fill="white" opacity="0.9"/>
+  <text x="80" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#6b7280">OTHER</text>
+
+  <!-- College name -->
+  <text x="40" y="120" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="white">
+    Indian Institute of In...
+  </text>
+
+  <!-- Location -->
+  <text x="40" y="150" font-family="Arial, sans-serif" font-size="16" fill="white" opacity="0.8">
+    📍 Allahabad, Uttar Pradesh
+  </text>
+
+  <!-- Established year -->
+  <text x="40" y="180" font-family="Arial, sans-serif" font-size="14" fill="white" opacity="0.7">
+    Est. 1999
+  </text>
+
+  <!-- Decorative element -->
+  <circle cx="700" cy="80" r="60" fill="white" opacity="0.05"/>
+  <circle cx="720" cy="200" r="40" fill="white" opacity="0.05"/>
+</svg>

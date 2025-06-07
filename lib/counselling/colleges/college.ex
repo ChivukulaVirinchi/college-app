@@ -50,6 +50,7 @@ defmodule Counselling.Colleges.College do
   defp slugify(str) do
     str
     |> String.downcase()
-    |> String.replace([" ", ",", "  "], "-")
+    |> String.replace([" ", "  "], "-")
+    |> String.replace(",", "")
   end
 end

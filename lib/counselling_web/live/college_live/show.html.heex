@@ -86,7 +86,7 @@
 <!-- Main Content -->
     <div class="px-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <!-- Helper Info Section -->
-      <section class="relative mb-6 -mt-6 sm:mb-8 sm:-mt-8 lg:mb-12 lg:-mt-12">
+      <%!-- <section class="relative mb-6 -mt-6 sm:mb-8 sm:-mt-8 lg:mb-12 lg:-mt-12">
         <div class="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
           <div class="flex items-start space-x-3">
             <svg
@@ -114,9 +114,9 @@
           </div>
         </div>
       </section>
-      
-<!-- College Image Section -->
-      <section class="relative mb-6 sm:mb-8 lg:mb-12">
+       --%>
+      <!-- College Image Section -->
+      <section class="relative mb-6 -mt-6 sm:-mt-8 lg:-mt-12 sm:mb-8 lg:mb-12">
         <div class="relative overflow-hidden bg-white shadow-2xl rounded-xl sm:rounded-2xl">
           <div class="aspect-w-16 aspect-h-9 sm:aspect-h-6">
             <img
@@ -191,7 +191,7 @@
           <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
             <div class="text-xl font-bold text-violet-600 dark:text-violet-400 sm:text-2xl lg:text-3xl">
               <%= if @college.nirf_rankings != [] do %>
-                {hd(@college.nirf_rankings).nirf_rank}
+                {hd(@college.nirf_rankings).nirf_rank |> nirf_helper()}
               <% else %>
                 <span class="text-gray-400 dark:text-gray-500">-</span>
               <% end %>

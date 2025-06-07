@@ -16,7 +16,7 @@ defmodule Counselling.NirfRankings do
 
       ranking ->
         ranking
-        |> NirfRanking.changeset(%{rank: rank})
+        |> NirfRanking.changeset(%{nirf_rank: rank})
         |> Repo.update()
     end
   end

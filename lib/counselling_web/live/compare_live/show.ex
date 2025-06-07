@@ -1,6 +1,6 @@
 defmodule CounsellingWeb.CompareLive.Show do
   use CounsellingWeb, :live_view
-  alias Counselling.{Colleges, Programs, Ranks, Repo}
+  alias Counselling.{Colleges, Programs, Ranks}
   alias CounsellingWeb.RankComponent
 
   @impl true
@@ -53,7 +53,6 @@ defmodule CounsellingWeb.CompareLive.Show do
       socket
       |> assign(:search_results, search_results)
 
-  
     {:noreply, socket}
   end
 
@@ -65,7 +64,7 @@ defmodule CounsellingWeb.CompareLive.Show do
       new_ids = current_ids ++ [college_id]
       colleges = Colleges.fetch_colleges(new_ids)
       common_programs = Programs.get_common_programs(new_ids)
-      
+
       # Get the added college for flash message
       added_college = Enum.find(colleges, &(&1.id == college_id))
       college_name = if added_college, do: added_college.name, else: "College"
@@ -79,7 +78,6 @@ defmodule CounsellingWeb.CompareLive.Show do
         |> push_event("trigger_compare_animation", %{})
         |> put_flash(:info, "#{college_name} has been added to compare")
         |> push_patch(to: ~p"/compare?colleges=#{Enum.join(new_ids, "-")}")
-        
 
       {:noreply, socket}
     else
@@ -89,11 +87,11 @@ defmodule CounsellingWeb.CompareLive.Show do
 
   def handle_event("remove_college", %{"college_id" => college_id}, socket) do
     college_id = String.to_integer(college_id)
-    
+
     # Get the college name before removing it
     removed_college = Enum.find(socket.assigns.colleges, &(&1.id == college_id))
     college_name = if removed_college, do: removed_college.name, else: "College"
-    
+
     new_ids = Enum.reject(socket.assigns.selected_college_ids, &(&1 == college_id))
     colleges = Colleges.fetch_colleges(new_ids)
     common_programs = Programs.get_common_programs(new_ids)

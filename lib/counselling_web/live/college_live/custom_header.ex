@@ -44,7 +44,7 @@ defmodule CounsellingWeb.CollegeLive.CustomHeader do
                     />
                   </.form>
                 </div>
-                <div>
+                <%!-- <div>
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Category
                     <span class="text-xs text-gray-500">(Select your reservation category)</span>
@@ -56,7 +56,7 @@ defmodule CounsellingWeb.CollegeLive.CustomHeader do
                     <option>ST</option>
                     <option>EWS</option>
                   </select>
-                </div>
+                </div> --%>
                 <%!-- <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Quota

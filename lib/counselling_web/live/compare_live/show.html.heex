@@ -1,6 +1,6 @@
 <Layouts.app flash={@flash}>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-
+    
 <!-- Hero Section -->
     <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-blue-600">
       <div class="absolute inset-0 bg-black/20"></div>
@@ -102,7 +102,7 @@
         </div>
       </div>
     </div>
-
+    
 <!-- Main Content -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <!-- Add College Section -->
@@ -249,7 +249,7 @@
               <thead class="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-48">
-                  Name
+                    Name
                   </th>
                   <%= for i <- 0..(@max_colleges - 1) do %>
                     <% college = get_college_at_index(@colleges, i) %>
@@ -288,7 +288,7 @@
                     </td>
                   <% end %>
                 </tr>
-
+                
 <!-- Basic Information -->
                 <tr class="bg-gray-50 dark:bg-gray-700/50">
                   <td
@@ -364,7 +364,7 @@
                     </td>
                   <% end %>
                 </tr>
-
+                
 <!-- Rankings -->
                 <tr class="bg-gray-50 dark:bg-gray-700/50">
                   <td
@@ -438,13 +438,13 @@
                     :for={college <- @colleges}
                     rank_cutoff={
                       Enum.find(
-                        Ranks.get_rank_cutoffs(college.id, program.id) |> Repo.all(),
+                        Ranks.get_rank_cutoffs(college.id, program.id),
                         fn x -> x.year == 2024 end
                       )
                     }
                   />
                 </tr>
-
+                
 <!-- Quick Links -->
                 <tr class="bg-gray-50 dark:bg-gray-700/50">
                   <td
@@ -504,8 +504,9 @@
         </div>
       </section>
     </div>
-
-    <!-- CompareStorageHook for localStorage management from LiveView events -->
-    <div phx-hook="CompareStorageHook" id="compare-live-storage-hook" style="display: none;"></div>
+    
+<!-- CompareStorageHook for localStorage management from LiveView events -->
+    <div phx-hook="CompareStorageHook" id="compare-live-storage-hook" style="display: none;">
+    </div>
   </div>
 </Layouts.app>
