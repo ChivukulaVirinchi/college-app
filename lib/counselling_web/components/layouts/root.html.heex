@@ -4,7 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Counselling" suffix=" · Phoenix Framework">
+
+    <meta
+      name="description"
+      content={
+        assigns[:meta_description] ||
+          "JOSAA Counselling Helper - Find engineering colleges and programs based on your JEE rank"
+      }
+    />
+    
+<!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <.live_title default="JOSAA Counselling Helper">
       {assigns[:page_title]}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
@@ -34,7 +49,7 @@
             }
           }
         };
-        
+
         // Initialize theme on page load
         const savedTheme = localStorage.getItem("phx:theme");
         if (savedTheme) {
@@ -42,14 +57,14 @@
         } else {
           setTheme("system");
         }
-        
+
         // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
           if (!localStorage.getItem("phx:theme")) {
             setTheme("system");
           }
         });
-        
+
         window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
         window.addEventListener("phx:set-theme", ({ detail: { theme } }) => setTheme(theme));
       })();

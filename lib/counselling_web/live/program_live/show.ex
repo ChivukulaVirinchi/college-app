@@ -8,11 +8,17 @@ defmodule CounsellingWeb.ProgramLive.Show do
   def mount(params, _session, socket) do
     [id_str | _] = String.split(params["program"], "-")
     id = String.to_integer(id_str)
+    program = Programs.get_program!(id)
 
     socket =
       socket
       |> assign(:data_provider, {Programs, :list_colleges, [id]})
-      |> assign(:program, Programs.get_program!(id))
+      |> assign(:program, program)
+      |> assign(:page_title, "#{program.name} - Colleges & Cutoffs")
+      |> assign(
+        :meta_description,
+        "#{program.name} program across engineering colleges. Compare cutoffs, NIRF rankings and admission chances at IITs, NITs, IIITs."
+      )
 
     {:ok, socket}
   end

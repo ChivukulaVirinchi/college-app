@@ -25,7 +25,11 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
       socket
       |> assign(:college, college)
       |> assign(:program, program)
-      |> assign(:page_title, "#{program.name} at #{college.name}")
+      |> assign(:page_title, "#{program.name} at #{college.name} - Cutoffs & Rankings")
+      |> assign(
+        :meta_description,
+        "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances. View opening and closing ranks."
+      )
       |> assign(:rank_cutoffs, rank_cutoffs)
       |> assign(:chart_data, chart_data)
 
