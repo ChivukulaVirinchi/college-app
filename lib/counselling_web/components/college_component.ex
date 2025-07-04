@@ -51,12 +51,6 @@ defmodule CounsellingWeb.CollegeComponent do
     do:
       "bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-gray-500"
 
-  # Helper function to format NIRF rank display
-  # defp format_rank(rank) when rank >= 500, do: "500+"
-  # defp format_rank(rank) when rank >= 200, do: "200+"
-  # defp format_rank(rank) when rank >= 100, do: "100+"
-  # defp format_rank(rank), do: to_string(rank)
-
   def college_component(assigns) do
     ~H"""
     <div
@@ -198,8 +192,8 @@ defmodule CounsellingWeb.CollegeComponent do
   def nirf_helper(rank) do
     cond do
       rank == 500 -> "-"
-      rank == 125 -> "100 - 150"
-      rank == 175 -> "150 - 200"
+      rank == 125 -> "#125*"
+      rank == 175 -> "#175*"
       true -> "##{rank}"
     end
   end

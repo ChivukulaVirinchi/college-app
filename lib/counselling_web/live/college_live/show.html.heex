@@ -59,7 +59,7 @@
             </span>
 
             <%= if @college.nirf_rankings != [] do %>
-              <% latest_ranking = hd(@college.nirf_rankings) %>
+              <% latest_ranking = Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end) %>
               <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
                 <svg
                   class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
@@ -75,7 +75,7 @@
                   >
                   </path>
                 </svg>
-                NIRF Rank #{latest_ranking.nirf_rank}
+                NIRF Rank #{nirf_helper(latest_ranking.nirf_rank)}
               </span>
             <% end %>
           </div>
@@ -191,7 +191,9 @@
           <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
             <div class="text-xl font-bold text-violet-600 dark:text-violet-400 sm:text-2xl lg:text-3xl">
               <%= if @college.nirf_rankings != [] do %>
-                {hd(@college.nirf_rankings).nirf_rank |> nirf_helper()}
+                {Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end)
+                |> Map.get(:nirf_rank)
+                |> nirf_helper()}
               <% else %>
                 <span class="text-gray-400 dark:text-gray-500">-</span>
               <% end %>
@@ -285,6 +287,9 @@
                   <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     National Institutional Ranking Framework - Official Government Rankings
                   </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                    *Rankings marked with asterisk represent ranking bands (e.g., 125* = ranked between 100-150)
+                  </p>
                 </div>
               </div>
 
@@ -309,7 +314,8 @@
                                 <span class="text-gray-400 dark:text-gray-500">-</span>
                               <% ranking -> %>
                                 <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/30 rounded-full">
-                                  #{ranking.nirf_rank}
+                                  <% rank_display = nirf_helper(ranking.nirf_rank) %>
+                                  {rank_display}
                                 </span>
                             <% end %>
                           </td>
@@ -533,7 +539,7 @@
                   <.link navigate={~p"/colleges/#{c}"}>{c.name}</.link>
                 </div>
                 <div class="text-xs text-gray-600 dark:text-gray-400">
-                  {c.location} • NIRF Rank: {rank}
+                  {c.location} • NIRF Rank: {nirf_helper(rank)}
                 </div>
               </div>
             </div>

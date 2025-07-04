@@ -53,15 +53,10 @@ defmodule CounsellingWeb.CollegeComponent2 do
       "bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-gray-500"
 
   # Helper function to format NIRF rank display
-  defp format_rank(rank) when rank >= 500, do: "500+"
-  defp format_rank(rank) when rank >= 200, do: "200+"
-  defp format_rank(rank) when rank >= 100, do: "100+"
+  defp format_rank(rank) when rank == 500, do: "-"
+  defp format_rank(rank) when rank == 175, do: "175*"
+  defp format_rank(rank) when rank == 125, do: "125*"
   defp format_rank(rank), do: to_string(rank)
-
-  # Helper function to format rank numbers
-  # defp format_number(num) when num >= 1_000_000, do: "#{div(num, 1_000_000)}M+"
-  # defp format_number(num) when num >= 1000, do: "#{div(num, 1000)}K"
-  # defp format_number(num), do: to_string(num)
 
   def college_component2(assigns) do
     ~H"""
