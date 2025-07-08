@@ -57,8 +57,10 @@ defmodule CounsellingWeb.CoreComponents do
     >
       <div class={[
         "flex items-start gap-3 w-80 sm:w-96 max-w-80 sm:max-w-96 p-4 rounded-lg shadow-lg border text-wrap",
-        @kind == :info && "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200",
-        @kind == :error && "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200"
+        @kind == :info &&
+          "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200",
+        @kind == :error &&
+          "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200"
       ]}>
         <.icon :if={@kind == :info} name="hero-information-circle" class="size-5 shrink-0 mt-0.5" />
         <.icon :if={@kind == :error} name="hero-exclamation-circle" class="size-5 shrink-0 mt-0.5" />
@@ -66,7 +68,11 @@ defmodule CounsellingWeb.CoreComponents do
           <p :if={@title} class="font-semibold">{@title}</p>
           <p>{msg}</p>
         </div>
-        <button type="button" class="group self-start cursor-pointer p-1 rounded hover:bg-black/5 dark:hover:bg-white/5" aria-label={gettext("close")}>
+        <button
+          type="button"
+          class="group self-start cursor-pointer p-1 rounded hover:bg-black/5 dark:hover:bg-white/5"
+          aria-label={gettext("close")}
+        >
           <.icon name="hero-x-mark" class="size-4 opacity-60 group-hover:opacity-80" />
         </button>
       </div>
@@ -89,20 +95,35 @@ defmodule CounsellingWeb.CoreComponents do
 
   def button(%{rest: rest} = assigns) do
     variants = %{
-      "primary" => "bg-blue-600 hover:bg-blue-700 text-white border-blue-600 hover:border-blue-700",
-      nil => "bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200 hover:border-blue-300 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800 dark:hover:border-blue-700"
+      "primary" =>
+        "bg-blue-600 hover:bg-blue-700 text-white border-blue-600 hover:border-blue-700",
+      nil =>
+        "bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200 hover:border-blue-300 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800 dark:hover:border-blue-700"
     }
+
     assigns = assign(assigns, :class, Map.fetch!(variants, assigns[:variant]))
 
     if rest[:href] || rest[:navigate] || rest[:patch] do
       ~H"""
-      <.link class={["inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed", @class]} {@rest}>
+      <.link
+        class={[
+          "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
+          @class
+        ]}
+        {@rest}
+      >
         {render_slot(@inner_block)}
       </.link>
       """
     else
       ~H"""
-      <button class={["inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed", @class]} {@rest}>
+      <button
+        class={[
+          "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
+          @class
+        ]}
+        {@rest}
+      >
         {render_slot(@inner_block)}
       </button>
       """
@@ -187,7 +208,10 @@ defmodule CounsellingWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class={@class || "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
+          class={
+            @class ||
+              "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          }
           {@rest}
         />
         <span class="text-sm font-medium text-gray-900 dark:text-gray-300">{@label}</span>
@@ -201,13 +225,18 @@ defmodule CounsellingWeb.CoreComponents do
     ~H"""
     <div class="mb-4">
       <label class="block">
-        <span :if={@label} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{@label}</span>
+        <span :if={@label} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          {@label}
+        </span>
         <select
           id={@id}
           name={@name}
           class={[
-            @class || "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500",
-            @errors != [] && (@error_class || "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-400")
+            @class ||
+              "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500",
+            @errors != [] &&
+              (@error_class ||
+                 "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-400")
           ]}
           multiple={@multiple}
           {@rest}
@@ -225,13 +254,18 @@ defmodule CounsellingWeb.CoreComponents do
     ~H"""
     <div class="mb-4">
       <label class="block">
-        <span :if={@label} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{@label}</span>
+        <span :if={@label} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          {@label}
+        </span>
         <textarea
           id={@id}
           name={@name}
           class={[
-            @class || "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500",
-            @errors != [] && (@error_class || "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-400")
+            @class ||
+              "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500",
+            @errors != [] &&
+              (@error_class ||
+                 "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-400")
           ]}
           {@rest}
         >{Phoenix.HTML.Form.normalize_value("textarea", @value)}</textarea>
@@ -246,15 +280,20 @@ defmodule CounsellingWeb.CoreComponents do
     ~H"""
     <div class="mb-4">
       <label class="block">
-        <span :if={@label} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{@label}</span>
+        <span :if={@label} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          {@label}
+        </span>
         <input
           type={@type}
           name={@name}
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class || "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500",
-            @errors != [] && (@error_class || "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-400")
+            @class ||
+              "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500",
+            @errors != [] &&
+              (@error_class ||
+                 "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-400")
           ]}
           {@rest}
         />
@@ -341,8 +380,16 @@ defmodule CounsellingWeb.CoreComponents do
             </th>
           </tr>
         </thead>
-        <tbody id={@id} phx-update={is_struct(@rows, Phoenix.LiveView.LiveStream) && "stream"} class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-800 dark:even:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <tbody
+          id={@id}
+          phx-update={is_struct(@rows, Phoenix.LiveView.LiveStream) && "stream"}
+          class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
+        >
+          <tr
+            :for={row <- @rows}
+            id={@row_id && @row_id.(row)}
+            class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-800 dark:even:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
             <td
               :for={col <- @col}
               phx-click={@row_click && @row_click.(row)}

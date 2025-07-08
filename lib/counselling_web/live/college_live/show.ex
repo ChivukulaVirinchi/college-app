@@ -110,15 +110,18 @@ defmodule CounsellingWeb.CollegeLive.Show do
   def nirf_helper(rank) do
     cond do
       rank == 500 -> "-"
-      rank == 125 -> "100 - 150"
-      rank == 175 -> "150 - 200"
-      true -> rank
+      rank == 125 -> "125*"
+      rank == 175 -> "175*"
+      true -> "#{rank}"
     end
   end
 
-  defp process_quota(:all_india), do: "AI"
-  defp process_quota(:home_state), do: "HS"
-  defp process_quota(:other_state), do: "OS"
+  def process_quota(:all_india), do: "All India"
+  def process_quota(:home_state), do: "Home State"
+  def process_quota(:other_state), do: "Other State"
+  def process_quota(:go), do: "Goa"
+  def process_quota(:jk), do: "J & K"
+  def process_quota(:la), do: "Ladakh"
 
   defp process_category(:gender_neutral), do: "Gender Neutral"
   defp process_category(:female), do: "Female Only"

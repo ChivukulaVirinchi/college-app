@@ -33,6 +33,22 @@ defmodule Counselling.Colleges do
     Repo.all(from c in College, select: %{id: c.id, slug: c.slug})
   end
 
+  def list_all_college_programs_sitemap() do
+    from(cp in CollegeProgram,
+      join: c in College,
+      on: c.id == cp.college_id,
+      join: p in Program,
+      on: p.id == cp.program_id,
+      select: %{
+        college_id: c.id,
+        college_slug: c.slug,
+        program_id: p.id,
+        program_slug: p.slug
+      }
+    )
+    |> Repo.all()
+  end
+
   def get_college!(id) do
     Repo.get!(College, id)
     |> Repo.preload(:nirf_rankings)

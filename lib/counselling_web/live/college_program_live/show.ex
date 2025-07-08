@@ -1,10 +1,9 @@
 defmodule CounsellingWeb.CollegeProgramLive.Show do
   use CounsellingWeb, :live_view
   # use LiveTable.LiveResource
-  alias Counselling.Ranks
-  alias Counselling.Colleges
-  alias Counselling.Programs
+  alias Counselling.{Ranks, Colleges, Programs}
   alias CounsellingWeb.RankComponent
+  import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
 
   @impl true
   def mount(params, _session, socket) do

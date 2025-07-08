@@ -2,7 +2,7 @@ defmodule CounsellingWeb.CompareLive.Show do
   use CounsellingWeb, :live_view
   alias Counselling.{Colleges, Programs, Ranks}
   alias CounsellingWeb.RankComponent
-
+import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
   @impl true
   def mount(_params, _session, socket) do
     socket =

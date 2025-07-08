@@ -183,7 +183,7 @@
                         <div class="flex items-center gap-2">
                           <%= if college.nirf_rank do %>
                             <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 rounded-full">
-                              NIRF #{college.nirf_rank}
+                              NIRF #{college.nirf_rank |> nirf_helper()}
                             </span>
                           <% end %>
                           <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/30 rounded-full">
@@ -275,7 +275,7 @@
                       <%= if college do %>
                         <img
                           class="w-full h-24 object-cover rounded-lg"
-                          src="https://img.studyclap.com/img/institute/college/1342_3iitm3.png"
+                          src={college.photo_path}
                           alt={college.name}
                         />
                       <% else %>
@@ -386,7 +386,7 @@
                         <% rank = get_nirf_rank(college) %>
                         <%= if rank do %>
                           <span class="inline-flex items-center px-3 py-1 text-sm font-bold text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 rounded-full">
-                            #{rank}
+                            {rank |> nirf_helper()}
                           </span>
                         <% else %>
                           <span class="text-gray-400 dark:text-gray-500">Not Ranked</span>
@@ -409,7 +409,7 @@
                         <% rank = get_nirf_rank(college, 2023) %>
                         <%= if rank do %>
                           <span class="inline-flex items-center px-3 py-1 text-sm font-bold text-yellow-700 dark:text-yellow-300 bg-yellow-100 dark:bg-yellow-900/30 rounded-full">
-                            #{rank}
+                            {rank |> nirf_helper()}
                           </span>
                         <% else %>
                           <span class="text-gray-400 dark:text-gray-500">Not Ranked</span>

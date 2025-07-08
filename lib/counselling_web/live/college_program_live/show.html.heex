@@ -93,10 +93,7 @@
                 >
                 </path>
               </svg>
-              {@college.class} • NIRF #
-              <b class="ml-1">
-                {Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end).nirf_rank}
-              </b>
+              {@college.class} • NIRF<b class="ml-1">#{Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end).nirf_rank |> nirf_helper()}</b>
             </span>
 
             <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
