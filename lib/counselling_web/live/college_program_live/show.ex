@@ -1,10 +1,9 @@
 defmodule CounsellingWeb.CollegeProgramLive.Show do
   use CounsellingWeb, :live_view
   # use LiveTable.LiveResource
-  alias Counselling.Ranks
-  alias Counselling.Colleges
-  alias Counselling.Programs
+  alias Counselling.{Ranks, Colleges, Programs}
   alias CounsellingWeb.RankComponent
+  import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
 
   @impl true
   def mount(params, _session, socket) do
@@ -25,7 +24,11 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
       socket
       |> assign(:college, college)
       |> assign(:program, program)
-      |> assign(:page_title, "#{program.name} at #{college.name}")
+      |> assign(:page_title, "#{program.name} at #{college.name} - Cutoffs & Rankings")
+      |> assign(
+        :meta_description,
+        "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances. View opening and closing ranks."
+      )
       |> assign(:rank_cutoffs, rank_cutoffs)
       |> assign(:chart_data, chart_data)
 

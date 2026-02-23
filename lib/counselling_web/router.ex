@@ -17,6 +17,7 @@ defmodule CounsellingWeb.Router do
   scope "/", CounsellingWeb do
     pipe_through :browser
 
+    get "/sitemap.xml", PageController, :sitemap
     live "/colleges", CollegeLive.Index, :index
     live "/colleges/:college", CollegeLive.Show, :show
     live "/programs", ProgramLive.Index, :index

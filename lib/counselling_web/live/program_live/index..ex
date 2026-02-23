@@ -5,7 +5,16 @@ defmodule CounsellingWeb.ProgramLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, data_provider: {Counselling.Programs, :list_programs, []})}
+    socket =
+      socket
+      |> assign(:data_provider, {Counselling.Programs, :list_programs, []})
+      |> assign(:page_title, "Engineering Programs - JOSAA Counselling Helper")
+      |> assign(
+        :meta_description,
+        "Explore 500+ engineering programs across IITs, NITs, IIITs & GFTIs. Filter by duration, degree type and rank eligibility."
+      )
+
+    {:ok, socket}
   end
 
   def fields do

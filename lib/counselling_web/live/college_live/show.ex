@@ -13,7 +13,11 @@ defmodule CounsellingWeb.CollegeLive.Show do
     socket =
       socket
       |> assign(:data_provider, {Colleges, :get_college_programs, [id]})
-      |> assign(:page_title, college.name)
+      |> assign(:page_title, "#{college.name} - Programs & Cutoffs")
+      |> assign(
+        :meta_description,
+        "#{college.name} engineering programs, JEE cutoffs and NIRF rankings. Check admission chances based on your rank."
+      )
       |> assign(:college, college)
       |> assign(:similar_colleges, Colleges.get_similar_colleges(id))
 
@@ -107,7 +111,7 @@ defmodule CounsellingWeb.CollegeLive.Show do
       rank == 500 -> "-"
       rank == 125 -> "125*"
       rank == 175 -> "175*"
-      true -> rank
+      true -> "#{rank}"
     end
   end
 

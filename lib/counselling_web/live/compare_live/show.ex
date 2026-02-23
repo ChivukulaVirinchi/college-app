@@ -2,10 +2,19 @@ defmodule CounsellingWeb.CompareLive.Show do
   use CounsellingWeb, :live_view
   alias Counselling.{Colleges, Programs, Ranks}
   alias CounsellingWeb.RankComponent
-
+import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
   @impl true
   def mount(_params, _session, socket) do
-    socket = socket |> assign(:search_results, []) |> assign(:max_colleges, 4)
+    socket =
+      socket
+      |> assign(:search_results, [])
+      |> assign(:max_colleges, 4)
+      |> assign(:page_title, "Compare Colleges - JOSAA Helper")
+      |> assign(
+        :meta_description,
+        "Compare up to 4 engineering colleges side-by-side. View cutoffs, NIRF rankings, programs and admission chances for your JEE rank side by side."
+      )
+
     {:ok, socket}
   end
 
