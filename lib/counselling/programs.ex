@@ -6,6 +6,8 @@ defmodule Counselling.Programs do
   alias Counselling.CollegePrograms.CollegeProgram
   alias Counselling.{Programs.Program, Repo}
 
+  @latest_year Josaa.latest_year()
+
   def create_program(attrs \\ %{}) do
     %Program{}
     |> Program.changeset(attrs)
@@ -41,10 +43,11 @@ defmodule Counselling.Programs do
       on: c.id == cp.college_id,
       where: p.id == ^id,
       join: nr in NirfRanking,
-      on: nr.college_id == c.id and nr.year == 2024,
+      on: nr.college_id == c.id and nr.year == ^@latest_year,
       join: rc in RankCutoff,
       on:
-        rc.college_program_id == cp.id and rc.year == 2024 and rc.category == :gender_neutral and
+        rc.college_program_id == cp.id and rc.year == ^@latest_year and
+          rc.gender == :gender_neutral and rc.seat_type == :open and
           rc.quota in [:all_india, :other_state],
       order_by: [asc: nr.nirf_rank],
       select: %{

@@ -377,7 +377,7 @@
 
                 <tr>
                   <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                    NIRF Ranking 2024
+                    NIRF Ranking {@latest_year}
                   </td>
                   <%= for i <- 0..(@max_colleges - 1) do %>
                     <% college = get_college_at_index(@colleges, i) %>
@@ -426,7 +426,7 @@
                     class="px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700"
                     colspan="5"
                   >
-                    Popular Programs - Cutoff Ranks (2024)
+                    Popular Programs - Cutoff Ranks ({@latest_year})
                   </td>
                 </tr>
 
@@ -439,7 +439,7 @@
                     rank_cutoff={
                       Enum.find(
                         Ranks.get_rank_cutoffs(college.id, program.id),
-                        fn x -> x.year == 2024 end
+                        fn x -> x.year == @latest_year and x.seat_type == :open end
                       )
                     }
                   />

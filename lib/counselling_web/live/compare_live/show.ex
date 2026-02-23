@@ -2,7 +2,9 @@ defmodule CounsellingWeb.CompareLive.Show do
   use CounsellingWeb, :live_view
   alias Counselling.{Colleges, Programs, Ranks}
   alias CounsellingWeb.RankComponent
-import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
+  import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
+
+  @latest_year Josaa.latest_year()
   @impl true
   def mount(_params, _session, socket) do
     socket =
@@ -14,6 +16,7 @@ import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
         :meta_description,
         "Compare up to 4 engineering colleges side-by-side. View cutoffs, NIRF rankings, programs and admission chances for your JEE rank side by side."
       )
+      |> assign(:latest_year, @latest_year)
 
     {:ok, socket}
   end
@@ -158,7 +161,7 @@ import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
     """
   end
 
-  defp get_nirf_rank(college, year \\ 2024) do
+  defp get_nirf_rank(college, year \\ @latest_year) do
     case Enum.find(college.nirf_rankings, fn ranking -> ranking.year == year end) do
       nil -> nil
       ranking -> ranking.nirf_rank

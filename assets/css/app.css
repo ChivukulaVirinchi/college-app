@@ -6,8 +6,10 @@
 @source "../js";
 @source "../../lib/counselling_web";
 
-@import "../../deps/live_table/priv/static/live-table.css";
 @source "../../deps/live_table/lib";
+
+@source "../../deps/sutra_ui/lib";
+@import "../../deps/sutra_ui/priv/static/sutra_ui.css";
 
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.
    The heroicons installation itself is managed by your mix.exs */

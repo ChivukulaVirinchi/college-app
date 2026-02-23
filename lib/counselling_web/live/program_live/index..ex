@@ -3,6 +3,8 @@ defmodule CounsellingWeb.ProgramLive.Index do
   use CounsellingWeb, :live_view
   use LiveTable.LiveResource
 
+  @latest_year Josaa.latest_year()
+
   @impl true
   def mount(_params, _session, socket) do
     socket =
@@ -64,8 +66,9 @@ defmodule CounsellingWeb.ProgramLive.Index do
         join: c in Counselling.Colleges.College,
         on: c.id == cp.college_id,
         where:
-          rc.year == 2024 and
-            rc.category == :gender_neutral and
+          rc.year == ^@latest_year and
+            rc.gender == :gender_neutral and
+            rc.seat_type == :open and
             rc.quota in [:all_india, :other_state] and
             (rc.closing_rank >= ^number or
                rc.closing_rank +

@@ -74,7 +74,7 @@
                   >
                   </path>
                 </svg>
-                NIRF Rank {Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end).nirf_rank
+                NIRF Rank {Enum.find(@college.nirf_rankings, fn r -> r.year == @latest_year end).nirf_rank
                 |> nirf_helper()}
               </span>
             <% end %>
@@ -190,7 +190,7 @@
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 lg:gap-6">
           <div class="p-3 text-center bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-lg sm:p-4 lg:p-6 sm:shadow-lg sm:rounded-xl">
             <div class="text-xl font-bold text-violet-600 dark:text-violet-400 sm:text-2xl lg:text-3xl">
-              {Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end).nirf_rank
+              {Enum.find(@college.nirf_rankings, fn r -> r.year == @latest_year end).nirf_rank
               |> nirf_helper()}
             </div>
             <div class="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">NIRF Rank</div>
@@ -293,7 +293,7 @@
                   <table class="w-full min-w-full">
                     <thead>
                       <tr class="border-b border-gray-200 dark:border-gray-600">
-                        <%= for year <- 2023..2024 do %>
+                        <%= for year <- 2023..@latest_year do %>
                           <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white sm:px-4 sm:py-3">
                             {year}
                           </th>
@@ -303,7 +303,7 @@
                     <tbody>
                       <tr>
                         <td
-                          :for={year <- 2023..2024}
+                          :for={year <- 2023..@latest_year}
                           class="px-3 py-2 text-sm text-gray-700 dark:text-gray-300 sm:px-4 sm:py-3"
                         >
                           <span

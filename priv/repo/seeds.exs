@@ -49,13 +49,26 @@ IO.puts("Created #{Repo.aggregate(Programs.Program, :count)} programs successful
 
 colleges = Repo.all(from c in College, select: {c.id, c.name})
 
-for year <- [2023, 2024],
+# Seed NIRF for years that have data files
+nirf_years = [2023, 2024]
+
+for year <- nirf_years,
     {college_id, college_name} <- colleges do
   {:ok, _created_rank} =
     NirfRankings.create_ranking(%{
       college_id: college_id,
       year: year,
       nirf_rank: NIRF.get_rank(college_name, year)
+    })
+end
+
+# Seed 2025 NIRF with same ranks as 2024 (placeholder until official data)
+for {college_id, college_name} <- colleges do
+  {:ok, _created_rank} =
+    NirfRankings.create_ranking(%{
+      college_id: college_id,
+      year: 2025,
+      nirf_rank: NIRF.get_rank(college_name, 2024)
     })
 end
 
@@ -137,17 +150,25 @@ Enum.each(corrections, fn {college_name, year, rank} ->
 
   if college do
     NirfRankings.update_ranking(college_name, year, rank)
-    #   IO.puts("Updated NIRF rank for #{college_name} in #{year} to #{rank}")
-    # else
-    #   IO.puts("No college found for name: #{college_name}")
+  end
+end)
+
+# Also apply 2024 corrections to 2025 (placeholder)
+Enum.each(corrections, fn {college_name, year, rank} ->
+  if year == 2024 do
+    college = Repo.get_by(College, name: college_name)
+
+    if college do
+      NirfRankings.update_ranking(college_name, 2025, rank)
+    end
   end
 end)
 
 IO.puts("Finished nirf rank corrections...")
 
-# Associate Programs and Colleges
+# Associate Programs and Colleges with cutoff data
 errors =
-  for year <- [2023, 2024] do
+  for year <- [2023, 2024, 2025] do
     Josaa.list_college_program_data(year)
     |> Enum.reduce([], fn row, acc ->
       case Colleges.process_table_row(row, year) do

@@ -1,4 +1,8 @@
 defmodule Josaa do
+  @latest_year 2025
+
+  def latest_year, do: @latest_year
+
   def list_colleges() do
     {:ok, document} =
       File.read!("lib/counselling/data/JoSAA.html") |> Floki.parse_document()
@@ -54,10 +58,14 @@ defmodule Josaa do
     end
   end
 
-  def list_college_program_data(2023) do
-    {:ok, document} =
-      File.read!("lib/counselling/data/programs/ranks/2023/JoSAA.html")
-      |> Floki.parse_document()
+  def list_college_program_data(year) do
+    file =
+      case year do
+        2025 -> "lib/counselling/data/programs/ranks/2025/JOSAA.html"
+        y -> "lib/counselling/data/programs/ranks/#{y}/JoSAA.html"
+      end
+
+    {:ok, document} = File.read!(file) |> Floki.parse_document()
 
     document
     |> Floki.find("table")
@@ -66,16 +74,14 @@ defmodule Josaa do
     |> elem(2)
   end
 
-  def list_college_program_data(2024) do
-    {:ok, document} =
-      File.read!("lib/counselling/data/programs/ranks/2024/JoSAA.html")
-      |> Floki.parse_document()
-
-    document
-    |> Floki.find("table")
-    |> Floki.find("#ctl00_ContentPlaceHolder1_GridView1")
-    |> Floki.find("tbody")
-    |> hd()
-    |> elem(2)
-  end
+  def seat_type_atom("OPEN"), do: :open
+  def seat_type_atom("OBC-NCL"), do: :obc_ncl
+  def seat_type_atom("SC"), do: :sc
+  def seat_type_atom("ST"), do: :st
+  def seat_type_atom("EWS"), do: :ews
+  def seat_type_atom("OPEN (PwD)"), do: :open_pwd
+  def seat_type_atom("OBC-NCL (PwD)"), do: :obc_ncl_pwd
+  def seat_type_atom("SC (PwD)"), do: :sc_pwd
+  def seat_type_atom("ST (PwD)"), do: :st_pwd
+  def seat_type_atom("EWS (PwD)"), do: :ews_pwd
 end

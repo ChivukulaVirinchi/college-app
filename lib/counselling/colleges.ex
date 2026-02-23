@@ -10,16 +10,19 @@ defmodule Counselling.Colleges do
     Repo
   }
 
+  @latest_year Josaa.latest_year()
+
   def list_colleges() do
     from c in College,
       join: cp in CollegeProgram,
       on: c.id == cp.college_id,
       join: rc in RankCutoff,
       on:
-        rc.college_program_id == cp.id and rc.year == 2024 and rc.category == :gender_neutral and
+        rc.college_program_id == cp.id and rc.year == ^@latest_year and
+          rc.gender == :gender_neutral and rc.seat_type == :open and
           rc.quota in [:all_india, :other_state],
       join: nr in NirfRanking,
-      on: c.id == nr.college_id and nr.year == 2024,
+      on: c.id == nr.college_id and nr.year == ^@latest_year,
       group_by: [c.id, c.name, c.established_year, c.campus_area, c.location, nr.nirf_rank],
       order_by: [asc: nr.nirf_rank],
       select: %{
@@ -76,14 +79,15 @@ defmodule Counselling.Colleges do
       on: rc.college_program_id == cp.id,
       where:
         c.id == ^id and
-          rc.year == 2024,
+          rc.year == ^@latest_year,
       order_by: [asc: p.name],
       select: %{
         college: c,
         program: p,
         opening_rank: rc.opening_rank,
         closing_rank: rc.closing_rank,
-        category: rc.category,
+        gender: rc.gender,
+        seat_type: rc.seat_type,
         quota: rc.quota,
         degree_type: p.degree_type
       }
@@ -141,8 +145,6 @@ defmodule Counselling.Colleges do
   end
 
   def create_rank_cutoff(college_id, program_id, cutoff_params) do
-    # params = Map.merge(cutoff_params, %{college_id: college_id, program_id: program_id})
-
     params =
       Map.merge(cutoff_params, %{
         college_program_id: get_college_program_id(college_id, program_id)
@@ -169,11 +171,27 @@ defmodule Counselling.Colleges do
       {"tr", [{"class", "text-white bg-secondary"}], _} ->
         {:skip, "Skipping header row"}
 
+      {"tr", _, [{"th", _, _} | _]} ->
+        {:skip, "Skipping header row"}
+
       {"tr", _, data} when length(data) == 7 ->
-        [college_name, program_name, quota, _seat_type, gender, opening_rank, closing_rank] =
+        [college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank] =
           Enum.map(data, &extract_row_content/1)
 
-        create_assocs(college_name, program_name, quota, gender, opening_rank, closing_rank, year)
+        if Enum.any?([college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank], &(&1 == "")) do
+          {:skip, "Skipping row with empty fields"}
+        else
+          create_assocs(
+            college_name,
+            program_name,
+            quota,
+            seat_type,
+            gender,
+            opening_rank,
+            closing_rank,
+            year
+          )
+        end
 
       _ ->
         {:error, "Invalid row format"}
@@ -191,12 +209,22 @@ defmodule Counselling.Colleges do
     |> String.trim()
   end
 
-  def create_assocs(college_name, program_name, quota, gender, opening_rank, closing_rank, year) do
+  def create_assocs(
+        college_name,
+        program_name,
+        quota,
+        seat_type,
+        gender,
+        opening_rank,
+        closing_rank,
+        year
+      ) do
     cutoff_params = %{
       quota: parse_quota(quota),
-      category: parse_gender(gender),
-      opening_rank: String.to_integer(opening_rank),
-      closing_rank: String.to_integer(closing_rank),
+      gender: parse_gender(gender),
+      seat_type: Josaa.seat_type_atom(seat_type),
+      opening_rank: parse_rank(opening_rank),
+      closing_rank: parse_rank(closing_rank),
       year: year
     }
 
@@ -209,7 +237,6 @@ defmodule Counselling.Colleges do
   end
 
   def get_program_id(program_name) do
-    # Extract program name without duration and degree type
     details =
       program_name |> String.trim() |> String.replace(~r/\s+/, " ") |> Josaa.parse_degree_info()
 
@@ -226,6 +253,7 @@ defmodule Counselling.Colleges do
   def get_college_id(college_name) do
     case Repo.get_by(College, name: String.trim(college_name) |> String.replace(~r/\s+/, " ")) do
       %College{id: id} -> {:ok, id}
+      nil -> {:error, "College not found: #{college_name}"}
     end
   end
 
@@ -240,9 +268,15 @@ defmodule Counselling.Colleges do
   def parse_gender("Female-only (including Supernumerary)"), do: :female
   def parse_gender(_), do: :gender_neutral
 
+  def parse_rank(rank_string) do
+    rank_string
+    |> String.replace(~r/[^\d]/, "")
+    |> String.to_integer()
+  end
+
   def get_college_rank(college_id) do
     NirfRanking
-    |> where(college_id: ^college_id, year: 2024)
+    |> where(college_id: ^college_id, year: ^@latest_year)
     |> Repo.one()
   end
 
@@ -251,7 +285,7 @@ defmodule Counselling.Colleges do
 
     from(c in College,
       left_join: nr in NirfRanking,
-      on: nr.college_id == c.id and nr.year == 2024,
+      on: nr.college_id == c.id and nr.year == ^@latest_year,
       where: ilike(c.name, ^search_pattern) or ilike(c.location, ^search_pattern),
       order_by: [asc: fragment("COALESCE(?, 999)", nr.nirf_rank), asc: c.name],
       limit: 10,
@@ -269,7 +303,7 @@ defmodule Counselling.Colleges do
   def get_similar_colleges(college_id) do
     current_rank =
       from(nr in NirfRanking,
-        where: nr.college_id == ^college_id and nr.year == 2024,
+        where: nr.college_id == ^college_id and nr.year == ^@latest_year,
         select: nr.nirf_rank
       )
       |> Repo.one()
@@ -277,7 +311,7 @@ defmodule Counselling.Colleges do
     query =
       from c in College,
         join: nr in NirfRanking,
-        on: nr.college_id == c.id and nr.year == 2024,
+        on: nr.college_id == c.id and nr.year == ^@latest_year,
         where: c.id != ^college_id,
         where:
           nr.nirf_rank >= ^max(1, current_rank - 15) and nr.nirf_rank <= ^(current_rank + 15),

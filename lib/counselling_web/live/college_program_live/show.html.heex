@@ -93,7 +93,7 @@
                 >
                 </path>
               </svg>
-              {@college.class} • NIRF<b class="ml-1">#{Enum.find(@college.nirf_rankings, fn r -> r.year == 2024 end).nirf_rank |> nirf_helper()}</b>
+              {@college.class} • NIRF<b class="ml-1">#{Enum.find(@college.nirf_rankings, fn r -> r.year == @latest_year end).nirf_rank |> nirf_helper()}</b>
             </span>
 
             <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
@@ -111,7 +111,7 @@
                 >
                 </path>
               </svg>
-              Latest Cutoffs 2024
+              Latest Cutoffs {@latest_year}
             </span>
 
             <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
@@ -147,7 +147,7 @@
                 class="text-xl font-bold sm:text-2xl lg:text-3xl"
                 rank={
                   Enum.find(@rank_cutoffs, fn r ->
-                    r.category == :gender_neutral and r.year == 2024
+                    r.gender == :gender_neutral and r.seat_type == :open and r.year == @latest_year
                   end).opening_rank
                 }
               />
@@ -165,7 +165,7 @@
                 class="text-xl font-bold sm:text-2xl lg:text-3xl"
                 rank={
                   Enum.find(@rank_cutoffs, fn r ->
-                    r.category == :gender_neutral and r.year == 2024
+                    r.gender == :gender_neutral and r.seat_type == :open and r.year == @latest_year
                   end).closing_rank
                 }
               />
@@ -328,6 +328,9 @@
                         Category
                       </th>
                       <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Seat Type
+                      </th>
+                      <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Opening Rank
                       </th>
                       <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -336,12 +339,15 @@
                     </tr>
                   </thead>
                   <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
-                    <tr :for={cutoff <- Enum.filter(@rank_cutoffs, fn x -> x.year == 2024 end)}>
+                    <tr :for={cutoff <- Enum.filter(@rank_cutoffs, fn x -> x.year == @latest_year end)}>
                       <td class="px-4 py-4 text-sm text-center font-medium text-gray-900 dark:text-white">
                         {cutoff.quota |> process_quota()}
                       </td>
                       <td class="px-4 py-4 text-sm text-center text-gray-700 dark:text-gray-300">
-                        {cutoff.category |> process_category()}
+                        {cutoff.gender |> process_gender()}
+                      </td>
+                      <td class="px-4 py-4 text-sm text-center text-gray-700 dark:text-gray-300">
+                        {cutoff.seat_type |> process_seat_type()}
                       </td>
                       <td class="px-4 py-4 text-sm text-center font-semibold text-blue-600 dark:text-blue-400">
                         <RankComponent.rank_badge rank={cutoff.opening_rank} />
@@ -360,9 +366,7 @@
             <div class="mt-4 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
               <p class="text-xs text-gray-600 dark:text-gray-400">
                 <strong>Note:</strong>
-                Cutoff ranks are for the General category.
-                <%!-- "-" indicates seats not available for that quota. --%>
-                Ranks shown are for JEE Main 2024. Data is updated regularly from official sources.
+                Cutoff ranks shown are for JEE Main {@latest_year}. Data is updated regularly from official sources.
               </p>
             </div>
           </section>
@@ -386,12 +390,14 @@
                 data-chart-type="rank-trends"
                 data-rank-cutoffs={
                   Jason.encode!(
-                    Enum.map(@rank_cutoffs, fn rc ->
+                    @rank_cutoffs
+                    |> Enum.filter(fn rc -> rc.seat_type == :open end)
+                    |> Enum.map(fn rc ->
                       %{
                         opening_rank: rc.opening_rank,
                         closing_rank: rc.closing_rank,
                         quota: rc.quota,
-                        category: rc.category,
+                        category: rc.gender,
                         year: rc.year
                       }
                     end)

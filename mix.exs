@@ -34,14 +34,14 @@ defmodule Counselling.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:tidewave, "~> 0.1", only: [:dev]},
-      {:phoenix, "~> 1.8.0-rc.3", override: true},
+      {:tidewave, git: "git@github.com:cvkmohan/tidewave_phoenix.git", only: [:dev]},
+      {:phoenix, "~> 1.8.3"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 1.0.9"},
+      {:phoenix_live_view, "~> 1.1"},
       {:floki, "~> 0.37.0"},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.9", runtime: Mix.env() == :dev},
@@ -61,7 +61,8 @@ defmodule Counselling.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:req, "~> 0.5.10"},
-      {:live_table, git: "https://github.com/gurujada/live_table", branch: "master"}
+      {:sutra_ui, "~> 0.1.0"},
+      {:live_table, "~> 0.4"}
     ]
   end
 

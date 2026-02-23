@@ -1,13 +1,13 @@
 defmodule CounsellingWeb.CollegeProgramLive.Show do
   use CounsellingWeb, :live_view
-  # use LiveTable.LiveResource
   alias Counselling.{Ranks, Colleges, Programs}
   alias CounsellingWeb.RankComponent
   import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
 
+  @latest_year Josaa.latest_year()
+
   @impl true
   def mount(params, _session, socket) do
-    # Extract college_id and program_id from URL params
     [college_id_str | _] = String.split(params["college"], "-")
     [program_id_str | _] = String.split(params["program"], "-")
 
@@ -31,6 +31,7 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
       )
       |> assign(:rank_cutoffs, rank_cutoffs)
       |> assign(:chart_data, chart_data)
+      |> assign(:latest_year, @latest_year)
 
     {:ok, socket}
   end
@@ -42,18 +43,26 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
   def process_quota(:jk), do: "J & K"
   def process_quota(:la), do: "Ladakh"
 
-  defp process_category(:gender_neutral), do: "Gender Neutral"
-  defp process_category(:female), do: "Female Only"
-  defp process_category(_), do: "Gender Neutral"
+  defp process_gender(:gender_neutral), do: "Gender Neutral"
+  defp process_gender(:female), do: "Female Only"
+  defp process_gender(_), do: "Gender Neutral"
+
+  defp process_seat_type(:open), do: "OPEN"
+  defp process_seat_type(:obc_ncl), do: "OBC-NCL"
+  defp process_seat_type(:sc), do: "SC"
+  defp process_seat_type(:st), do: "ST"
+  defp process_seat_type(:ews), do: "EWS"
+  defp process_seat_type(other), do: other |> to_string() |> String.upcase()
 
   defp format_chart_data(rank_cutoffs) do
-    # Group by quota and category
+    # Filter to OPEN seat_type only for chart
+    open_cutoffs = Enum.filter(rank_cutoffs, fn c -> c.seat_type == :open end)
+
     grouped =
-      Enum.group_by(rank_cutoffs, fn cutoff ->
-        {cutoff.quota, cutoff.category}
+      Enum.group_by(open_cutoffs, fn cutoff ->
+        {cutoff.quota, cutoff.gender}
       end)
 
-    # Transform into chart format
     %{
       all_india: %{
         gender_neutral: format_trend_line(grouped[{:all_india, :gender_neutral}] || []),

@@ -4,6 +4,8 @@ defmodule CounsellingWeb.CollegeLive.Show do
 
   alias Counselling.Colleges
 
+  @latest_year Josaa.latest_year()
+
   @impl true
   def mount(params, _session, socket) do
     [id_str | _] = String.split(params["college"], "-")
@@ -20,6 +22,7 @@ defmodule CounsellingWeb.CollegeLive.Show do
       )
       |> assign(:college, college)
       |> assign(:similar_colleges, Colleges.get_similar_colleges(id))
+      |> assign(:latest_year, @latest_year)
 
     {:ok, socket}
   end
@@ -44,7 +47,8 @@ defmodule CounsellingWeb.CollegeLive.Show do
         assoc: {:rank_cutoff, :closing_rank},
         renderer: &CounsellingWeb.RankComponent.rank_badge/1
       },
-      category: %{label: "Category", sortable: false, renderer: &process_category/1},
+      gender: %{label: "Gender", sortable: false, renderer: &process_gender/1},
+      seat_type: %{label: "Seat Type", sortable: false, renderer: &process_seat_type/1},
       quota: %{
         label: "Quota",
         sortable: false,
@@ -55,7 +59,6 @@ defmodule CounsellingWeb.CollegeLive.Show do
         label: "Degree Type",
         sortable: false,
         assoc: {:program, :degree_type}
-        # renderer: &process_degree_type/1
       }
     ]
   end
@@ -65,12 +68,62 @@ defmodule CounsellingWeb.CollegeLive.Show do
       gender_filter:
         Boolean.new(:gender, "gender-filter", %{
           label: "Gender Neutral",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.category == :gender_neutral)
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.gender == :gender_neutral)
         }),
       female_filter:
         Boolean.new(:gender, "gender-filter", %{
           label: "Female",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.category == :female)
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.gender == :female)
+        }),
+      open_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "OPEN",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :open)
+        }),
+      obc_ncl_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "OBC-NCL",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :obc_ncl)
+        }),
+      sc_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "SC",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :sc)
+        }),
+      st_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "ST",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :st)
+        }),
+      ews_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "EWS",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :ews)
+        }),
+      open_pwd_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "OPEN (PwD)",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :open_pwd)
+        }),
+      obc_ncl_pwd_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "OBC-NCL (PwD)",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :obc_ncl_pwd)
+        }),
+      sc_pwd_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "SC (PwD)",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :sc_pwd)
+        }),
+      st_pwd_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "ST (PwD)",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :st_pwd)
+        }),
+      ews_pwd_filter:
+        Boolean.new(:seat_type, "seat-type-filter", %{
+          label: "EWS (PwD)",
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :ews_pwd)
         }),
       hs:
         Boolean.new(:quota, "quota-filter", %{
@@ -122,7 +175,19 @@ defmodule CounsellingWeb.CollegeLive.Show do
   def process_quota(:jk), do: "J & K"
   def process_quota(:la), do: "Ladakh"
 
-  defp process_category(:gender_neutral), do: "Gender Neutral"
-  defp process_category(:female), do: "Female Only"
-  defp process_category(_), do: "Gender Neutral"
+  defp process_gender(:gender_neutral), do: "Gender Neutral"
+  defp process_gender(:female), do: "Female Only"
+  defp process_gender(_), do: "Gender Neutral"
+
+  defp process_seat_type(:open), do: "OPEN"
+  defp process_seat_type(:obc_ncl), do: "OBC-NCL"
+  defp process_seat_type(:sc), do: "SC"
+  defp process_seat_type(:st), do: "ST"
+  defp process_seat_type(:ews), do: "EWS"
+  defp process_seat_type(:open_pwd), do: "OPEN (PwD)"
+  defp process_seat_type(:obc_ncl_pwd), do: "OBC-NCL (PwD)"
+  defp process_seat_type(:sc_pwd), do: "SC (PwD)"
+  defp process_seat_type(:st_pwd), do: "ST (PwD)"
+  defp process_seat_type(:ews_pwd), do: "EWS (PwD)"
+  defp process_seat_type(other), do: other |> to_string() |> String.upcase()
 end
