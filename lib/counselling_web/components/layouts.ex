@@ -87,7 +87,7 @@ defmodule CounsellingWeb.Layouts do
             </div>
 
             <div class="flex items-center space-x-3">
-              <.theme_toggle />
+              <SutraUI.ThemeSwitcher.theme_switcher id="theme-toggle" variant="ghost" />
 
               <button
                 type="button"
@@ -189,30 +189,4 @@ defmodule CounsellingWeb.Layouts do
     """
   end
 
-  @doc """
-  Provides dark vs light theme toggle based on themes defined in app.css.
-
-  See <head> in root.html.heex which applies the theme before page load.
-  """
-  def theme_toggle(assigns) do
-    ~H"""
-    <div class="card relative flex flex-row items-center border-2 border-gray-300 dark:border-0 dark:bg-gray-700 bg-gray-200/50 rounded-full">
-      <div class="absolute w-1/2 h-full rounded-full bg-gray-50 dark:bg-gray-900 brightness-200 left-0 [[data-theme=dark]_&]:left-1/2 transition-[left] duration-200 ease-in-out" />
-
-      <button
-        phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "light"})}
-        class="flex items-center justify-center p-2 cursor-pointer w-1/2 relative z-10 [[data-theme=light]_&]:opacity-100 [[data-theme=dark]_&]:opacity-75 hover:opacity-100 transition-opacity"
-      >
-        <.icon name="hero-sun-micro" class="size-4 dark:text-neutral-400" />
-      </button>
-
-      <button
-        phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "dark"})}
-        class="flex items-center justify-center p-2 cursor-pointer w-1/2 relative z-10 [[data-theme=dark]_&]:opacity-100 [[data-theme=light]_&]:opacity-75 hover:opacity-100 transition-opacity"
-      >
-        <.icon name="hero-moon-micro" class="size-4 dark:text-neutral-200" />
-      </button>
-    </div>
-    """
-  end
 end

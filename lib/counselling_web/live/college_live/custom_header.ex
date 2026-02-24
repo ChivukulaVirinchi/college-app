@@ -44,19 +44,28 @@ defmodule CounsellingWeb.CollegeLive.CustomHeader do
                     />
                   </.form>
                 </div>
-                <%!-- <div>
+                <div>
                   <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Category
-                    <span class="text-xs text-gray-500">(Select your reservation category)</span>
+                    <span class="text-xs text-gray-500">(Saved automatically, filters all pages)</span>
                   </label>
-                  <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors">
-                    <option>General</option>
-                    <option>OBC-NCL</option>
-                    <option>SC</option>
-                    <option>ST</option>
-                    <option>EWS</option>
+                  <select
+                    id="category-select"
+                    phx-hook="CategorySelect"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+                  >
+                    <option value="open">OPEN</option>
+                    <option value="obc_ncl">OBC-NCL</option>
+                    <option value="sc">SC</option>
+                    <option value="st">ST</option>
+                    <option value="ews">EWS</option>
+                    <option value="open_pwd">OPEN (PwD)</option>
+                    <option value="obc_ncl_pwd">OBC-NCL (PwD)</option>
+                    <option value="sc_pwd">SC (PwD)</option>
+                    <option value="st_pwd">ST (PwD)</option>
+                    <option value="ews_pwd">EWS (PwD)</option>
                   </select>
-                </div> --%>
+                </div>
                 <%!-- <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Quota

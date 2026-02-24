@@ -62,7 +62,8 @@ defmodule Counselling.MixProject do
       {:bandit, "~> 1.5"},
       {:req, "~> 0.5.10"},
       {:sutra_ui, "~> 0.1.0"},
-      {:live_table, "~> 0.4"}
+      {:igniter, "~> 0.7.0"},
+      {:live_table, path: "../../live_table"}
     ]
   end
 

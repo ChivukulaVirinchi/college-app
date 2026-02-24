@@ -48,7 +48,11 @@ defmodule CounsellingWeb.CollegeLive.Show do
         renderer: &CounsellingWeb.RankComponent.rank_badge/1
       },
       gender: %{label: "Gender", sortable: false, renderer: &process_gender/1},
-      seat_type: %{label: "Seat Type", sortable: false, renderer: &process_seat_type/1},
+      seat_type: %{
+        label: "Category",
+        sortable: false,
+        renderer: &process_seat_type/1
+      },
       quota: %{
         label: "Quota",
         sortable: false,
@@ -75,55 +79,25 @@ defmodule CounsellingWeb.CollegeLive.Show do
           label: "Female",
           condition: dynamic([_, _, _, rank_cutoff: rc], rc.gender == :female)
         }),
-      open_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "OPEN",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :open)
-        }),
-      obc_ncl_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "OBC-NCL",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :obc_ncl)
-        }),
-      sc_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "SC",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :sc)
-        }),
-      st_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "ST",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :st)
-        }),
-      ews_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "EWS",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :ews)
-        }),
-      open_pwd_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "OPEN (PwD)",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :open_pwd)
-        }),
-      obc_ncl_pwd_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "OBC-NCL (PwD)",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :obc_ncl_pwd)
-        }),
-      sc_pwd_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "SC (PwD)",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :sc_pwd)
-        }),
-      st_pwd_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "ST (PwD)",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :st_pwd)
-        }),
-      ews_pwd_filter:
-        Boolean.new(:seat_type, "seat-type-filter", %{
-          label: "EWS (PwD)",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.seat_type == :ews_pwd)
+      seat_type_select:
+        Select.new({:rank_cutoff, :seat_type}, "seat_type_select", %{
+          label: "Category",
+          mode: :single,
+          allow_clear: false,
+          options: [
+            %{label: "OPEN", value: :open},
+            %{label: "OBC-NCL", value: :obc_ncl},
+            %{label: "SC", value: :sc},
+            %{label: "ST", value: :st},
+            %{label: "EWS", value: :ews},
+            %{label: "OPEN (PwD)", value: :open_pwd},
+            %{label: "OBC-NCL (PwD)", value: :obc_ncl_pwd},
+            %{label: "SC (PwD)", value: :sc_pwd},
+            %{label: "ST (PwD)", value: :st_pwd},
+            %{label: "EWS (PwD)", value: :ews_pwd}
+          ],
+          selected: [],
+          placeholder: "Select category..."
         }),
       hs:
         Boolean.new(:quota, "quota-filter", %{

@@ -15,9 +15,6 @@
    The heroicons installation itself is managed by your mix.exs */
 @plugin "../vendor/heroicons";
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
-
-
 /* Add variants based on LiveView classes */
 @custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
 @custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
@@ -28,4 +25,18 @@
     display: contents;
 }
 
-/* This file is for your main application CSS */
+/* Allow horizontal scroll inside LiveTable + fix dark mode table colors */
+@layer utilities {
+    #live-table .shadow {
+        overflow-x: auto !important;
+    }
+    html.dark .table tbody {
+        background-color: rgb(31 41 55) !important; /* gray-800 */
+    }
+    html.dark .table thead {
+        background-color: rgb(55 65 81) !important; /* gray-700 */
+    }
+    html.dark .table tr:hover {
+        background-color: rgb(55 65 81 / 0.5) !important; /* gray-700/50 */
+    }
+}

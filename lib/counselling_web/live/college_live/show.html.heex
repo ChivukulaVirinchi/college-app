@@ -258,7 +258,8 @@
             </div>
             
 <!-- Programs Table -->
-            <div class="overflow-hidden border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl">
+            <div id="category-filter-hook" phx-hook="CategoryFilterHook" class="hidden"></div>
+            <div class="border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl">
               <.live_table
                 fields={fields()}
                 filters={filters()}

@@ -37,6 +37,7 @@ import { RankDisplayHook } from "./rank_display_hook.js";
 import { CompareButtonHook } from "./compare_button_hook.js";
 import { CompareNavHook } from "./compare_nav_hook.js";
 import { CompareStorageHook } from "./compare_storage_hook.js";
+import { CategorySelectHook, CategoryFilterHook } from "./category_hook.js";
 
 
 // import { hooks_default } from "../../../../live_table/priv/static/live-table.js";
@@ -60,6 +61,8 @@ const liveSocket = new LiveSocket("/live", Socket, {
     RankBadge: RankBadgeHook,
     RankInput: RankInputHook,
     RankDisplay: RankDisplayHook,
+    CategorySelect: CategorySelectHook,
+    CategoryFilterHook,
   },
 });
 
