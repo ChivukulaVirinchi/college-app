@@ -97,13 +97,13 @@ defmodule CounsellingWeb.Layouts do
           >
             <div class="space-y-1">
               <.link
-                patch="/colleges"
+                navigate="/colleges"
                 class="block px-4 py-2.5 text-sm font-sans text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 Colleges
               </.link>
               <.link
-                patch="/programs"
+                navigate="/programs"
                 class="block px-4 py-2.5 text-sm font-sans text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 Programs

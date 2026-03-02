@@ -3,7 +3,11 @@ defmodule CounsellingWeb.PageController do
   alias Counselling.{Colleges, Programs}
 
   def home(conn, _params) do
-    render(conn, :home)
+    render(conn, :home,
+      latest_year: Josaa.latest_year(),
+      college_count: Colleges.count_colleges(),
+      program_count: Programs.count_programs()
+    )
   end
 
   def sitemap(conn, _params) do

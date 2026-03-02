@@ -45,7 +45,7 @@ export const CategorySelectHook = {
       setSutraSelectValue("category-select", saved);
     });
 
-    // Listen for SutraUI select changes (fires 'input' on hidden input)
+    // Listen for SutraUI select changes (fires 'change' on hidden input)
     this._input = this.el.querySelector("[data-select-input]");
     if (this._input) {
       this._onChange = () => {
@@ -57,7 +57,7 @@ export const CategorySelectHook = {
           })
         );
       };
-      this._input.addEventListener("input", this._onChange);
+      this._input.addEventListener("change", this._onChange);
     }
 
     // Cross-tab sync
@@ -71,7 +71,7 @@ export const CategorySelectHook = {
   },
 
   destroyed() {
-    if (this._input) this._input.removeEventListener("input", this._onChange);
+    if (this._input) this._input.removeEventListener("change", this._onChange);
     window.removeEventListener("storage", this._storageHandler);
   },
 };

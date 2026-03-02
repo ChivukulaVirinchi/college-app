@@ -1,21 +1,7 @@
 defmodule CounsellingWeb.ProgramComponent do
   use CounsellingWeb, :html
-  alias Counselling.Programs
-  import Ecto.Query, warn: false
-  alias Counselling.Repo
 
   def program_component(assigns) do
-    assigns =
-      Map.put(
-        assigns,
-        :count,
-        Programs.list_colleges(assigns.record.id)
-        |> exclude(:select)
-        |> exclude(:order_by)
-        |> select([c], count(c.id))
-        |> Repo.one()
-      )
-
     ~H"""
     <.card class="group h-full hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
       <:content class="flex-1">
@@ -51,8 +37,8 @@ defmodule CounsellingWeb.ProgramComponent do
 
         <%!-- College count --%>
         <p class="mt-2 text-sm text-stone-500 dark:text-zinc-400">
-          <span class="font-medium text-stone-600 dark:text-zinc-300">{@count}</span>
-          {if @count == 1, do: "college", else: "colleges"} offering this program
+          <span class="font-medium text-stone-600 dark:text-zinc-300">{@record.college_count}</span>
+          {if @record.college_count == 1, do: "college", else: "colleges"} offering this program
         </p>
       </:content>
 

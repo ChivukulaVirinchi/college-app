@@ -20,6 +20,8 @@ const CATEGORY_LABELS = {
   sc_pwd: 'SC (PwD)', st_pwd: 'ST (PwD)', ews_pwd: 'EWS (PwD)',
 };
 
+const VALID_SEAT_TYPES = new Set(Object.keys(CATEGORY_LABELS));
+
 export const CutoffChartHook = {
   mounted() {
     this.allData = JSON.parse(this.el.dataset.allCutoffs || '[]');
@@ -52,8 +54,10 @@ export const CutoffChartHook = {
     }
 
     this.category = localStorage.getItem('josaa_user_category') || 'open';
+
     this.render();
 
+    // Cross-tab localStorage sync
     this._onStorage = (e) => {
       if (e.key === 'josaa_user_category') {
         this.category = e.newValue || 'open';
@@ -62,21 +66,45 @@ export const CutoffChartHook = {
     };
     window.addEventListener('storage', this._onStorage);
 
+    // Same-page category selector sync (from CategorySelectHook on index pages)
     this._onCategoryChange = (e) => {
       this.category = e.detail?.category || localStorage.getItem('josaa_user_category') || 'open';
       this.render();
     };
     document.addEventListener('user-category-changed', this._onCategoryChange);
+
+    // Sync with LiveTable's LiveSelect seat_type filter on this page.
+    // SutraUI.LiveSelect fires 'change' on [data-live-select-input] hidden inputs.
+    // The value is JSON like {"label":"OPEN","value":"open"}.
+    this._onLiveSelectChange = (e) => {
+      const input = e.target;
+      if (!input.hasAttribute('data-live-select-input')) return;
+      try {
+        const parsed = JSON.parse(input.value);
+        const seatType = parsed.value || parsed;
+        if (VALID_SEAT_TYPES.has(seatType)) {
+          this.category = seatType;
+          localStorage.setItem('josaa_user_category', seatType);
+          document.dispatchEvent(new CustomEvent('user-category-changed', { detail: { category: seatType } }));
+          this.render();
+        }
+      } catch (_) { /* not JSON or not a seat type — ignore */ }
+    };
+    document.addEventListener('change', this._onLiveSelectChange);
   },
 
   destroyed() {
     if (this.chart) this.chart.destroy();
     window.removeEventListener('storage', this._onStorage);
     document.removeEventListener('user-category-changed', this._onCategoryChange);
+    document.removeEventListener('change', this._onLiveSelectChange);
   },
 
   render() {
-    if (this.chart) this.chart.destroy();
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
 
     const gender = this.showFemale ? 'female' : 'gender_neutral';
     const filtered = this.allData.filter(
@@ -139,7 +167,7 @@ export const CutoffChartHook = {
         backgroundColor: fillColor,
         borderWidth: 1,
         borderDash: [4, 3],
-        fill: '-1', // fill to previous dataset (closing rank line)
+        fill: '-1',
         tension: 0.3,
         pointRadius: 2.5,
         pointHoverRadius: 5,
@@ -243,6 +271,7 @@ export const CutoffChartHook = {
         layout: { padding: { top: 4, right: 8 } },
       },
     });
+
   },
 
   renderEmpty() {

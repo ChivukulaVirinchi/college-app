@@ -4,22 +4,31 @@ export const CompareNavHook = {
     this.updateCounterAndHref();
 
     // Listen for storage changes
-    window.addEventListener('storage', (e) => {
+    this._onStorage = (e) => {
       if (e.key === this.storageKey) {
         this.updateCounterAndHref();
       }
-    });
+    };
+    window.addEventListener('storage', this._onStorage);
 
     // Listen for custom events from compare buttons
-    document.addEventListener('compare-storage-updated', () => {
+    this._onCompareUpdate = () => {
       this.updateCounterAndHref();
       this.animateNavButton();
-    });
+    };
+    document.addEventListener('compare-storage-updated', this._onCompareUpdate);
 
     // Listen for animation trigger events
-    document.addEventListener('animate-compare-nav', () => {
+    this._onAnimate = () => {
       this.animateNavButton();
-    });
+    };
+    document.addEventListener('animate-compare-nav', this._onAnimate);
+  },
+
+  destroyed() {
+    window.removeEventListener('storage', this._onStorage);
+    document.removeEventListener('compare-storage-updated', this._onCompareUpdate);
+    document.removeEventListener('animate-compare-nav', this._onAnimate);
   },
 
   getCompareColleges() {

@@ -7,13 +7,16 @@ defmodule CounsellingWeb.CollegeLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    college_count = Colleges.count_colleges()
+
     socket =
       socket
       |> assign(:page_title, "Engineering Colleges - JOSAA Helper")
       |> assign(:data_provider, {Colleges, :list_colleges, []})
+      |> assign(:college_count, college_count)
       |> assign(
         :meta_description,
-        "Browse 120+ engineering colleges (IITs, NITs, IIITs, GFTIs) with JEE rank-based filtering, cutoffs, and NIRF rankings. Find colleges you can get admission to."
+        "Browse #{college_count}+ engineering colleges (IITs, NITs, IIITs, GFTIs) with JEE rank-based filtering, cutoffs, and NIRF rankings. Find colleges you can get admission to."
       )
     {:ok, socket}
   end

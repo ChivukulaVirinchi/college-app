@@ -17,7 +17,7 @@
           class="animate-fade-up text-xs uppercase tracking-[0.25em] text-stone-400 dark:text-zinc-500 mb-6 font-medium"
           style="animation-delay: 0.05s"
         >
-          JOSAA 2025 &mdash; Official Cutoff Data
+          JOSAA {@latest_year} &mdash; Official Cutoff Data
         </p>
 
         <!-- Headline -->
@@ -46,12 +46,12 @@
           class="animate-fade-up flex flex-wrap items-center gap-4 mt-10"
           style="animation-delay: 0.3s"
         >
-          <SutraUI.Button.button navigate={~p"/colleges"} size="lg">
+          <.button navigate={~p"/colleges"} size="lg">
             Explore Colleges &rarr;
-          </SutraUI.Button.button>
-          <SutraUI.Button.button navigate={~p"/programs"} variant="ghost" size="lg">
+          </.button>
+          <.button navigate={~p"/programs"} variant="ghost" size="lg">
             Browse Programs
-          </SutraUI.Button.button>
+          </.button>
         </div>
       </div>
     </section>
@@ -62,7 +62,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12">
           <div>
             <div class="font-serif text-4xl sm:text-5xl text-stone-900 dark:text-zinc-100">
-              120+
+              {@college_count}+
             </div>
             <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
               Colleges
@@ -70,7 +70,7 @@
           </div>
           <div>
             <div class="font-serif text-4xl sm:text-5xl text-stone-900 dark:text-zinc-100">
-              500+
+              {@program_count}+
             </div>
             <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
               Programs
@@ -78,7 +78,7 @@
           </div>
           <div>
             <div class="font-serif text-4xl sm:text-5xl text-stone-900 dark:text-zinc-100">
-              2025
+              {@latest_year}
             </div>
             <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
               Cutoff Year

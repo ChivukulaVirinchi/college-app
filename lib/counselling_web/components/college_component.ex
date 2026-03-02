@@ -1,5 +1,6 @@
 defmodule CounsellingWeb.CollegeComponent do
   use CounsellingWeb, :html
+  import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
 
   def college_component(assigns) do
     ~H"""
@@ -98,9 +99,4 @@ defmodule CounsellingWeb.CollegeComponent do
   defp class_badge_color(:GFTI), do: "bg-orange-600/90"
   defp class_badge_color(_), do: "bg-amber-500/90"
 
-  defp nirf_helper(500), do: "—"
-  defp nirf_helper(250), do: "201–300"
-  defp nirf_helper(175), do: "151–200"
-  defp nirf_helper(125), do: "101–150"
-  defp nirf_helper(rank), do: "#{rank}"
 end

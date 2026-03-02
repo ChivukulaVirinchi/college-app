@@ -11,7 +11,7 @@ export const CompareCategoryHook = {
       setSutraSelectValue("compare-category-select", saved);
     });
 
-    // Listen for SutraUI select changes
+    // Listen for SutraUI select changes (fires 'change' on hidden input)
     this._input = this.el.querySelector("[data-select-input]");
     if (this._input) {
       this._onChange = () => {
@@ -20,7 +20,7 @@ export const CompareCategoryHook = {
         this.pushEvent("change_seat_type", { seat_type: value });
         document.dispatchEvent(new CustomEvent("user-category-changed", { detail: { category: value } }));
       };
-      this._input.addEventListener("input", this._onChange);
+      this._input.addEventListener("change", this._onChange);
     }
 
     // Cross-tab sync
@@ -35,7 +35,7 @@ export const CompareCategoryHook = {
   },
 
   destroyed() {
-    if (this._input) this._input.removeEventListener("input", this._onChange);
+    if (this._input) this._input.removeEventListener("change", this._onChange);
     window.removeEventListener("storage", this._storageHandler);
   },
 };

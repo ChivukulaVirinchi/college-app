@@ -14,8 +14,19 @@ defmodule Counselling.Programs do
     |> Repo.insert()
   end
 
+  def count_programs, do: Repo.aggregate(Program, :count)
+
   def list_programs() do
-    Program
+    college_count_subq =
+      from(cp in CollegeProgram,
+        where: cp.program_id == parent_as(:program).id,
+        select: count(cp.id)
+      )
+
+    from(p in Program,
+      as: :program,
+      select_merge: %{college_count: subquery(college_count_subq)}
+    )
   end
 
   def list_all_programs_sitemap() do
@@ -62,7 +73,6 @@ defmodule Counselling.Programs do
 
   def get_program_by_name(name) do
     Repo.get_by(Program, name: name)
-    |> Repo.one()
   end
 
   def get_common_programs(college_ids) when length(college_ids) == 1, do: []

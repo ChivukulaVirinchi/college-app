@@ -52,6 +52,8 @@ defmodule Counselling.Colleges do
     |> Repo.all()
   end
 
+  def count_colleges, do: Repo.aggregate(College, :count)
+
   def get_college!(id) do
     Repo.get!(College, id)
     |> Repo.preload(:nirf_rankings)
@@ -60,9 +62,12 @@ defmodule Counselling.Colleges do
   def fetch_colleges([]), do: []
 
   def fetch_colleges(ids) when is_list(ids) do
-    Enum.map(ids, fn id ->
-      get_college!(id)
-    end)
+    colleges =
+      from(c in College, where: c.id in ^ids, preload: :nirf_rankings)
+      |> Repo.all()
+      |> Map.new(&{&1.id, &1})
+
+    Enum.map(ids, &Map.get(colleges, &1)) |> Enum.reject(&is_nil/1)
   end
 
   def get_college_programs(id) do
@@ -314,26 +319,6 @@ defmodule Counselling.Colleges do
       left_join: nr in NirfRanking,
       on: nr.college_id == c.id and nr.year == ^@latest_year,
       order_by: [asc: fragment("COALESCE(?, 999)", nr.nirf_rank), asc: c.name],
-      select: %{
-        id: c.id,
-        name: c.name,
-        location: c.location,
-        class: c.class,
-        nirf_rank: nr.nirf_rank
-      }
-    )
-    |> Repo.all()
-  end
-
-  def search_colleges(search_term) do
-    search_pattern = "%#{search_term}%"
-
-    from(c in College,
-      left_join: nr in NirfRanking,
-      on: nr.college_id == c.id and nr.year == ^@latest_year,
-      where: ilike(c.name, ^search_pattern) or ilike(c.location, ^search_pattern),
-      order_by: [asc: fragment("COALESCE(?, 999)", nr.nirf_rank), asc: c.name],
-      limit: 10,
       select: %{
         id: c.id,
         name: c.name,

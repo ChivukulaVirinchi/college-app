@@ -214,9 +214,13 @@
               Showing: Gender Neutral
             </button>
           </div>
-          <%!-- Canvas --%>
+          <%!-- Canvas — fixed-height container so Chart.js always reads correct
+               dimensions; phx-update="ignore" prevents morphdom from resetting
+               the canvas attributes Chart.js sets on each render. --%>
           <div class="p-4 sm:p-6">
-            <canvas id="cutoffTrendsCanvas" class="w-full h-64 sm:h-80"></canvas>
+            <div id="cutoff-chart-canvas" phx-update="ignore" class="relative h-64 sm:h-80">
+              <canvas id="cutoffTrendsCanvas"></canvas>
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ defmodule Counselling.Programs.Program do
     field :duration, :integer
     field :degree_type, :string
     field :slug, :string
+    field :college_count, :integer, virtual: true
     # program description
     many_to_many :colleges, Counselling.Colleges.College, join_through: "college_programs"
 
