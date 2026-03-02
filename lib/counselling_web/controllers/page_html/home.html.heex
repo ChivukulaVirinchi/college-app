@@ -1,653 +1,301 @@
 <Layouts.app flash={@flash}>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-    <!-- Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-blue-600">
-      <div class="absolute inset-0 bg-black/20"></div>
-      <div class="relative px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-16 lg:py-24">
-        <!-- Navigation -->
-        <nav class="flex items-center justify-between mb-8 sm:mb-12">
-          <div class="flex items-center">
-            <div class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                <svg
-                  class="w-5 h-5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  >
-                  </path>
-                </svg>
-              </div>
-              <span class="text-xl font-bold text-white">JOSAA Helper</span>
+  <div class="relative overflow-hidden">
+    <!-- Warm ambient glow -->
+    <div class="pointer-events-none absolute top-0 left-1/4 w-[500px] h-[500px] bg-amber-200/15 dark:bg-amber-600/[0.03] rounded-full blur-3xl">
+    </div>
+    <div class="pointer-events-none absolute top-40 right-0 w-80 h-80 bg-stone-200/30 dark:bg-zinc-800/20 rounded-full blur-3xl">
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="relative px-4 pt-20 pb-14 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-24 max-w-6xl mx-auto sm:px-6 lg:px-8">
+      <div class="relative max-w-3xl">
+        <!-- Amber accent bar -->
+        <div class="animate-fade-up w-10 h-1 bg-amber-500 rounded-full mb-8"></div>
+
+        <!-- Eyebrow -->
+        <p
+          class="animate-fade-up text-xs uppercase tracking-[0.25em] text-stone-400 dark:text-zinc-500 mb-6 font-medium"
+          style="animation-delay: 0.05s"
+        >
+          JOSAA 2025 &mdash; Official Cutoff Data
+        </p>
+
+        <!-- Headline -->
+        <h1
+          class="animate-fade-up font-serif text-[3rem] sm:text-[4rem] lg:text-[5.5rem] leading-[1.06] tracking-tight text-stone-900 dark:text-zinc-50"
+          style="animation-delay: 0.1s"
+        >
+          Your rank.
+          <br class="hidden sm:block" />
+          Your colleges.
+          <br />
+          <em class="italic text-amber-600 dark:text-amber-400">Sorted.</em>
+        </h1>
+
+        <!-- Subtext -->
+        <p
+          class="animate-fade-up mt-8 text-lg sm:text-xl text-stone-500 dark:text-zinc-400 max-w-lg leading-relaxed"
+          style="animation-delay: 0.2s"
+        >
+          Enter your JEE rank and instantly see which IITs, NITs, and IIITs
+          you can get into &mdash; color-coded for clarity.
+        </p>
+
+        <!-- CTAs -->
+        <div
+          class="animate-fade-up flex flex-wrap items-center gap-4 mt-10"
+          style="animation-delay: 0.3s"
+        >
+          <SutraUI.Button.button navigate={~p"/colleges"} size="lg">
+            Explore Colleges &rarr;
+          </SutraUI.Button.button>
+          <SutraUI.Button.button navigate={~p"/programs"} variant="ghost" size="lg">
+            Browse Programs
+          </SutraUI.Button.button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STATS STRIP ===== -->
+    <section class="border-y border-stone-200/80 dark:border-zinc-800/80 bg-stone-100/50 dark:bg-zinc-900/30">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12">
+          <div>
+            <div class="font-serif text-4xl sm:text-5xl text-stone-900 dark:text-zinc-100">
+              120+
             </div>
-          </div>
-          <div class="flex items-center space-x-4">
-            <.link
-              navigate={~p"/colleges"}
-              class="px-4 py-2 text-sm font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
-            >
+            <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
               Colleges
-            </.link>
-            <.link
-              navigate={~p"/programs"}
-              class="px-4 py-2 text-sm font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
-            >
+            </div>
+          </div>
+          <div>
+            <div class="font-serif text-4xl sm:text-5xl text-stone-900 dark:text-zinc-100">
+              500+
+            </div>
+            <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
               Programs
-            </.link>
-          </div>
-        </nav>
-        
-<!-- Hero Content -->
-        <div class="text-center">
-          <div class="mb-4 sm:mb-6">
-            <span class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                >
-                </path>
-              </svg>
-              JOSAA Counselling 2025
-            </span>
-          </div>
-
-          <h1 class="mb-4 text-3xl font-bold tracking-tight text-white sm:mb-6 sm:text-4xl lg:text-6xl lg:leading-tight">
-            JOSAA Counselling <br class="hidden sm:block" />
-            <span class="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-              Made Simple
-            </span>
-          </h1>
-
-          <p class="mb-6 text-lg text-white/90 sm:mb-8 sm:text-xl lg:text-2xl max-w-3xl mx-auto">
-            Real-time college filtering, accurate cutoff data, and smart recommendations for informed engineering college decisions.
-          </p>
-
-          <div class="mb-6 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-sm text-white/80 max-w-2xl mx-auto">
-            <div class="flex items-start space-x-2">
-              <svg
-                class="w-4 h-4 mt-0.5 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                >
-                </path>
-              </svg>
-              <div>
-                <strong>Quick Start:</strong>
-                Enter your JEE Main/Advanced rank to see which colleges you can get into. Color-coded badges show your admission chances: <span class="text-green-300">Green (Safe)</span>, <span class="text-yellow-300">Orange (Possible)</span>, <span class="text-red-300">Red (Difficult)</span>.
-              </div>
             </div>
           </div>
-
-          <div class="flex flex-col items-center space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-            <.link
-              navigate={~p"/colleges"}
-              class="w-full px-8 py-4 text-lg font-semibold text-violet-700 bg-white rounded-xl hover:bg-gray-50 transition-colors focus:ring-4 focus:ring-white/30 sm:w-auto"
-            >
-              Browse Colleges
-            </.link>
-            <.link
-              navigate={~p"/programs"}
-              class="w-full px-8 py-4 text-lg font-semibold text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-colors focus:ring-4 focus:ring-white/30 sm:w-auto"
-            >
-              View Programs
-            </.link>
+          <div>
+            <div class="font-serif text-4xl sm:text-5xl text-stone-900 dark:text-zinc-100">
+              2025
+            </div>
+            <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
+              Cutoff Year
+            </div>
           </div>
-          
-<!-- Trust Indicators -->
-          <div class="flex flex-wrap justify-center gap-4 mt-8 sm:gap-6 sm:mt-12">
-            <div class="flex items-center px-3 py-2 text-sm text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                >
-                </path>
-              </svg>
-              120+ Colleges
+          <div>
+            <div class="font-serif text-4xl sm:text-5xl text-amber-600 dark:text-amber-400">
+              Free
             </div>
-            <div class="flex items-center px-3 py-2 text-sm text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                >
-                </path>
-              </svg>
-              Latest 2025 Cutoffs
-            </div>
-            <div class="flex items-center px-3 py-2 text-sm text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                >
-                </path>
-              </svg>
-              Real-time Updates
+            <div class="mt-2 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
+              Always
             </div>
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="px-4 py-20 sm:py-28 max-w-6xl mx-auto sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-14 sm:mb-20">
+        <div class="w-10 h-1 bg-amber-500 rounded-full mb-6 mx-auto"></div>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] text-stone-900 dark:text-zinc-50 leading-snug">
+          Three steps to your<br class="hidden sm:block" />
+          <em class="italic text-amber-600 dark:text-amber-400">best-fit</em> college
+        </h2>
+        <p class="mt-5 text-base sm:text-lg text-stone-500 dark:text-zinc-400 leading-relaxed max-w-lg mx-auto">
+          Enter your rank once, then browse every college and program with
+          cutoffs filtered to your category. No signup needed.
+        </p>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-3">
+        <%!-- Step 1 --%>
+        <div class="relative">
+          <div class="text-[4.5rem] font-serif text-stone-100 dark:text-zinc-800/60 leading-none select-none absolute -top-3 -left-1">
+            1
+          </div>
+          <div class="relative pt-10 pl-1">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-500/[0.08] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl text-stone-900 dark:text-zinc-100 mb-2">
+              Enter your rank
+            </h3>
+            <p class="text-[15px] text-stone-500 dark:text-zinc-400 leading-relaxed">
+              Type your JEE rank and select your category (OPEN, OBC-NCL, SC, ST, EWS).
+              Every page adapts instantly.
+            </p>
+          </div>
+        </div>
+
+        <%!-- Step 2 --%>
+        <div class="relative">
+          <div class="text-[4.5rem] font-serif text-stone-100 dark:text-zinc-800/60 leading-none select-none absolute -top-3 -left-1">
+            2
+          </div>
+          <div class="relative pt-10 pl-1">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-500/[0.08] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl text-stone-900 dark:text-zinc-100 mb-2">
+              Filter & sort
+            </h3>
+            <p class="text-[15px] text-stone-500 dark:text-zinc-400 leading-relaxed">
+              Filter by IIT, NIT, IIIT or GFTI. Sort by NIRF ranking or cutoff.
+              See color-coded ranks for your exact category.
+            </p>
+          </div>
+        </div>
+
+        <%!-- Step 3 --%>
+        <div class="relative">
+          <div class="text-[4.5rem] font-serif text-stone-100 dark:text-zinc-800/60 leading-none select-none absolute -top-3 -left-1">
+            3
+          </div>
+          <div class="relative pt-10 pl-1">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-500/[0.08] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl text-stone-900 dark:text-zinc-100 mb-2">
+              Compare & decide
+            </h3>
+            <p class="text-[15px] text-stone-500 dark:text-zinc-400 leading-relaxed">
+              Add colleges to compare side by side &mdash; cutoffs, NIRF rankings,
+              and historical trends in one view.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Decorative divider -->
+    <div class="flex items-center gap-4 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex-1 h-px bg-stone-200 dark:bg-zinc-800"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+      <div class="flex-1 h-px bg-stone-200 dark:bg-zinc-800"></div>
     </div>
-    
-<!-- Main Content -->
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <!-- Features Section -->
-      <section class="py-12 sm:py-16 lg:py-20">
-        <div class="text-center mb-12 sm:mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl lg:text-4xl mb-4">
-            Everything You Need for JOSAA Counselling
-          </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Comprehensive tools and accurate data to help you make informed engineering college decisions.
-          </p>
-        </div>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-          <div class="p-6 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:p-8">
-            <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/30 rounded-xl flex items-center justify-center mb-4">
-              <svg
-                class="w-6 h-6 text-violet-600 dark:text-violet-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                >
-                </path>
-              </svg>
+    <!-- ===== FEATURES ===== -->
+    <section class="px-4 py-20 sm:py-28 max-w-6xl mx-auto sm:px-6 lg:px-8">
+      <div class="grid gap-6 sm:grid-cols-3">
+        <SutraUI.Card.card class="border-t-2 border-t-amber-500">
+          <:content>
+            <div class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 mb-4">
+              Live Filtering
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              Real-time Filtering
+            <h3 class="font-serif text-2xl text-stone-900 dark:text-zinc-100 mb-3">
+              Instant results
             </h3>
-            <p class="text-gray-600 dark:text-gray-400">
-              Enter your JEE rank and instantly see colleges where you have admission chances. Your rank is saved locally and automatically filters all pages.
+            <p class="text-base text-stone-500 dark:text-zinc-400 leading-relaxed">
+              Every page updates as you type your rank. Built with Phoenix
+              LiveView for zero-reload speed.
             </p>
+          </:content>
+        </SutraUI.Card.card>
+
+        <SutraUI.Card.card class="border-t-2 border-t-amber-500">
+          <:content>
+            <div class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 mb-4">
+              Official Data
+            </div>
+            <h3 class="font-serif text-2xl text-stone-900 dark:text-zinc-100 mb-3">
+              Verified cutoffs
+            </h3>
+            <p class="text-base text-stone-500 dark:text-zinc-400 leading-relaxed">
+              JOSAA cutoffs and NIRF rankings sourced directly from official
+              records. All categories covered.
+            </p>
+          </:content>
+        </SutraUI.Card.card>
+
+        <SutraUI.Card.card class="border-t-2 border-t-amber-500">
+          <:content>
+            <div class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 mb-4">
+              Smart Compare
+            </div>
+            <h3 class="font-serif text-2xl text-stone-900 dark:text-zinc-100 mb-3">
+              Side by side
+            </h3>
+            <p class="text-base text-stone-500 dark:text-zinc-400 leading-relaxed">
+              Compare colleges with NIRF rankings, cutoff trends, and
+              program details in one view.
+            </p>
+          </:content>
+        </SutraUI.Card.card>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="px-4 pb-20 sm:pb-28 max-w-6xl mx-auto sm:px-6 lg:px-8">
+      <SutraUI.Card.card class="bg-stone-100 dark:bg-zinc-900 relative overflow-hidden">
+        <:content class="py-10 sm:py-14 px-2 sm:px-6">
+          <!-- Decorative circles -->
+          <div class="absolute top-8 right-10 w-28 h-28 border border-amber-300/30 dark:border-amber-500/10 rounded-full pointer-events-none">
+          </div>
+          <div class="absolute bottom-6 right-20 w-14 h-14 border border-amber-300/20 dark:border-amber-500/[0.06] rounded-full pointer-events-none">
           </div>
 
-          <div class="p-6 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:p-8">
-            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4">
-              <svg
-                class="w-6 h-6 text-blue-600 dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                >
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              Accurate Cutoff Data
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400">
-              Latest JOSAA cutoff ranks for all colleges and programs. Includes opening/closing ranks for different quotas (All India, Home State, Other State) and categories.
-            </p>
-          </div>
-
-          <div class="p-6 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl sm:p-8">
-            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
-              <svg
-                class="w-6 h-6 text-green-600 dark:text-green-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                >
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              Smart Comparison
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400">
-              Compare colleges side-by-side with detailed metrics including NIRF rankings, cutoffs, and program offerings to make informed decisions.
-            </p>
-          </div>
-        </div>
-      </section>
-      
-<!-- How It Works Section -->
-      <section class="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 rounded-3xl">
-        <div class="px-6 sm:px-8 lg:px-12">
-          <div class="text-center mb-12 sm:mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl lg:text-4xl mb-4">
-              How JOSAA Helper Works
+          <div class="relative max-w-lg">
+            <h2 class="font-serif text-3xl sm:text-4xl text-stone-900 dark:text-zinc-50">
+              Ready to find <em class="italic text-amber-600 dark:text-amber-400">your</em>
+              college?
             </h2>
-            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Simple, fast, and accurate college recommendations based on your JEE rank and preferences.
+            <p class="mt-4 text-base sm:text-lg text-stone-500 dark:text-zinc-400">
+              No registration. No ads. Just accurate data and instant results.
             </p>
-          </div>
-
-          <div class="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-            <div class="space-y-6">
-              <div class="flex items-start space-x-4">
-                <div class="flex-shrink-0 w-10 h-10 bg-violet-100 dark:bg-violet-900/30 rounded-lg flex items-center justify-center">
-                  <span class="text-lg font-bold text-violet-600 dark:text-violet-400">1</span>
-                </div>
-                <div>
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Enter Your Details
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400">
-                    Input your JEE rank, category, and quota preferences. Your rank is remembered across all pages for instant filtering and personalized recommendations.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start space-x-4">
-                <div class="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                  <span class="text-lg font-bold text-blue-600 dark:text-blue-400">2</span>
-                </div>
-                <div>
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Get Instant Results
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400">
-                    See all colleges and programs where you have admission chances, sorted by relevance and your preferences.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start space-x-4">
-                <div class="flex-shrink-0 w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-                  <span class="text-lg font-bold text-green-600 dark:text-green-400">3</span>
-                </div>
-                <div>
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Compare & Decide
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400">
-                    Compare colleges side-by-side, view detailed information, and make informed decisions for your counselling.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start space-x-4">
-                <div class="flex-shrink-0 w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center">
-                  <svg
-                    class="w-5 h-5 text-orange-600 dark:text-orange-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    >
-                    </path>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Real-time Updates
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400">
-                    All filtering happens instantly with Phoenix LiveView technology. No page reloads, just fast results.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="relative">
-              <div class="bg-white dark:bg-gray-800 shadow-2xl border border-gray-100 dark:border-gray-700 rounded-2xl p-6 sm:p-8">
-                <div class="mb-6">
-                  <div class="flex items-center space-x-2 mb-4">
-                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                  </div>
-                  <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">josaahelper.com</div>
-                  <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Find Colleges for Rank: 45,000
-                  </h4>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    ✓ Shows only colleges where you have admission chances
-                  </p>
-                </div>
-
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between p-3 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-lg">
-                    <div>
-                      <div class="font-medium text-gray-900 dark:text-white">NIT Rourkela</div>
-                      <div class="text-sm text-gray-600 dark:text-gray-400">
-                        Bio Medical Engineering • NIRF Rank #16
-                      </div>
-                    </div>
-                    <div class="text-sm text-violet-600 dark:text-violet-400 font-medium">
-                      Possible
-                    </div>
-                  </div>
-
-                  <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                    <div>
-                      <div class="font-medium text-gray-900 dark:text-white">NIT Nagpur</div>
-                      <div class="text-sm text-gray-600 dark:text-gray-400">
-                        Civil Engineering• NIRF Rank #41
-                      </div>
-                    </div>
-                    <div class="text-sm text-blue-600 dark:text-blue-400 font-medium">Safe</div>
-                  </div>
-
-                  <div class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                    <div>
-                      <div class="font-medium text-gray-900 dark:text-white">NIT Meghalaya</div>
-                      <div class="text-sm text-gray-600 dark:text-gray-400">
-                        Mechanical Engineering • NIRF Rank #68
-                      </div>
-                    </div>
-                    <div class="text-sm text-green-600 dark:text-green-400 font-medium">Safe</div>
-                  </div>
-                </div>
-
-                <div class="mt-6 text-center">
-                  <div class="text-sm text-gray-500 dark:text-gray-400">
-                    Updated in real-time ⚡
-                  </div>
-                </div>
-              </div>
+            <div class="mt-8">
+              <SutraUI.Button.button navigate={~p"/colleges"} size="lg">
+                Start Exploring &rarr;
+              </SutraUI.Button.button>
             </div>
           </div>
-        </div>
-      </section>
-      
-<!-- Data & Technology Section -->
-      <section class="py-12 sm:py-16 lg:py-20">
-        <div class="text-center mb-12 sm:mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl lg:text-4xl mb-4">
-            Built on Reliable Data & Modern Technology
-          </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Accurate information you can trust, powered by technology that delivers instant results.
-          </p>
-        </div>
+        </:content>
+      </SutraUI.Card.card>
+    </section>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-          <div class="p-6 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl text-center sm:p-8">
-            <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <svg
-                class="w-8 h-8 text-violet-600 dark:text-violet-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                >
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              Official JOSAA Data
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400">
-              Cutoff ranks sourced directly from official JOSAA counselling data and NIRF rankings.
-            </p>
-          </div>
-
-          <div class="p-6 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl text-center sm:p-8">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <svg
-                class="w-8 h-8 text-blue-600 dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                >
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              Phoenix LiveView
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400">
-              Real-time filtering and updates without page reloads, delivering instant results as you type.
-            </p>
-          </div>
-
-          <div class="p-6 bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 rounded-xl text-center sm:p-8">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <svg
-                class="w-8 h-8 text-green-600 dark:text-green-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-                >
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              Mobile Optimized
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400">
-              Responsive design that works perfectly on mobile devices during counselling sessions.
-            </p>
-          </div>
-        </div>
-      </section>
-      
-<!-- Technical Advantages Section -->
-      <section class="py-12 sm:py-16 lg:py-20 bg-gray-100 dark:bg-gray-800 rounded-3xl">
-        <div class="px-6 sm:px-8 lg:px-12">
-          <div class="text-center mb-12 sm:mb-16">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl lg:text-4xl mb-4">
-              What Makes JOSAA Helper Different
-            </h2>
-            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Technical features designed specifically for JOSAA counselling efficiency and accuracy.
-            </p>
-          </div>
-
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 sm:gap-8">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  class="w-8 h-8 text-violet-600 dark:text-violet-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  >
-                  </path>
-                </svg>
-              </div>
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Real-time Filtering
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">
-                Phoenix LiveView technology for instant results without page reloads
-              </p>
-            </div>
-
-            <div class="text-center">
-              <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  class="w-8 h-8 text-blue-600 dark:text-blue-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  >
-                  </path>
-                </svg>
-              </div>
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Accurate Data
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">
-                Official JOSAA cutoffs and verified NIRF rankings for reliable decisions
-              </p>
-            </div>
-
-            <div class="text-center">
-              <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  class="w-8 h-8 text-green-600 dark:text-green-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  >
-                  </path>
-                </svg>
-              </div>
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Historical Trends
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">
-                Year-over-year cutoff analysis and ranking trends to predict future patterns
-              </p>
-            </div>
-
-            <div class="text-center">
-              <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  class="w-8 h-8 text-orange-600 dark:text-orange-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-                  >
-                  </path>
-                </svg>
-              </div>
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Mobile Ready
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">
-                Responsive design optimized for mobile counselling sessions
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-<!-- CTA Section -->
-      <section class="py-12 sm:py-16 lg:py-20">
-        <div class="text-center">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl lg:text-4xl mb-4">
-            Start Your JOSAA Counselling Research
-          </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-            Access comprehensive college data, real-time filtering, and accurate cutoff information.
-            No registration required.
-          </p>
-
-          <div class="flex flex-col items-center space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-            <.link
-              navigate={~p"/colleges"}
-              class="w-full px-8 py-4 text-lg font-semibold text-white bg-violet-600 hover:bg-violet-700 dark:bg-violet-700 dark:hover:bg-violet-600 rounded-xl transition-colors focus:ring-4 focus:ring-violet-500/30 sm:w-auto"
+    <!-- ===== FOOTER ===== -->
+    <footer class="px-4 py-10 max-w-6xl mx-auto sm:px-6 lg:px-8 border-t border-stone-200 dark:border-zinc-800">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="font-serif text-lg text-stone-900 dark:text-zinc-100">
+            JOSAA Guide
+          </span>
+          <span class="w-1 h-1 rounded-full bg-amber-500"></span>
+          <span class="text-sm text-stone-400 dark:text-zinc-600">
+            Built by
+            <a
+              href="https://github.com/gurujada"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-stone-500 dark:text-zinc-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors underline underline-offset-2 decoration-stone-300 dark:decoration-zinc-700 hover:decoration-amber-500"
             >
-              Browse Colleges
-            </.link>
-            <.link
-              navigate={~p"/programs"}
-              class="w-full px-8 py-4 text-lg font-semibold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 rounded-xl hover:bg-violet-100 dark:hover:bg-violet-900/50 transition-colors focus:ring-4 focus:ring-violet-500/30 sm:w-auto"
-            >
-              View Programs
-            </.link>
-          </div>
-
-          <div class="grid grid-cols-2 gap-8 mt-12 sm:grid-cols-4 sm:gap-12">
-            <div class="text-center">
-              <div class="text-2xl font-bold text-violet-600 dark:text-violet-400 sm:text-3xl">
-                120+
-              </div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">Engineering Colleges</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-blue-600 dark:text-blue-400 sm:text-3xl">
-                500+
-              </div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">Academic Programs</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-green-600 dark:text-green-400 sm:text-3xl">
-                2025
-              </div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">Latest Cutoff Data</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-orange-600 dark:text-orange-400 sm:text-3xl">
-                Free
-              </div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">No Cost, No Ads</div>
-            </div>
-          </div>
+              Gurujada
+            </a>
+          </span>
         </div>
-      </section>
-    </div>
+        <div class="flex gap-6 text-sm text-stone-400 dark:text-zinc-500">
+          <.link
+            navigate={~p"/colleges"}
+            class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+          >
+            Colleges
+          </.link>
+          <.link
+            navigate={~p"/programs"}
+            class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+          >
+            Programs
+          </.link>
+        </div>
+      </div>
+    </footer>
   </div>
 </Layouts.app>

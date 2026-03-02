@@ -84,8 +84,16 @@ defmodule CounsellingWeb do
 
       # HTML escaping functionality
       import Phoenix.HTML
-      # Core UI components
-      import CounsellingWeb.CoreComponents
+
+      # SutraUI component library (card, button, input, select, breadcrumb, badge, flash, …)
+      use SutraUI
+
+      # Core UI components — only what SutraUI doesn't provide
+      import CounsellingWeb.CoreComponents,
+        only: [icon: 1, list: 1, translate_error: 1, translate_errors: 2]
+
+      # App-specific components
+      import CounsellingWeb.HelpPill
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS

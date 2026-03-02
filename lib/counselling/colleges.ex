@@ -280,6 +280,23 @@ defmodule Counselling.Colleges do
     |> Repo.one()
   end
 
+  @doc "Lightweight list for the compare command palette (id, name, location, class, nirf_rank)."
+  def list_colleges_summary do
+    from(c in College,
+      left_join: nr in NirfRanking,
+      on: nr.college_id == c.id and nr.year == ^@latest_year,
+      order_by: [asc: fragment("COALESCE(?, 999)", nr.nirf_rank), asc: c.name],
+      select: %{
+        id: c.id,
+        name: c.name,
+        location: c.location,
+        class: c.class,
+        nirf_rank: nr.nirf_rank
+      }
+    )
+    |> Repo.all()
+  end
+
   def search_colleges(search_term) do
     search_pattern = "%#{search_term}%"
 

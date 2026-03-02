@@ -72,7 +72,8 @@ defmodule CounsellingWeb.CollegeLive.Show do
       gender_filter:
         Boolean.new(:gender, "gender-filter", %{
           label: "Gender Neutral",
-          condition: dynamic([_, _, _, rank_cutoff: rc], rc.gender == :gender_neutral)
+          condition: dynamic([_, _, _, rank_cutoff: rc], rc.gender == :gender_neutral),
+          default: true
         }),
       female_filter:
         Boolean.new(:gender, "gender-filter", %{
@@ -116,6 +117,11 @@ defmodule CounsellingWeb.CollegeLive.Show do
         })
     ]
   end
+
+  @quota_filter_keys [:hs, :all_india, :os]
+
+  def filters_for(:IIT), do: Keyword.drop(filters(), @quota_filter_keys)
+  def filters_for(_class), do: filters()
 
   defp college_link(program, record) do
     assigns = %{
@@ -164,4 +170,19 @@ defmodule CounsellingWeb.CollegeLive.Show do
   defp process_seat_type(:st_pwd), do: "ST (PwD)"
   defp process_seat_type(:ews_pwd), do: "EWS (PwD)"
   defp process_seat_type(other), do: other |> to_string() |> String.upcase()
+
+  defp type_badge_color(:IIT),
+    do: "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-400"
+
+  defp type_badge_color(:NIT),
+    do: "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400"
+
+  defp type_badge_color(:IIIT),
+    do: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400"
+
+  defp type_badge_color(:GFTI),
+    do: "bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400"
+
+  defp type_badge_color(_),
+    do: "bg-stone-100 text-stone-600 dark:bg-zinc-800 dark:text-zinc-400"
 end

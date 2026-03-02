@@ -1,200 +1,152 @@
 defmodule CounsellingWeb.ProgramLive.CustomHeader do
-  use Phoenix.Component
+  use CounsellingWeb, :html
   alias LiveTable.Boolean
-  import CounsellingWeb.CoreComponents
 
   def custom_header(assigns) do
+
     ~H"""
-    <div>
-      <section class="relative mb-8 -mt-6 sm:mb-10 sm:-mt-10 lg:mb-12 lg:-mt-16">
-        <div class="bg-white dark:bg-gray-800 shadow-2xl border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl overflow-hidden">
-          <div class="p-6 sm:p-8 lg:p-10">
-            <!-- Helper Info -->
-            <%!-- <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                <div class="flex items-start space-x-3">
-                  <svg
-                    class="w-5 h-5 mt-0.5 text-blue-600 dark:text-blue-400 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    >
-                    </path>
-                  </svg>
-                  <div class="text-sm text-blue-800 dark:text-blue-200">
-                    <strong>Program Guide:</strong>
-                    Each program shows opening/closing ranks for different quotas (All India, Home State, Other State) and categories. Enter your rank in the college filters to see personalized eligibility across all programs.
-                  </div>
-                </div>
-              </div> --%>
-            
-    <!-- Quick Search -->
-            <div class="mb-6 p-4 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800 rounded-xl sm:p-8">
-              <div class="flex items-center mb-3 sm:mb-4">
-                <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-10 sm:mr-5">
-                </div>
-                <h3 class="text-xl font-bold text-violet-900 dark:text-violet-100 sm:text-2xl">
-                  Find Programs for Your Rank
-                </h3>
+    <.card>
+      <:content class="p-0!">
+        <%!-- Row 1: Rank finder --%>
+        <div class="relative px-5 py-4 sm:px-6">
+          <div class="absolute top-0 left-0 w-1 h-full bg-amber-500 rounded-r" />
+          <h2 class="text-sm font-semibold text-stone-700 dark:text-zinc-200 mb-3">
+            Find Colleges for Your Rank
+          </h2>
+          <div class="flex flex-wrap items-center gap-3">
+            <.form
+              for={%{}}
+              phx-debounce={get_in(@table_options, [:search, :debounce])}
+              phx-change="sort"
+              class="contents"
+            >
+              <div class="flex-1 min-w-[120px] max-w-[180px]">
+                <.input
+                  type="number"
+                  phx-hook="RankInput"
+                  id="rank-input"
+                  placeholder="JEE Rank"
+                  name="filters[rank][value]"
+                  value={
+                    Map.get(@options["filters"], :rank) &&
+                      Map.get(@options["filters"], :rank).options.applied_data["value"]
+                  }
+                />
               </div>
-              <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4">
-                <div>
-                  <.form for={%{}} phx-debounce={500} phx-change="sort">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Your JEE Rank
-                      <span class="text-xs text-gray-500">
-                        (Saved automatically, filters all pages)
-                      </span>
-                    </label>
-                    <input
-                      type="number"
-                      phx-hook="RankInput"
-                      id="rank-input"
-                      placeholder="e.g., 15000"
-                      name="filters[rank][value]"
-                      value={
-                        Map.get(@options["filters"], :rank) &&
-                          Map.get(@options["filters"], :rank).options.applied_data["value"]
-                      }
-                      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                    />
-                  </.form>
-                </div>
-              </div>
-            </div>
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Search Programs
-                    <span class="text-xs text-gray-500">(By branch name or specialization)</span>
-                  </label>
-                  <div class="relative">
-                    <input
-                      type="text"
-                      name="search"
-                      autocomplete="off"
-                      id="college-search"
-                      value={@options["filters"]["search"]}
-                      placeholder="e.g., Computer Science, Mechanical..."
-                      class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors shadow-sm"
-                    />
-                    <svg
-                      class="absolute left-3 top-3 w-4 h-4 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      >
-                      </path>
-                    </svg>
-                  </div>
-                </.form>
-              </div>
-
-              <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Degree Type <span class="text-xs text-gray-500">(B.Tech, M.Tech, etc.)</span>
-                  </label>
-                  <div>
-                    <select
-                      name="filters[limit_results][degree_type]"
-                      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                    >
-                      <option selected={
-                        Map.get(@options["filters"], :limit_results) &&
-                          Map.get(@options["filters"], :limit_results).options.applied_data[
-                            "degree_type"
-                          ] ==
-                            "All Degrees"
-                      }>
-                        All Degrees
-                      </option>
-                      <option
-                        :for={degree_type <- Counselling.Programs.list_program_types()}
-                        selected={
-                          Map.get(@options["filters"], :limit_results) &&
-                            Map.get(@options["filters"], :limit_results).options.applied_data[
-                              "degree_type"
-                            ] ==
-                              degree_type
-                        }
-                      >
-                        {degree_type}
-                      </option>
-                    </select>
-                  </div>
-                </.form>
-                <%!-- <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                        <.input
-                          :for={
-                            {id, %Boolean{key: "degree_type", options: %{label: label}}} <- @filters
-                          }
-                          type="checkbox"
-                          name={"filters[#{id}]"}
-                          label={label}
-                          checked={Map.has_key?(@options["filters"], id)}
-                        />
-                      </div> --%>
-              </div>
-              <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Duration
-                    <span class="text-xs text-gray-500">
-                      (4 years for B.Tech, 2 years for M.Tech)
-                    </span>
-                  </label>
-                  <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                    <.input
-                      :for={{id, %Boolean{key: "duration", options: %{label: label}}} <- @filters}
-                      type="checkbox"
-                      name={"filters[#{id}]"}
-                      label={label}
-                      checked={Map.has_key?(@options["filters"], id)}
-                    />
-                  </div>
-                </.form>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-end pt-6 mt-6 border-t border-gray-200 dark:border-gray-600">
-              <.link
-                :if={@options["filters"] != %{"search" => ""}}
-                phx-click="sort"
-                phx-value-clear_filters="true"
-                class="my-auto text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
-              >
-                Clear All Filters
-              </.link>
+            </.form>
+            <div
+              id="category-select-wrapper"
+              phx-update="ignore"
+              phx-hook="CategorySelect"
+              class="min-w-[140px]"
+            >
+              <.select id="category-select" name="category" value="open">
+                <.select_option value="open" label="OPEN" />
+                <.select_option value="obc_ncl" label="OBC-NCL" />
+                <.select_option value="sc" label="SC" />
+                <.select_option value="st" label="ST" />
+                <.select_option value="ews" label="EWS" />
+                <.select_option value="open_pwd" label="OPEN (PwD)" />
+                <.select_option value="obc_ncl_pwd" label="OBC-NCL (PwD)" />
+                <.select_option value="sc_pwd" label="SC (PwD)" />
+                <.select_option value="st_pwd" label="ST (PwD)" />
+                <.select_option value="ews_pwd" label="EWS (PwD)" />
+              </.select>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <%!-- Row 2: Search + Degree Type (single form for persistence) --%>
+        <div class="px-5 py-4 sm:px-6 border-t border-stone-200/60 dark:border-zinc-800">
+          <.form
+            for={%{}}
+            phx-debounce={get_in(@table_options, [:search, :debounce])}
+            phx-change="sort"
+          >
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <.input
+                type="text"
+                name="search"
+                id="college-search"
+                placeholder="Search colleges..."
+                value={@options["filters"]["search"]}
+                autocomplete="off"
+              />
+
+              <div id="degree-type-select-wrapper" phx-update="ignore">
+                <.select
+                  id="degree-type-select"
+                  name="filters[limit_results][degree_type]"
+                  value={degree_value(@options)}
+                  searchable
+                  search_placeholder="Search degrees..."
+                >
+                  <.select_option value="All Degrees" label="All Degrees" />
+                  <.select_option
+                    :for={dt <- Counselling.Programs.list_program_types()}
+                    value={dt}
+                    label={dt}
+                  />
+                </.select>
+              </div>
+            </div>
+          </.form>
+        </div>
+
+        <%!-- Row 3: Duration pill toggles + Clear --%>
+        <div class="px-5 py-4 sm:px-6 border-t border-stone-200/60 dark:border-zinc-800">
+          <div class="flex flex-wrap items-center gap-2">
+            <.form
+              for={%{}}
+              phx-debounce={get_in(@table_options, [:search, :debounce])}
+              phx-change="sort"
+              class="contents"
+            >
+              <label
+                :for={
+                  {id, %Boolean{field: :duration, options: %{label: label}}} <- @filters
+                }
+                class={[
+                  "relative px-4 py-1.5 rounded-full text-sm font-medium cursor-pointer transition-all duration-200 select-none border",
+                  if(Map.has_key?(@options["filters"], id),
+                    do:
+                      "bg-amber-500 text-white border-amber-500 dark:bg-amber-500 dark:border-amber-500",
+                    else:
+                      "bg-transparent text-stone-600 border-stone-300 hover:bg-amber-50 dark:text-zinc-400 dark:border-zinc-700 dark:hover:bg-amber-900/20"
+                  )
+                ]}
+              >
+                <input type="hidden" name={"filters[#{id}]"} value="false" />
+                <input
+                  type="checkbox"
+                  name={"filters[#{id}]"}
+                  value="true"
+                  checked={Map.has_key?(@options["filters"], id)}
+                  class="sr-only"
+                />
+                {label}
+              </label>
+            </.form>
+
+            <.button
+              :if={@options["filters"] != %{"search" => ""}}
+              variant="ghost"
+              size="sm"
+              phx-click="sort"
+              phx-value-clear_filters="true"
+            >
+              Clear filters
+            </.button>
+          </div>
+        </div>
+      </:content>
+    </.card>
     """
+  end
+
+  defp degree_value(options) do
+    (Map.get(options["filters"], :limit_results) &&
+       Map.get(options["filters"], :limit_results).options.applied_data["degree_type"]) ||
+      "All Degrees"
   end
 end

@@ -1,108 +1,131 @@
 <Layouts.app flash={@flash}>
   <div
-    class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200"
+    class="min-h-screen bg-stone-50 dark:bg-zinc-950 transition-colors duration-200"
     phx-hook="FavoritesHook"
     id="favorites-container"
   >
-    
-<!-- Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-blue-600">
-      <div class="absolute inset-0 bg-black/20"></div>
-      <div class="relative px-3 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-12 lg:py-16">
-        <!-- Navigation -->
-        <nav class="mb-6 sm:mb-8">
-          <div class="flex items-center space-x-2 text-sm">
-            <.link
-              navigate={~p"/programs"}
-              class="text-white/80 hover:text-white transition-colors"
-            >
-              Programs
-            </.link>
-            <span class="text-white/60">/</span>
-            <span class="text-white/80">
-              {@program.name}
-            </span>
-          </div>
-        </nav>
+    <%!-- ===== HEADER ===== --%>
+    <section class="px-4 pt-8 pb-0 sm:pt-14 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <.breadcrumb class="mb-6">
+        <:item navigate={~p"/programs"}>Programs</:item>
+        <:item>{@program.name}</:item>
+      </.breadcrumb>
 
-        <div class="text-center">
-          <div class="mb-3 sm:mb-4">
-            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3">
-              B.Tech Program
-            </span>
-          </div>
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div class="min-w-0">
+          <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 mb-3">
+            {@program.degree_type} &middot; {@program.duration} Years
+          </span>
 
-          <h1 class="mb-3 text-2xl font-bold tracking-tight text-white sm:mb-4 sm:text-3xl lg:text-5xl">
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-[4rem] text-stone-900 dark:text-zinc-50 tracking-tight leading-[1.08]">
             {@program.name}
           </h1>
-
-          <p class="mb-4 text-base text-white/90 sm:mb-6 sm:text-lg lg:text-xl">
+          <div class="w-14 h-[3px] bg-amber-500 mt-5 mb-3"></div>
+          <p class="text-stone-400 dark:text-zinc-500 text-lg">
             Find the best colleges offering this program for your JEE rank
           </p>
+        </div>
 
-          <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
-            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
-              <svg
-                class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                >
-                </path>
-              </svg>
-              50+ Colleges
-            </span>
+        <%!-- Actions --%>
+        <div class="flex items-center gap-2 shrink-0 sm:mt-2">
+          <button
+            type="button"
+            id="favorite-btn-program"
+            class="inline-flex items-center gap-2 px-4 py-2.5 text-[15px] font-medium rounded-lg border border-stone-300 dark:border-zinc-700 text-stone-600 dark:text-zinc-300 bg-white dark:bg-zinc-900 hover:border-amber-500 hover:text-amber-600 dark:hover:border-amber-500 dark:hover:text-amber-400 transition-colors whitespace-nowrap"
+            data-program-id={@program.id}
+            data-type="program"
+            phx-hook="FavoriteButton"
+            title="Add to favorites"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <span class="favorite-text">Favorite</span>
+          </button>
 
-            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
-              <svg
-                class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                >
-                </path>
-              </svg>
-              Latest Cutoffs
-            </span>
+          <button
+            type="button"
+            id="share-btn-program"
+            class="inline-flex items-center gap-2 px-4 py-2.5 text-[15px] font-medium rounded-lg border border-stone-300 dark:border-zinc-700 text-stone-600 dark:text-zinc-300 bg-white dark:bg-zinc-900 hover:border-amber-500 hover:text-amber-600 dark:hover:border-amber-500 dark:hover:text-amber-400 transition-colors"
+            phx-hook="ShareHook"
+            data-title={@program.name}
+            data-url={url(CounsellingWeb.Endpoint, ~p"/programs/#{@program}")}
+            title="Share program"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+            </svg>
+            Share
+          </button>
+        </div>
+      </div>
+    </section>
 
-            <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full sm:px-3 sm:text-sm">
-              <svg
-                class="w-3 h-3 mr-1 sm:w-4 sm:h-4 sm:mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                >
-                </path>
-              </svg>
-              Real-time Filtering
-            </span>
+    <%!-- ===== STATS STRIP ===== --%>
+    <section class="px-4 py-8 sm:py-10 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="grid grid-cols-3 gap-6 sm:gap-8">
+        <div>
+          <div class="font-serif text-3xl sm:text-4xl text-stone-900 dark:text-zinc-100">
+            {@college_count}
+          </div>
+          <div class="mt-1.5 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
+            Colleges
+          </div>
+        </div>
+        <div>
+          <div class="font-serif text-3xl sm:text-4xl text-stone-900 dark:text-zinc-100">
+            {@program.duration}
+          </div>
+          <div class="mt-1.5 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
+            Years
+          </div>
+        </div>
+        <div>
+          <div class="font-serif text-3xl sm:text-4xl text-stone-900 dark:text-zinc-100">
+            {seat_type_label(@seat_type)}
+          </div>
+          <div class="mt-1.5 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
+            Category
           </div>
         </div>
       </div>
+    </section>
+
+    <%!-- Divider --%>
+    <div class="flex items-center gap-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex-1 h-px bg-stone-200 dark:bg-zinc-800"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+      <div class="flex-1 h-px bg-stone-200 dark:bg-zinc-800"></div>
     </div>
 
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <section class="mb-8">
-        <.live_table fields={fields()} streams={@streams} filters={filters()} options={@options} />
-      </section>
-    </div>
+    <%!-- ===== COLLEGES & CUTOFFS ===== --%>
+    <section class="px-4 py-10 sm:py-14 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="flex items-baseline justify-between mb-6">
+        <div>
+          <div class="w-10 h-1 bg-amber-500 rounded-full mb-5"></div>
+          <h2 class="font-serif text-2xl sm:text-3xl text-stone-900 dark:text-zinc-50">
+            Colleges &amp; Cutoffs
+          </h2>
+          <p class="text-sm text-stone-400 dark:text-zinc-500 mt-1">
+            {@latest_year} JoSAA &middot; {seat_type_label(@seat_type)} &middot; Gender Neutral
+          </p>
+        </div>
+        <.link
+          navigate={~p"/colleges"}
+          class="text-[15px] font-medium text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors hidden sm:inline"
+        >
+          All Colleges &rarr;
+        </.link>
+      </div>
+
+      <.help_pill id="help-program-colleges" class="mb-4">
+        <strong>Tip:</strong>
+        Colleges offering this program, sorted by NIRF ranking. Cutoffs update automatically
+        when you change your category in the header. Click a college to see detailed cutoffs.
+      </.help_pill>
+
+      <div id="program-category-sync" phx-hook="ProgramCategorySyncHook" class="hidden"></div>
+      <.live_table fields={fields()} streams={@streams} filters={filters()} options={@options} />
+    </section>
   </div>
 </Layouts.app>

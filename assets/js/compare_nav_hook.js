@@ -2,20 +2,20 @@ export const CompareNavHook = {
   mounted() {
     this.storageKey = 'compare_colleges';
     this.updateCounterAndHref();
-    
+
     // Listen for storage changes
     window.addEventListener('storage', (e) => {
       if (e.key === this.storageKey) {
         this.updateCounterAndHref();
       }
     });
-    
+
     // Listen for custom events from compare buttons
     document.addEventListener('compare-storage-updated', () => {
       this.updateCounterAndHref();
       this.animateNavButton();
     });
-    
+
     // Listen for animation trigger events
     document.addEventListener('animate-compare-nav', () => {
       this.animateNavButton();
@@ -33,13 +33,13 @@ export const CompareNavHook = {
   updateCounterAndHref() {
     const compareColleges = this.getCompareColleges();
     const count = compareColleges.length;
-    
+
     // Update counter display
     const textSpan = this.el.querySelector('.compare-text');
     if (textSpan) {
       textSpan.textContent = count > 0 ? `Compare (${count})` : 'Compare';
     }
-    
+
     // Update href for navigation
     let href = '/compare';
     if (count > 0) {
@@ -49,18 +49,19 @@ export const CompareNavHook = {
   },
 
   animateNavButton() {
-    // Add vibration/bounce animation with better effects
+    const isDark = document.documentElement.classList.contains('dark');
+
     this.el.classList.add('animate-bounce');
-    
-    // Add multiple scale and color effects
+
     this.el.style.transform = 'scale(1.1)';
     this.el.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-    this.el.style.backgroundColor = 'rgba(139, 92, 246, 0.1)';
-    this.el.style.borderColor = 'rgba(139, 92, 246, 0.3)';
-    
-    // Add glow effect
-    this.el.style.boxShadow = '0 0 20px rgba(139, 92, 246, 0.4)';
-    
+    this.el.style.backgroundColor = isDark ? 'rgba(245, 158, 11, 0.1)' : 'rgba(217, 119, 6, 0.08)';
+    this.el.style.borderColor = isDark ? 'rgba(245, 158, 11, 0.3)' : 'rgba(217, 119, 6, 0.25)';
+
+    this.el.style.boxShadow = isDark
+      ? '0 0 16px rgba(245, 158, 11, 0.25)'
+      : '0 0 16px rgba(217, 119, 6, 0.2)';
+
     // Reset after animation
     setTimeout(() => {
       this.el.classList.remove('animate-bounce');

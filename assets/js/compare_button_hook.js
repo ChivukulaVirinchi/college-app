@@ -64,39 +64,43 @@ export const CompareButtonHook = {
   updateButtonState() {
     const compareColleges = this.getCompareColleges();
     const isInCompare = compareColleges.includes(this.collegeId);
-    
+
     const textSpan = this.el.querySelector('.compare-text') || this.el;
-    
-    // Remove all color classes first
+
+    // Remove all state classes (base ghost + colored states)
     this.el.classList.remove(
-      'text-emerald-700', 'dark:text-emerald-300', 
-      'bg-emerald-100', 'dark:bg-emerald-900/30',
-      'border-emerald-200', 'dark:border-emerald-800',
-      'hover:bg-emerald-200', 'dark:hover:bg-emerald-900/50',
+      // base ghost
+      'text-stone-600', 'dark:text-zinc-400',
+      'border-stone-200', 'dark:border-zinc-700',
+      'bg-transparent', 'hover:bg-stone-100', 'dark:hover:bg-zinc-800',
+      // green (add)
+      'text-emerald-700', 'dark:text-emerald-300',
+      'bg-emerald-50', 'dark:bg-emerald-900/20',
+      'border-emerald-300', 'dark:border-emerald-800',
+      'hover:bg-emerald-100', 'dark:hover:bg-emerald-900/40',
+      // red (remove)
       'text-red-700', 'dark:text-red-300',
-      'bg-red-100', 'dark:bg-red-900/30',
-      'border-red-200', 'dark:border-red-800',
-      'hover:bg-red-200', 'dark:hover:bg-red-900/50'
+      'bg-red-50', 'dark:bg-red-900/20',
+      'border-red-300', 'dark:border-red-800',
+      'hover:bg-red-100', 'dark:hover:bg-red-900/40'
     );
-    
+
     if (isInCompare) {
-      // Red styling for remove
       this.el.classList.add(
         'text-red-700', 'dark:text-red-300',
-        'bg-red-100', 'dark:bg-red-900/30',
-        'border-red-200', 'dark:border-red-800',
-        'hover:bg-red-200', 'dark:hover:bg-red-900/50'
+        'bg-red-50', 'dark:bg-red-900/20',
+        'border-red-300', 'dark:border-red-800',
+        'hover:bg-red-100', 'dark:hover:bg-red-900/40'
       );
-      textSpan.textContent = 'Remove from Compare';
+      textSpan.textContent = 'Remove';
     } else {
-      // Green styling for add
       this.el.classList.add(
-        'text-emerald-700', 'dark:text-emerald-300', 
-        'bg-emerald-100', 'dark:bg-emerald-900/30',
-        'border-emerald-200', 'dark:border-emerald-800',
-        'hover:bg-emerald-200', 'dark:hover:bg-emerald-900/50'
+        'text-emerald-700', 'dark:text-emerald-300',
+        'bg-emerald-50', 'dark:bg-emerald-900/20',
+        'border-emerald-300', 'dark:border-emerald-800',
+        'hover:bg-emerald-100', 'dark:hover:bg-emerald-900/40'
       );
-      textSpan.textContent = '+ Add to Compare';
+      textSpan.textContent = '+ Compare';
     }
   },
 

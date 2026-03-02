@@ -12,7 +12,7 @@
           "JOSAA Counselling Helper - Find engineering colleges and programs based on your JEE rank"
       }
     />
-    
+
 <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -22,6 +22,12 @@
     <.live_title default="JOSAA Counselling Helper">
       {assigns[:page_title]}
     </.live_title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Outfit:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
@@ -58,7 +64,7 @@
         });
       })();
     </script>
-    
+
 <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSDMMF18JD">
     </script>
@@ -70,7 +76,7 @@
       gtag('config', 'G-JSDMMF18JD');
     </script>
   </head>
-  <body class="b-gray-50 dark:bg-gray-900">
+  <body class="bg-stone-50 dark:bg-zinc-950">
     {@inner_content}
   </body>
 </html>

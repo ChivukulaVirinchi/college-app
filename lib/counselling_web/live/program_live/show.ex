@@ -4,6 +4,8 @@ defmodule CounsellingWeb.ProgramLive.Show do
   use LiveTable.LiveResource
   alias Counselling.Programs
 
+  @latest_year Josaa.latest_year()
+
   @impl true
   def mount(params, _session, socket) do
     [id_str | _] = String.split(params["program"], "-")
@@ -14,6 +16,10 @@ defmodule CounsellingWeb.ProgramLive.Show do
       socket
       |> assign(:data_provider, {Programs, :list_colleges, [id]})
       |> assign(:program, program)
+      |> assign(:program_id, id)
+      |> assign(:seat_type, :open)
+      |> assign(:latest_year, @latest_year)
+      |> assign(:college_count, Programs.get_college_count(id))
       |> assign(:page_title, "#{program.name} - Colleges & Cutoffs")
       |> assign(
         :meta_description,
@@ -21,6 +27,37 @@ defmodule CounsellingWeb.ProgramLive.Show do
       )
 
     {:ok, socket}
+  end
+
+  def handle_event("change_category", %{"seat_type" => seat_type}, socket) do
+    seat_type_atom = String.to_existing_atom(seat_type)
+    id = socket.assigns.program_id
+    data_provider = {Programs, :list_colleges, [id, seat_type_atom]}
+
+    socket = assign(socket, :data_provider, data_provider)
+
+    options = socket.assigns.options
+
+    {resources, updated_options} =
+      case stream_resources(fields(), options, data_provider) do
+        {resources, overflow} ->
+          has_next_page = length(overflow) > 0
+          {resources, put_in(options["pagination"][:has_next_page], has_next_page)}
+
+        resources when is_list(resources) ->
+          {resources, options}
+      end
+
+    socket =
+      socket
+      |> assign(:options, updated_options)
+      |> assign(:seat_type, seat_type_atom)
+      |> stream(:resources, resources,
+        dom_id: fn _ -> "resource-#{Ecto.UUID.generate()}" end,
+        reset: true
+      )
+
+    {:noreply, socket}
   end
 
   def fields do
@@ -170,6 +207,10 @@ defmodule CounsellingWeb.ProgramLive.Show do
     query |> exclude(:order_by) |> order_by([_, _, _, nr], nr.nirf_rank)
   end
 
+  def sort_query(query, %{"sort_by" => "Established Year"}) do
+    query |> exclude(:order_by) |> order_by([_, _, c], c.established_year)
+  end
+
   def sort_query(query, %{"sort_by" => "Name (A-Z)"}) do
     query |> exclude(:order_by) |> order_by([_, _, c], c.name)
   end
@@ -181,4 +222,19 @@ defmodule CounsellingWeb.ProgramLive.Show do
   def sort_query(query, _params) do
     query
   end
+
+  @seat_type_labels %{
+    open: "OPEN",
+    obc_ncl: "OBC-NCL",
+    sc: "SC",
+    st: "ST",
+    ews: "EWS",
+    open_pwd: "OPEN (PwD)",
+    obc_ncl_pwd: "OBC-NCL (PwD)",
+    sc_pwd: "SC (PwD)",
+    st_pwd: "ST (PwD)",
+    ews_pwd: "EWS (PwD)"
+  }
+
+  def seat_type_label(seat_type), do: Map.get(@seat_type_labels, seat_type, "OPEN")
 end

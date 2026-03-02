@@ -64,7 +64,7 @@ function updateButtonState(button) {
     svg.setAttribute('fill', 'currentColor');
     button.classList.add('text-red-500');
     button.classList.remove('text-gray-400', 'text-white', 'text-violet-700', 'dark:text-violet-300');
-    if (textSpan) textSpan.textContent = 'Remove from Favorites';
+    if (textSpan) textSpan.textContent = 'Favorited';
   } else {
     svg.setAttribute('fill', 'none');
     button.classList.remove('text-red-500');
@@ -73,7 +73,7 @@ function updateButtonState(button) {
     } else {
       button.classList.add('text-gray-400');
     }
-    if (textSpan) textSpan.textContent = 'Add to Favorites';
+    if (textSpan) textSpan.textContent = 'Favorite';
   }
 }
 
@@ -226,6 +226,13 @@ export const ChartsHook = {
     const gridColor = isDarkMode ? 'rgba(156, 163, 175, 0.2)' : 'rgba(0, 0, 0, 0.1)';
     const textColor = isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(75, 85, 99)';
 
+    // Compute a nice stepSize so we only get integer ticks
+    const validRanks = ranks.filter(r => r !== null);
+    const minRank = Math.min(...validRanks);
+    const maxRank = Math.max(...validRanks);
+    const range = maxRank - minRank;
+    const stepSize = range <= 10 ? 1 : range <= 50 ? 5 : range <= 200 ? 10 : 25;
+
     this.chart = new Chart(canvas, {
       type: 'line',
       data: {
@@ -233,13 +240,13 @@ export const ChartsHook = {
         datasets: [{
           label: 'NIRF Ranking',
           data: ranks,
-          borderColor: 'rgb(139, 92, 246)',
-          backgroundColor: 'rgba(139, 92, 246, 0.1)',
+          borderColor: 'rgb(217, 119, 6)',
+          backgroundColor: 'rgba(217, 119, 6, 0.08)',
           borderWidth: 3,
           fill: true,
           tension: 0.4,
-          pointBackgroundColor: 'rgb(139, 92, 246)',
-          pointBorderColor: '#fff',
+          pointBackgroundColor: 'rgb(217, 119, 6)',
+          pointBorderColor: isDarkMode ? 'rgb(24, 24, 27)' : '#fff',
           pointBorderWidth: 2,
           pointRadius: 6,
           pointHoverRadius: 8
@@ -248,15 +255,22 @@ export const ChartsHook = {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { 
-          legend: { display: false } 
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return 'Rank: ' + Math.round(context.parsed.y);
+              }
+            }
+          }
         },
         scales: {
           y: {
             reverse: true,
             beginAtZero: false,
-            title: { 
-              display: true, 
+            title: {
+              display: true,
               text: 'Rank (Lower is Better)',
               color: textColor
             },
@@ -265,12 +279,16 @@ export const ChartsHook = {
             },
             ticks: {
               color: textColor,
-              stepSize: 1
+              stepSize: stepSize,
+              precision: 0,
+              callback: function(value) {
+                return Number.isInteger(value) ? value : '';
+              }
             }
           },
           x: {
-            title: { 
-              display: true, 
+            title: {
+              display: true,
               text: 'Year',
               color: textColor
             },
@@ -585,8 +603,8 @@ export const ChartsHook = {
           y: {
             reverse: true,
             beginAtZero: false,
-            title: { 
-              display: true, 
+            title: {
+              display: true,
               text: 'Rank (Lower is Better)',
               color: textColor
             },
@@ -594,12 +612,16 @@ export const ChartsHook = {
               color: gridColor
             },
             ticks: {
-              color: textColor
+              color: textColor,
+              precision: 0,
+              callback: function(value) {
+                return Number.isInteger(value) ? value : '';
+              }
             }
           },
           x: {
-            title: { 
-              display: true, 
+            title: {
+              display: true,
               text: 'Year',
               color: textColor
             },

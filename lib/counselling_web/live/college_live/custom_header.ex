@@ -1,358 +1,205 @@
 defmodule CounsellingWeb.CollegeLive.CustomHeader do
-  use Phoenix.Component
+  use CounsellingWeb, :html
   alias LiveTable.Boolean
-  import CounsellingWeb.CoreComponents
 
   def custom_header(assigns) do
+
     ~H"""
-    <div>
-      <section class="relative mb-6 -mt-4 sm:mb-8 sm:-mt-8 lg:mb-12 lg:-mt-12">
-        <div class="bg-white dark:bg-gray-800 shadow-2xl border border-gray-100 dark:border-gray-700 rounded-xl sm:rounded-2xl">
-          <div class="p-4 sm:p-6 lg:p-8">
-            <div class="mb-6 p-4 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800 rounded-xl sm:p-6">
-              <div class="flex items-center mb-3 sm:mb-4">
-                <div class="w-1 h-6 mr-3 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full sm:h-8 sm:mr-4">
-                </div>
-                <h3 class="text-lg font-bold text-violet-900 dark:text-violet-100 sm:text-xl">
-                  Find Colleges for Your Rank
-                </h3>
+    <.card>
+      <:content class="p-0!">
+        <%!-- Row 1: Rank finder --%>
+        <div class="relative px-5 py-4 sm:px-6">
+          <div class="absolute top-0 left-0 w-1 h-full bg-amber-500 rounded-r" />
+          <h2 class="text-sm font-semibold text-stone-700 dark:text-zinc-200 mb-3">
+            Find Colleges for Your Rank
+          </h2>
+          <div class="flex flex-wrap items-center gap-3">
+            <.form
+              for={%{}}
+              phx-debounce={get_in(@table_options, [:search, :debounce])}
+              phx-change="sort"
+              class="contents"
+            >
+              <div class="flex-1 min-w-[120px] max-w-[180px]">
+                <.input
+                  type="number"
+                  phx-hook="RankInput"
+                  id="rank-input"
+                  placeholder="JEE Rank"
+                  name="filters[rank][value]"
+                  value={
+                    Map.get(@options["filters"], :rank) &&
+                      Map.get(@options["filters"], :rank).options.applied_data["value"]
+                  }
+                />
               </div>
-              <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4">
-                <div>
-                  <.form
-                    for={%{}}
-                    phx-debounce={get_in(@table_options, [:search, :debounce])}
-                    phx-change="sort"
-                  >
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Your JEE Rank
-                      <span class="text-xs text-gray-500">
-                        (Saved automatically, filters all pages)
-                      </span>
-                    </label>
-                    <input
-                      type="number"
-                      phx-hook="RankInput"
-                      id="rank-input"
-                      placeholder="e.g., 15000"
-                      name="filters[rank][value]"
-                      value={
-                        Map.get(@options["filters"], :rank) &&
-                          Map.get(@options["filters"], :rank).options.applied_data["value"]
-                      }
-                      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                    />
-                  </.form>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Category
-                    <span class="text-xs text-gray-500">(Saved automatically, filters all pages)</span>
-                  </label>
-                  <select
-                    id="category-select"
-                    phx-hook="CategorySelect"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                  >
-                    <option value="open">OPEN</option>
-                    <option value="obc_ncl">OBC-NCL</option>
-                    <option value="sc">SC</option>
-                    <option value="st">ST</option>
-                    <option value="ews">EWS</option>
-                    <option value="open_pwd">OPEN (PwD)</option>
-                    <option value="obc_ncl_pwd">OBC-NCL (PwD)</option>
-                    <option value="sc_pwd">SC (PwD)</option>
-                    <option value="st_pwd">ST (PwD)</option>
-                    <option value="ews_pwd">EWS (PwD)</option>
-                  </select>
-                </div>
-                <%!-- <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Quota
-                    </label>
-                    <select
-                      phx-change="handle-location"
-                      class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                    >
-                      <option>All India</option>
-                      <option>Home State</option>
-                    </select>
-                  </div> --%>
-              </div>
-            </div>
+            </.form>
 
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-              <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Search Colleges <span class="text-xs text-gray-500">(By name or location)</span>
-                  </label>
-                  <div class="relative">
-                    <input
-                      type="text"
-                      name="search"
-                      autocomplete="off"
-                      id="college-search"
-                      value={@options["filters"]["search"]}
-                      placeholder="Search by name or location..."
-                      class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                    />
-                    <svg
-                      class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      >
-                      </path>
-                    </svg>
-                  </div>
-                </.form>
-              </div>
-
-              <%!-- <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Your Location (Optional)
-                  </label>
-                  <div class="relative">
-                    <input
-                      type="text"
-                      placeholder="Enter city or auto-detect"
-                      class="w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                    />
-                    <svg
-                      class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      >
-                      </path>
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      >
-                      </path>
-                    </svg>
-                    <button
-                      class="absolute right-2 top-2 p-1 text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
-                      title="Auto-detect location"
-                    >
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M13 10V3L4 14h7v7l9-11h-7z"
-                        >
-                        </path>
-                      </svg>
-                    </button>
-                  </div>
-                </div> --%>
-              <%!-- <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    NIRF Ranking <span class="text-xs text-gray-500">(Filter by government rankings)</span>
-                  </label>
-                  <select
-                    value={get_in(@options, ["filters", "limit_results", "nirf"]) || "All Rankings"}
-                    name="filters[limit_results][nirf]"
-                    phx-change="sort"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                  >
-                    <option
-                      value="All Rankings"
-                      selected={
-                        get_in(@options, ["filters", "limit_results", "nirf"]) == "All Rankings"
-                      }
-                    >
-                      All Rankings
-                    </option>
-                    <option
-                      value="Top 10"
-                      selected={get_in(@options, ["filters", "limit_results", "nirf"]) == "Top 10"}
-                    >
-                      Top 10
-                    </option>
-                    <option
-                      value="Top 25"
-                      selected={get_in(@options, ["filters", "limit_results", "nirf"]) == "Top 25"}
-                    >
-                      Top 25
-                    </option>
-                    <option
-                      value="Top 50"
-                      selected={get_in(@options, ["filters", "limit_results", "nirf"]) == "Top 50"}
-                    >
-                      Top 50
-                    </option>
-                    <option
-                      value="Top 100"
-                      selected={get_in(@options, ["filters", "limit_results", "nirf"]) == "Top 100"}
-                    >
-                      Top 100
-                    </option>
-                  </select>
-                </.form>
-              </div> --%>
-
-              <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    NIRF Ranking
-                  </label>
-                  <select
-                    name="filters[limit_results][nirf]"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                  >
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "All Rankings"
-                    }>
-                      All Rankings
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Top 10"
-                    }>
-                      Top 10
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Top 25"
-                    }>
-                      Top 25
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Top 50"
-                    }>
-                      Top 50
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Top 100"
-                    }>
-                      Top 100
-                    </option>
-                  </select>
-                </.form>
-              </div>
-              <div>
-                <.form
-                  for={%{}}
-                  phx-debounce={get_in(@table_options, [:search, :debounce])}
-                  phx-change="sort"
-                >
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Sort By <span class="text-xs text-gray-500">(Change display order)</span>
-                  </label>
-                  <select
-                    value={@options["filters"]["sort_mode"]["sort_by"] || "NIRF Ranking"}
-                    name="filters[sort_mode][sort_by]"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
-                  >
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "NIRF Ranking"
-                    }>
-                      NIRF Ranking
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Established Year"
-                    }>
-                      Established Year
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Name (A-Z)"
-                    }>
-                      Name (A-Z)
-                    </option>
-                    <option selected={
-                      Map.get(@options["filters"], :limit_results) &&
-                        Map.get(@options["filters"], :limit_results).options.applied_data["nirf"] ==
-                          "Name (Z-A)"
-                    }>
-                      Name (Z-A)
-                    </option>
-                  </select>
-                </.form>
-              </div>
-            </div>
-
-            <div class="mb-4">
-              <.form
-                for={%{}}
-                phx-debounce={get_in(@table_options, [:search, :debounce])}
-                phx-change="sort"
-              >
-                <span class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                  Institution Type
-                  <span class="text-xs text-gray-500">
-                    (IIT = Premier institutes, NIT = National institutes, IIIT = Information technology, GFTI = Government funded)
-                  </span>
-                </span>
-                <div class="flex flex-wrap gap-x-6">
-                  <.input
-                    :for={{id, %Boolean{field: :class, options: %{label: label}}} <- @filters}
-                    type="checkbox"
-                    name={"filters[#{id}]"}
-                    label={label}
-                    checked={Map.has_key?(@options["filters"], id)}
-                  />
-                </div>
-              </.form>
-            </div>
-
-            <div class="flex items-center justify-end pt-4 border-t border-gray-200 dark:border-gray-600 h-6">
-              <.link
-                :if={@options["filters"] != %{"search" => ""}}
-                phx-click="sort"
-                phx-value-clear_filters="true"
-                class="my-auto text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
-              >
-                Clear All Filters
-              </.link>
+            <div
+              id="category-select-wrapper"
+              phx-update="ignore"
+              phx-hook="CategorySelect"
+              class="min-w-[140px]"
+            >
+              <.select id="category-select" name="category" value="open">
+                <.select_option value="open" label="OPEN" />
+                <.select_option value="obc_ncl" label="OBC-NCL" />
+                <.select_option value="sc" label="SC" />
+                <.select_option value="st" label="ST" />
+                <.select_option value="ews" label="EWS" />
+                <.select_option value="open_pwd" label="OPEN (PwD)" />
+                <.select_option value="obc_ncl_pwd" label="OBC-NCL (PwD)" />
+                <.select_option value="sc_pwd" label="SC (PwD)" />
+                <.select_option value="st_pwd" label="ST (PwD)" />
+                <.select_option value="ews_pwd" label="EWS (PwD)" />
+              </.select>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <%!-- Row 2: Search + NIRF + Sort (single form for persistence) --%>
+        <div class="px-5 py-4 sm:px-6 border-t border-stone-200/60 dark:border-zinc-800">
+          <.form
+            for={%{}}
+            phx-debounce={get_in(@table_options, [:search, :debounce])}
+            phx-change="sort"
+          >
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <.input
+                type="text"
+                name="search"
+                id="college-search"
+                placeholder="Search colleges..."
+                value={@options["filters"]["search"]}
+                autocomplete="off"
+              />
+
+              <div id="nirf-select-wrapper" phx-update="ignore">
+                <.select
+                  id="nirf-select"
+                  name="filters[limit_results][nirf]"
+                  value={nirf_value(@options)}
+                >
+                  <.select_option value="All Rankings" label="All Rankings" />
+                  <.select_option value="Top 10" label="Top 10" />
+                  <.select_option value="Top 25" label="Top 25" />
+                  <.select_option value="Top 50" label="Top 50" />
+                  <.select_option value="Top 100" label="Top 100" />
+                </.select>
+              </div>
+
+              <div id="sort-select-wrapper" phx-update="ignore">
+                <.select
+                  id="sort-select"
+                  name="filters[sort_mode][sort_by]"
+                  value={sort_value(@options)}
+                >
+                  <.select_option value="NIRF Ranking" label="NIRF Ranking" />
+                  <.select_option
+                    value="Established Year"
+                    label="Established Year"
+                  />
+                  <.select_option value="Name (A-Z)" label="Name (A-Z)" />
+                  <.select_option value="Name (Z-A)" label="Name (Z-A)" />
+                </.select>
+              </div>
+            </div>
+          </.form>
+        </div>
+
+        <%!-- Row 3: Institution type pill toggles + Clear --%>
+        <div class="px-5 py-4 sm:px-6 border-t border-stone-200/60 dark:border-zinc-800">
+          <div class="flex flex-wrap items-center gap-2">
+            <.form
+              for={%{}}
+              phx-debounce={get_in(@table_options, [:search, :debounce])}
+              phx-change="sort"
+              class="contents"
+            >
+              <label
+                :for={{id, %Boolean{field: :class, options: %{label: label}}} <- @filters}
+                class={[
+                  "relative px-4 py-1.5 rounded-full text-sm font-medium cursor-pointer transition-all duration-200 select-none border",
+                  pill_color(id, Map.has_key?(@options["filters"], id))
+                ]}
+              >
+                <input type="hidden" name={"filters[#{id}]"} value="false" />
+                <input
+                  type="checkbox"
+                  name={"filters[#{id}]"}
+                  value="true"
+                  checked={Map.has_key?(@options["filters"], id)}
+                  class="sr-only"
+                />
+                {label}
+              </label>
+            </.form>
+
+            <.button
+              :if={@options["filters"] != %{"search" => ""}}
+              variant="ghost"
+              size="sm"
+              phx-click="sort"
+              phx-value-clear_filters="true"
+            >
+              Clear filters
+            </.button>
+          </div>
+        </div>
+      </:content>
+    </.card>
     """
   end
+
+  defp nirf_value(options) do
+    (Map.get(options["filters"], :limit_results) &&
+       Map.get(options["filters"], :limit_results).options.applied_data["nirf"]) ||
+      "All Rankings"
+  end
+
+  defp sort_value(options) do
+    (Map.get(options["filters"], :sort_mode) &&
+       Map.get(options["filters"], :sort_mode).options.applied_data["sort_by"]) ||
+      "NIRF Ranking"
+  end
+
+  # Active (checked) pill colors
+  defp pill_color(:iit, true),
+    do: "bg-violet-600 text-white border-violet-600 dark:bg-violet-500 dark:border-violet-500"
+
+  defp pill_color(:nit, true),
+    do: "bg-blue-600 text-white border-blue-600 dark:bg-blue-500 dark:border-blue-500"
+
+  defp pill_color(:iiit, true),
+    do:
+      "bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-500 dark:border-emerald-500"
+
+  defp pill_color(:gfti, true),
+    do:
+      "bg-orange-600 text-white border-orange-600 dark:bg-orange-500 dark:border-orange-500"
+
+  # Inactive (unchecked) pill colors
+  defp pill_color(:iit, false),
+    do:
+      "bg-transparent text-violet-600 border-violet-300 hover:bg-violet-50 dark:text-violet-400 dark:border-violet-700 dark:hover:bg-violet-900/30"
+
+  defp pill_color(:nit, false),
+    do:
+      "bg-transparent text-blue-600 border-blue-300 hover:bg-blue-50 dark:text-blue-400 dark:border-blue-700 dark:hover:bg-blue-900/30"
+
+  defp pill_color(:iiit, false),
+    do:
+      "bg-transparent text-emerald-600 border-emerald-300 hover:bg-emerald-50 dark:text-emerald-400 dark:border-emerald-700 dark:hover:bg-emerald-900/30"
+
+  defp pill_color(:gfti, false),
+    do:
+      "bg-transparent text-orange-600 border-orange-300 hover:bg-orange-50 dark:text-orange-400 dark:border-orange-700 dark:hover:bg-orange-900/30"
+
+  # Fallback
+  defp pill_color(_, true),
+    do: "bg-stone-900 text-white border-stone-900 dark:bg-zinc-100 dark:text-zinc-900"
+
+  defp pill_color(_, false),
+    do:
+      "bg-transparent text-stone-500 border-stone-300 hover:bg-stone-50 dark:text-zinc-400 dark:border-zinc-700 dark:hover:bg-zinc-800/50"
 end

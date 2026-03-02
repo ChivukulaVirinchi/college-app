@@ -34,7 +34,7 @@ defmodule Counselling.Programs do
     |> Repo.one()
   end
 
-  def list_colleges(id) do
+  def list_colleges(id, seat_type \\ :open) do
     from p in Program,
       join: cp in CollegeProgram,
       on: cp.program_id == p.id,
@@ -47,7 +47,7 @@ defmodule Counselling.Programs do
       join: rc in RankCutoff,
       on:
         rc.college_program_id == cp.id and rc.year == ^@latest_year and
-          rc.gender == :gender_neutral and rc.seat_type == :open and
+          rc.gender == :gender_neutral and rc.seat_type == ^seat_type and
           rc.quota in [:all_india, :other_state],
       order_by: [asc: nr.nirf_rank],
       select: %{
@@ -55,7 +55,8 @@ defmodule Counselling.Programs do
         college: c,
         rank: nr.nirf_rank,
         opening_rank: rc.opening_rank,
-        closing_rank: rc.closing_rank
+        closing_rank: rc.closing_rank,
+        seat_type: rc.seat_type
       }
   end
 

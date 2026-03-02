@@ -1,5 +1,7 @@
 defmodule CounsellingWeb.CollegeProgramLive.Show do
   use CounsellingWeb, :live_view
+  use LiveTable.LiveResource
+
   alias Counselling.{Ranks, Colleges, Programs}
   alias CounsellingWeb.RankComponent
   import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
@@ -17,24 +19,112 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
     college = Colleges.get_college!(college_id)
     program = Programs.get_program!(program_id)
 
-    rank_cutoffs = Ranks.get_rank_cutoffs(college_id, program_id)
-    chart_data = format_chart_data(rank_cutoffs)
+    # All cutoffs for the chart (all years, all seat types)
+    all_cutoffs = Ranks.get_rank_cutoffs(college_id, program_id)
 
     socket =
       socket
+      |> assign(:data_provider, {Ranks, :get_college_program_cutoffs, [college_id, program_id]})
       |> assign(:college, college)
       |> assign(:program, program)
       |> assign(:page_title, "#{program.name} at #{college.name} - Cutoffs & Rankings")
       |> assign(
         :meta_description,
-        "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances. View opening and closing ranks."
+        "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances."
       )
-      |> assign(:rank_cutoffs, rank_cutoffs)
-      |> assign(:chart_data, chart_data)
+      |> assign(:all_cutoffs, all_cutoffs)
       |> assign(:latest_year, @latest_year)
 
     {:ok, socket}
   end
+
+  def fields do
+    [
+      quota: %{
+        label: "Quota",
+        sortable: false,
+        renderer: &process_quota/1
+      },
+      gender: %{
+        label: "Gender",
+        sortable: false,
+        renderer: &process_gender/1
+      },
+      seat_type: %{
+        label: "Category",
+        sortable: false,
+        renderer: &process_seat_type/1
+      },
+      opening_rank: %{
+        label: "Opening Rank",
+        sortable: false,
+        assoc: {:rank_cutoff, :opening_rank},
+        renderer: &RankComponent.rank_badge/1
+      },
+      closing_rank: %{
+        label: "Closing Rank",
+        sortable: false,
+        assoc: {:rank_cutoff, :closing_rank},
+        renderer: &RankComponent.rank_badge/1
+      }
+    ]
+  end
+
+  def filters do
+    [
+      gender_filter:
+        Boolean.new(:gender, "gender-filter", %{
+          label: "Gender Neutral",
+          condition: dynamic([rank_cutoff: rc], rc.gender == :gender_neutral),
+          default: true
+        }),
+      female_filter:
+        Boolean.new(:gender, "gender-filter", %{
+          label: "Female",
+          condition: dynamic([rank_cutoff: rc], rc.gender == :female)
+        }),
+      seat_type_select:
+        Select.new({:rank_cutoff, :seat_type}, "seat_type_select", %{
+          label: "Category",
+          mode: :single,
+          allow_clear: false,
+          options: [
+            %{label: "OPEN", value: :open},
+            %{label: "OBC-NCL", value: :obc_ncl},
+            %{label: "SC", value: :sc},
+            %{label: "ST", value: :st},
+            %{label: "EWS", value: :ews},
+            %{label: "OPEN (PwD)", value: :open_pwd},
+            %{label: "OBC-NCL (PwD)", value: :obc_ncl_pwd},
+            %{label: "SC (PwD)", value: :sc_pwd},
+            %{label: "ST (PwD)", value: :st_pwd},
+            %{label: "EWS (PwD)", value: :ews_pwd}
+          ],
+          selected: [],
+          placeholder: "Select category..."
+        }),
+      hs:
+        Boolean.new(:quota, "quota-filter", %{
+          label: "Home State",
+          condition: dynamic([rank_cutoff: rc], rc.quota == :home_state)
+        }),
+      all_india:
+        Boolean.new(:quota, "quota-filter", %{
+          label: "All India",
+          condition: dynamic([rank_cutoff: rc], rc.quota == :all_india)
+        }),
+      os:
+        Boolean.new(:quota, "quota-filter", %{
+          label: "Other State",
+          condition: dynamic([rank_cutoff: rc], rc.quota == :other_state)
+        })
+    ]
+  end
+
+  @quota_filter_keys [:hs, :all_india, :os]
+
+  def filters_for(:IIT), do: Keyword.drop(filters(), @quota_filter_keys)
+  def filters_for(_class), do: filters()
 
   def process_quota(:all_india), do: "All India"
   def process_quota(:home_state), do: "Home State"
@@ -52,49 +142,10 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
   defp process_seat_type(:sc), do: "SC"
   defp process_seat_type(:st), do: "ST"
   defp process_seat_type(:ews), do: "EWS"
+  defp process_seat_type(:open_pwd), do: "OPEN (PwD)"
+  defp process_seat_type(:obc_ncl_pwd), do: "OBC-NCL (PwD)"
+  defp process_seat_type(:sc_pwd), do: "SC (PwD)"
+  defp process_seat_type(:st_pwd), do: "ST (PwD)"
+  defp process_seat_type(:ews_pwd), do: "EWS (PwD)"
   defp process_seat_type(other), do: other |> to_string() |> String.upcase()
-
-  defp format_chart_data(rank_cutoffs) do
-    # Filter to OPEN seat_type only for chart
-    open_cutoffs = Enum.filter(rank_cutoffs, fn c -> c.seat_type == :open end)
-
-    grouped =
-      Enum.group_by(open_cutoffs, fn cutoff ->
-        {cutoff.quota, cutoff.gender}
-      end)
-
-    %{
-      all_india: %{
-        gender_neutral: format_trend_line(grouped[{:all_india, :gender_neutral}] || []),
-        female: format_trend_line(grouped[{:all_india, :female}] || [])
-      },
-      home_state: %{
-        gender_neutral: format_trend_line(grouped[{:home_state, :gender_neutral}] || []),
-        female: format_trend_line(grouped[{:home_state, :female}] || [])
-      },
-      other_state: %{
-        gender_neutral: format_trend_line(grouped[{:other_state, :gender_neutral}] || []),
-        female: format_trend_line(grouped[{:other_state, :female}] || [])
-      }
-    }
-  end
-
-  defp format_trend_line(cutoffs) do
-    cutoffs
-    |> Enum.group_by(& &1.year)
-    |> Enum.map(fn {year, year_cutoffs} ->
-      avg_opening =
-        year_cutoffs |> Enum.map(& &1.opening_rank) |> Enum.sum() |> div(length(year_cutoffs))
-
-      avg_closing =
-        year_cutoffs |> Enum.map(& &1.closing_rank) |> Enum.sum() |> div(length(year_cutoffs))
-
-      %{
-        year: year,
-        opening_rank: avg_opening,
-        closing_rank: avg_closing
-      }
-    end)
-    |> Enum.sort_by(& &1.year)
-  end
 end

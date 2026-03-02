@@ -31,48 +31,30 @@ defmodule CounsellingWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-      <header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
-        <nav class="px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-stone-50 dark:bg-zinc-950 transition-colors duration-200">
+      <header class="sticky top-0 z-50 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-stone-200/80 dark:border-zinc-800/80">
+        <nav class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <div class="flex items-center justify-between h-16">
-            <!-- Logo and Brand -->
-            <div class="flex items-center">
-              <.link href="/" class="flex items-center space-x-3 group">
-                <div class="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-violet-600 to-purple-600 rounded-xl group-hover:scale-105 transition-transform">
-                  <svg
-                    class="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    >
-                    </path>
-                  </svg>
-                </div>
-                <div class="hidden sm:block">
-                  <h1 class="text-xl font-bold text-gray-900 dark:text-white">JOSAA Guide</h1>
-                  <p class="text-xs text-gray-600 dark:text-gray-400">
-                    Engineering College Counselling
-                  </p>
-                </div>
-              </.link>
-            </div>
+            <!-- Brand -->
+            <.link href="/" class="flex items-center gap-2 group">
+              <span class="font-serif text-[22px] font-medium tracking-tight text-stone-900 dark:text-zinc-100">
+                JOSAA Guide
+              </span>
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:scale-150 transition-transform">
+              </span>
+            </.link>
 
-            <div class="hidden md:flex items-center space-x-1">
+            <!-- Desktop nav -->
+            <div class="hidden md:flex items-center gap-1">
               <.link
                 navigate="/colleges"
-                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="px-4 py-2 text-[15px] text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 Colleges
               </.link>
               <.link
                 navigate="/programs"
-                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="px-4 py-2 text-[15px] text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 Programs
               </.link>
@@ -80,21 +62,22 @@ defmodule CounsellingWeb.Layouts do
                 id="compare-nav-button"
                 phx-hook="CompareNavHook"
                 navigate="/compare"
-                class="relative px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="relative px-4 py-2 text-[15px] text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 <span class="compare-text">Compare</span>
               </.link>
             </div>
 
-            <div class="flex items-center space-x-3">
+            <!-- Right side -->
+            <div class="flex items-center gap-3">
               <SutraUI.ThemeSwitcher.theme_switcher id="theme-toggle" variant="ghost" />
 
               <button
                 type="button"
-                class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="md:hidden p-2 text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
                 onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
               >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -107,20 +90,21 @@ defmodule CounsellingWeb.Layouts do
             </div>
           </div>
 
+          <!-- Mobile menu -->
           <div
             id="mobile-menu"
-            class="hidden md:hidden py-4 border-t border-gray-200 dark:border-gray-700"
+            class="hidden md:hidden py-4 border-t border-stone-200 dark:border-zinc-800"
           >
-            <div class="space-y-2">
+            <div class="space-y-1">
               <.link
                 patch="/colleges"
-                class="block px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="block px-4 py-2.5 text-sm font-sans text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 Colleges
               </.link>
               <.link
                 patch="/programs"
-                class="block px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="block px-4 py-2.5 text-sm font-sans text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 Programs
               </.link>
@@ -128,7 +112,7 @@ defmodule CounsellingWeb.Layouts do
                 id="compare-nav-button-mobile"
                 phx-hook="CompareNavHook"
                 navigate="/compare"
-                class="relative block w-full text-left px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                class="relative block w-full text-left px-4 py-2.5 text-sm font-sans text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-zinc-100 rounded-lg transition-colors"
               >
                 <span class="compare-text">Compare</span>
               </.link>
