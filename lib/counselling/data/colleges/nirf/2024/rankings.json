@@ -1,19 +1,19 @@
 [
   {
-    "college": "Indian Institute of Technology Dharwad",
-    "rank": 125
+    "college": "Indian Institute of Information Technology Guwahati",
+    "rank": 175
   },
   {
-    "college": "National Institute of Technology Goa",
-    "rank": 125
+    "college": "National Institute of Advanced Manufacturing Technology, Ranchi",
+    "rank": 175
   },
   {
-    "college": "National Institute of Technology Hamirpur",
-    "rank": 125
+    "college": "National Institute of Technology Nagaland",
+    "rank": 175
   },
   {
-    "college": "National Institute of Technology, Jamshedpur",
-    "rank": 125
+    "college": "National Institute of Technology Sikkim",
+    "rank": 175
   },
   {
     "college": "Indian Institute of Technology Madras",
@@ -140,19 +140,27 @@
     "rank": 97
   },
   {
-    "college": "Indian Institute of Information Technology Guwahati",
-    "rank": 175
+    "college": "Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram",
+    "rank": 125
   },
   {
-    "college": "National Institute of Advanced Manufacturing Technology, Ranchi",
-    "rank": 175
+    "college": "Indian Institute of Technology Dharwad",
+    "rank": 125
   },
   {
-    "college": "National Institute of Technology Nagaland",
-    "rank": 175
+    "college": "National Institute of Technology Arunachal Pradesh",
+    "rank": 125
   },
   {
-    "college": "National Institute of Technology Sikkim",
-    "rank": 175
+    "college": "National Institute of Technology Goa",
+    "rank": 125
+  },
+  {
+    "college": "National Institute of Technology Hamirpur",
+    "rank": 125
+  },
+  {
+    "college": "National Institute of Technology, Jamshedpur",
+    "rank": 125
   }
 ]

@@ -49,8 +49,8 @@ IO.puts("Created #{Repo.aggregate(Programs.Program, :count)} programs successful
 
 colleges = Repo.all(from c in College, select: {c.id, c.name})
 
-# Seed NIRF for years that have data files
-nirf_years = [2023, 2024]
+# Seed NIRF for all years with data files
+nirf_years = [2023, 2024, 2025]
 
 for year <- nirf_years,
     {college_id, college_name} <- colleges do
@@ -59,16 +59,6 @@ for year <- nirf_years,
       college_id: college_id,
       year: year,
       nirf_rank: NIRF.get_rank(college_name, year)
-    })
-end
-
-# Seed 2025 NIRF with same ranks as 2024 (placeholder until official data)
-for {college_id, college_name} <- colleges do
-  {:ok, _created_rank} =
-    NirfRankings.create_ranking(%{
-      college_id: college_id,
-      year: 2025,
-      nirf_rank: NIRF.get_rank(college_name, 2024)
     })
 end
 
@@ -142,7 +132,41 @@ corrections =
     {"National Institute of Technology Arunachal Pradesh", 2023, 125},
     {"National Institute of Technology, Uttarakhand", 2023, 125},
     {"Punjab Engineering College, Chandigarh", 2023, 125},
-    {"Sant Longowal Institute of Engineering and Technology", 2023, 175}
+    {"Sant Longowal Institute of Engineering and Technology", 2023, 175},
+    # 2025 corrections
+    {"National Institute of Technology, Tiruchirappalli", 2025, 9},
+    {"National Institute of Technology, Rourkela", 2025, 13},
+    {"Indian Institute of Technology (ISM) Dhanbad", 2025, 15},
+    {"National Institute of Technology, Warangal", 2025, 28},
+    {"Indian Institute of Technology Bhubaneswar", 2025, 39},
+    {"Malaviya National Institute of Technology Jaipur", 2025, 42},
+    {"Visvesvaraya National Institute of Technology, Nagpur", 2025, 44},
+    {"National Institute of Technology Durgapur", 2025, 49},
+    {"National Institute of Technology, Silchar", 2025, 50},
+    {"National Institute of Technology Patna", 2025, 53},
+    {"Dr. B R Ambedkar National Institute of Technology, Jalandhar", 2025, 55},
+    {"Indian Institute of Technology Tirupati", 2025, 57},
+    {"Motilal Nehru National Institute of Technology Allahabad", 2025, 62},
+    {"Sardar Vallabhbhai National Institute of Technology, Surat", 2025, 66},
+    {"National Institute of Technology, Srinagar", 2025, 73},
+    {"Sant Longowal Institute of Engineering and Technology", 2025, 79},
+    {"Maulana Azad National Institute of Technology Bhopal", 2025, 81},
+    {"National Institute of Technology, Kurukshetra", 2025, 85},
+    {"National Institute of Technology Raipur", 2025, 86},
+    {"Atal Bihari Vajpayee Indian Institute of Information Technology and Management Gwalior",
+     2025, 96},
+    {"Indian Institute of Information Technology, Allahabad", 2025, 125},
+    {"Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacture Jabalpur",
+     2025, 125},
+    {"Punjab Engineering College, Chandigarh", 2025, 125},
+    {"National Institute of Food Technology Entrepreneurship and Management, Thanjavur", 2025, 125},
+    {"Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram", 2025, 125},
+    {"School of Engineering, Tezpur University, Napaam, Tezpur", 2025, 175},
+    {"Indian Institute of Information Technology Design and Manufacturing Kurnool, Andhra Pradesh",
+     2025, 175},
+    {"Indian Institute of Information Technology (IIIT) Ranchi", 2025, 175},
+    {"National Institute of Food Technology Entrepreneurship and Management, Kundli", 2025, 175},
+    {"Shri Mata Vaishno Devi University, Katra, Jammu and Kashmir", 2025, 175}
   ]
 
 Enum.each(corrections, fn {college_name, year, rank} ->
@@ -150,17 +174,6 @@ Enum.each(corrections, fn {college_name, year, rank} ->
 
   if college do
     NirfRankings.update_ranking(college_name, year, rank)
-  end
-end)
-
-# Also apply 2024 corrections to 2025 (placeholder)
-Enum.each(corrections, fn {college_name, year, rank} ->
-  if year == 2024 do
-    college = Repo.get_by(College, name: college_name)
-
-    if college do
-      NirfRankings.update_ranking(college_name, 2025, rank)
-    end
   end
 end)
 

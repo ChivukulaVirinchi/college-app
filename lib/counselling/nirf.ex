@@ -32,8 +32,9 @@ defmodule NIRF do
 
   defp get_rank_type(path) do
     cond do
-      String.contains?(path, "150") -> 125
+      String.contains?(path, "300") -> 250
       String.contains?(path, "200") -> 175
+      String.contains?(path, "150") -> 125
       true -> :top100
     end
   end
@@ -69,9 +70,11 @@ defmodule NIRF do
   defp create_entry(name, rank, official_names) do
     college_name =
       String.trim(name)
+      |> String.replace(~r/\s+/, " ")
       |> String.replace("(Banaras Hindu University)", "(BHU)")
       |> String.replace("(Indian School of Mines)", "(ISM) Dhanbad")
       |> String.replace("Deemed-to-be-university", "")
+      |> String.replace("&", "and")
       |> String.trim()
 
     case Enum.find(official_names, &String.equivalent?(&1, college_name)) do

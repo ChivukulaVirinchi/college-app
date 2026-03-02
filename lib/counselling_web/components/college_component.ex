@@ -3,7 +3,7 @@ defmodule CounsellingWeb.CollegeComponent do
 
   def college_component(assigns) do
     ~H"""
-    <.card class="group overflow-hidden py-0! gap-0! hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+    <.card class="group overflow-hidden gap-0! hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
       <:header class="relative h-28 overflow-hidden p-0! gap-0! block!">
         <img
           class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -98,6 +98,9 @@ defmodule CounsellingWeb.CollegeComponent do
   defp class_badge_color(:GFTI), do: "bg-orange-600/90"
   defp class_badge_color(_), do: "bg-amber-500/90"
 
-  defp nirf_helper(rank) when rank > 100, do: "#{rank}*"
+  defp nirf_helper(500), do: "—"
+  defp nirf_helper(250), do: "201–300"
+  defp nirf_helper(175), do: "151–200"
+  defp nirf_helper(125), do: "101–150"
   defp nirf_helper(rank), do: "#{rank}"
 end

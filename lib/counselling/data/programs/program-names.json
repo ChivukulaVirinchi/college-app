@@ -1159,6 +1159,196 @@
       "name": "BS in Economics with MBA (IIM Bodh Gaya)",
       "degree_type": "Bachelor of Science and MBA (Dual Degree)",
       "duration": 5
+    },
+    {
+      "name": "Electronics System Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Applied Geophysics",
+      "degree_type": "Bachelor of Science",
+      "duration": 4
+    },
+    {
+      "name": "Abu Dhabi Campus - Chemical Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Abu Dhabi Campus - Computer Science and Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Abu Dhabi Campus - Energy Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Design",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Space Science and Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Computational Engineering and Mechanics",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Instrumentation and Biomedical Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "B.Tech Mining Engineering and MBA in Logistic and Supply Chain Management (IIM Mumbai)",
+      "degree_type": "Integrated B. Tech. and MBA",
+      "duration": 5
+    },
+    {
+      "name": "Chemical Science",
+      "degree_type": "Integrated Bachelor of Science-Master of Science",
+      "duration": 5
+    },
+    {
+      "name": "Physical Science",
+      "degree_type": "Integrated Bachelor of Science-Master of Science",
+      "duration": 5
+    },
+    {
+      "name": "Digital Agriculture",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Electrical Engineering (Integrated Circuit Design and Technology)",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Biochemical Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Bioengineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Materials Science and Technology",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree)",
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "Energy and Electrical Vehicle Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "B.Tech. in Electronics and Communication Engineering and M.Tech. in Microelectronics and VLSI Systems",
+      "degree_type": "Bachelor and Master of Technology (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "Design Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Computer Science and Engineering with specialization in Quantum Technologies",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Electronics and Communication Engineering (VLSI Design)",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Physics and Computational Engineering",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Animation and VFX",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "B.Tech. (Civil Engineering) - MBA",
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "B.Tech. (Computer Science and Engineering) - MBA",
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "B.Tech. (Elctrical Engineering) - MBA",
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "B.Tech. (Electronics and Communication Engineering) - MBA",
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "B.Tech. (Food Engineering and Technology) - MBA",
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "B.Tech. (Mechanical Engineering) - MBA",
+      "degree_type": "Bachelor of Technology and MBA (Dual Degree)",
+      "duration": 5
+    },
+    {
+      "name": "Robotics and AI",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "B.Tech in CSE (AI and ML)",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Computer Science and Engineering (Internet of Things, Cyber Security including Block Chain Technology )",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "B. Tech in Electronics and Communication Engineering with minor in Wearable Electronics",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Computer Science and Engineering with minor in AI and ML",
+      "degree_type": "Bachelor of Technology",
+      "duration": 4
+    },
+    {
+      "name": "Mathematics and Computing",
+      "degree_type": "Bachelor of Science and Master of Science (Dual Degree)",
+      "duration": 5
     }
   ]
 }

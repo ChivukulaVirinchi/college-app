@@ -238,7 +238,11 @@ defmodule Counselling.Colleges do
 
   def get_program_id(program_name) do
     details =
-      program_name |> String.trim() |> String.replace(~r/\s+/, " ") |> Josaa.parse_degree_info()
+      program_name
+      |> String.trim()
+      |> String.replace(~r/\s+/, " ")
+      |> String.replace("&", "and")
+      |> Josaa.parse_degree_info()
 
     case Repo.get_by(Program,
            name: details.name,
@@ -250,10 +254,34 @@ defmodule Counselling.Colleges do
     end
   end
 
+  # Maps JOSAA college names that differ from our canonical names
+  @college_aliases %{
+    "Indian Institute of Information Technology Manipur" =>
+      "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY SENAPATI MANIPUR",
+    "Institute of Technology, Guru Ghasidas Vishwavidyalaya (A Central University), Bilaspur, (C.G.)" =>
+      "School of Studies of Engineering and Technology, Guru Ghasidas Vishwavidyalaya, Bilaspur"
+  }
+
   def get_college_id(college_name) do
-    case Repo.get_by(College, name: String.trim(college_name) |> String.replace(~r/\s+/, " ")) do
-      %College{id: id} -> {:ok, id}
-      nil -> {:error, "College not found: #{college_name}"}
+    normalized =
+      college_name
+      |> String.trim()
+      |> String.replace(~r/\s+/, " ")
+      |> String.replace("&", "and")
+
+    # Check alias map first
+    canonical = Map.get(@college_aliases, normalized, normalized)
+
+    case Repo.get_by(College, name: canonical) do
+      %College{id: id} ->
+        {:ok, id}
+
+      nil ->
+        # Fallback: try original normalized name
+        case Repo.get_by(College, name: normalized) do
+          %College{id: id} -> {:ok, id}
+          nil -> {:error, "College not found: #{college_name}"}
+        end
     end
   end
 

@@ -120,8 +120,12 @@ defmodule CounsellingWeb.CollegeLive.Show do
 
   @quota_filter_keys [:hs, :all_india, :os]
 
+  # IITs only have all_india — no quota filter needed
   def filters_for(:IIT), do: Keyword.drop(filters(), @quota_filter_keys)
-  def filters_for(_class), do: filters()
+  # NITs have home_state + other_state — drop redundant all_india
+  def filters_for(:NIT), do: Keyword.drop(filters(), [:all_india])
+  # IIITs/GFTIs only have all_india — no quota filter needed
+  def filters_for(_class), do: Keyword.drop(filters(), @quota_filter_keys)
 
   defp college_link(program, record) do
     assigns = %{
@@ -141,9 +145,10 @@ defmodule CounsellingWeb.CollegeLive.Show do
 
   def nirf_helper(rank) do
     cond do
-      rank == 500 -> "-"
-      rank == 125 -> "125*"
-      rank == 175 -> "175*"
+      rank == 500 -> "—"
+      rank == 250 -> "201–300"
+      rank == 175 -> "151–200"
+      rank == 125 -> "101–150"
       true -> "#{rank}"
     end
   end

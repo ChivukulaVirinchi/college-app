@@ -8,6 +8,12 @@ const QUOTA_COLORS = {
   other_state: { line: 'rgb(249, 115, 22)',  fill: 'rgba(249, 115, 22, 0.12)',  label: 'Other State' },
 };
 
+const FEMALE_QUOTA_COLORS = {
+  all_india:   { line: 'rgb(236, 72, 153)',  fill: 'rgba(236, 72, 153, 0.12)',  label: 'All India' },
+  home_state:  { line: 'rgb(168, 85, 247)',  fill: 'rgba(168, 85, 247, 0.12)',  label: 'Home State' },
+  other_state: { line: 'rgb(244, 114, 182)', fill: 'rgba(244, 114, 182, 0.12)', label: 'Other State' },
+};
+
 const CATEGORY_LABELS = {
   open: 'OPEN', obc_ncl: 'OBC-NCL', sc: 'SC', st: 'ST', ews: 'EWS',
   open_pwd: 'OPEN (PwD)', obc_ncl_pwd: 'OBC-NCL (PwD)',
@@ -60,13 +66,13 @@ export const CutoffChartHook = {
       this.category = e.detail?.category || localStorage.getItem('josaa_user_category') || 'open';
       this.render();
     };
-    document.addEventListener('category-changed', this._onCategoryChange);
+    document.addEventListener('user-category-changed', this._onCategoryChange);
   },
 
   destroyed() {
     if (this.chart) this.chart.destroy();
     window.removeEventListener('storage', this._onStorage);
-    document.removeEventListener('category-changed', this._onCategoryChange);
+    document.removeEventListener('user-category-changed', this._onCategoryChange);
   },
 
   render() {
@@ -96,13 +102,16 @@ export const CutoffChartHook = {
 
     const datasets = [];
     const quotaOrder = ['all_india', 'home_state', 'other_state'];
+    const palette = this.showFemale ? FEMALE_QUOTA_COLORS : QUOTA_COLORS;
+    const presentQuotas = [];
 
     for (const quota of quotaOrder) {
       const data = groups[quota];
       if (!data) continue;
 
-      const colors = QUOTA_COLORS[quota] || { line: 'rgb(120,113,108)', fill: 'rgba(120,113,108,0.1)', label: quota };
+      const colors = palette[quota] || { line: 'rgb(120,113,108)', fill: 'rgba(120,113,108,0.1)', label: quota };
       const fillColor = isDark ? colors.fill.replace('0.12', '0.08') : colors.fill;
+      presentQuotas.push({ quota, colors });
 
       // Closing rank (primary line)
       datasets.push({
@@ -147,6 +156,17 @@ export const CutoffChartHook = {
     if (subtitle) {
       const gLabel = this.showFemale ? 'Female Only' : 'Gender Neutral';
       subtitle.textContent = `${CATEGORY_LABELS[this.category] || this.category} · ${gLabel} · Opening → Closing range by quota`;
+    }
+
+    // Update toolbar legends dynamically
+    const legendsContainer = this.el.querySelector('[data-chart-legends]');
+    if (legendsContainer) {
+      legendsContainer.innerHTML = presentQuotas.map(({ colors }) =>
+        `<span class="flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-full" style="background:${colors.line}20;border:2px solid ${colors.line}"></span>
+          ${colors.label}
+        </span>`
+      ).join('');
     }
 
     this.chart = new Chart(this.canvas, {

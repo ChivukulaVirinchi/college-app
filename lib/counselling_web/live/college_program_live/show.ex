@@ -123,8 +123,12 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
 
   @quota_filter_keys [:hs, :all_india, :os]
 
+  # IITs only have all_india — no quota filter needed
   def filters_for(:IIT), do: Keyword.drop(filters(), @quota_filter_keys)
-  def filters_for(_class), do: filters()
+  # NITs have home_state + other_state — drop redundant all_india
+  def filters_for(:NIT), do: Keyword.drop(filters(), [:all_india])
+  # IIITs/GFTIs only have all_india — no quota filter needed
+  def filters_for(_class), do: Keyword.drop(filters(), @quota_filter_keys)
 
   def process_quota(:all_india), do: "All India"
   def process_quota(:home_state), do: "Home State"

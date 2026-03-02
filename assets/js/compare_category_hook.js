@@ -18,6 +18,7 @@ export const CompareCategoryHook = {
         const value = this._input.value;
         localStorage.setItem("josaa_user_category", value);
         this.pushEvent("change_seat_type", { seat_type: value });
+        document.dispatchEvent(new CustomEvent("user-category-changed", { detail: { category: value } }));
       };
       this._input.addEventListener("input", this._onChange);
     }
