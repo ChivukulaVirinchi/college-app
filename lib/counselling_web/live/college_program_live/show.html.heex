@@ -107,8 +107,18 @@
               &mdash;
             <% end %>
           </div>
-          <div class="mt-1.5 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
+          <div class="mt-1.5 flex items-center gap-1.5 text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium">
             NIRF {@latest_year}
+            <%= if nirf_current = Enum.find(@college.nirf_rankings, fn r -> r.year == @latest_year end) do %>
+              <%= if nirf_band?(nirf_current.nirf_rank) do %>
+                <span
+                  class="normal-case tracking-normal inline-flex items-center rounded-full bg-amber-50 dark:bg-amber-950/40 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-400 ring-1 ring-inset ring-amber-200 dark:ring-amber-800/50 cursor-help"
+                  title="NIRF publishes exact ranks for the top 100. Colleges ranked 101+ are placed in bands (e.g. 101–150, 151–200, 201–300)."
+                >
+                  Rank band
+                </span>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>

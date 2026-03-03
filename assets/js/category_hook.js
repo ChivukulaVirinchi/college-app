@@ -11,6 +11,24 @@ const CATEGORY_LABELS = {
   ews_pwd: "EWS (PwD)",
 };
 
+// Extract plain category value from whatever format the hidden input stores.
+// SutraUI Select stores plain strings ("open"), but SutraUI LiveSelect stores
+// JSON objects ({"label":"OPEN","value":"open"}).
+function extractCategoryValue(raw) {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && parsed.value) {
+      // LiveSelect JSON: {"label":"OPEN","value":"open"} or value could be atom-like
+      const val = String(parsed.value);
+      return CATEGORY_LABELS[val] ? val : null;
+    }
+  } catch (_) {
+    // Not JSON — plain string from SutraUI Select
+  }
+  return CATEGORY_LABELS[raw] ? raw : null;
+}
+
 // Utility: programmatically set a SutraUI Select's value via DOM
 export function setSutraSelectValue(selectId, value) {
   const el = document.getElementById(selectId);
@@ -39,7 +57,9 @@ export function setSutraSelectValue(selectId, value) {
 // This hook goes on the wrapper div; the inner <.select> has its own .Select hook.
 export const CategorySelectHook = {
   mounted() {
-    // Wait for SutraUI .Select hook to initialize
+    console.log("[CategorySelectHook] mounted, el:", this.el.id);
+
+    // Restore saved category after SutraUI .Select hook initializes
     requestAnimationFrame(() => {
       const raw = localStorage.getItem("josaa_user_category") || "open";
       const saved = CATEGORY_LABELS[raw] ? raw : "open";
@@ -47,20 +67,26 @@ export const CategorySelectHook = {
       setSutraSelectValue("category-select", saved);
     });
 
-    // Listen for SutraUI select changes (fires 'input' on hidden input)
-    this._input = this.el.querySelector("[data-select-input]");
-    if (this._input) {
-      this._onChange = () => {
-        const value = this._input.value;
+    // Listen for SutraUI Select changes via document-level event delegation.
+    // SutraUI .Select fires 'input' on [data-select-input] hidden inputs.
+    // Listen on both 'input' and 'change' for robustness.
+    this._onChange = (e) => {
+      const input = e.target;
+      if (!input.hasAttribute("data-select-input")) return;
+      if (!this.el.contains(input)) return;
+      const value = extractCategoryValue(input.value);
+      console.log("[CategorySelectHook] select changed:", input.value, "→", value);
+      if (value) {
         localStorage.setItem("josaa_user_category", value);
         window.dispatchEvent(
           new CustomEvent("user-category-changed", {
             detail: { category: value },
           })
         );
-      };
-      this._input.addEventListener("input", this._onChange);
-    }
+      }
+    };
+    document.addEventListener("input", this._onChange);
+    document.addEventListener("change", this._onChange);
 
     // Cross-tab sync
     this._storageHandler = (event) => {
@@ -73,7 +99,8 @@ export const CategorySelectHook = {
   },
 
   destroyed() {
-    if (this._input) this._input.removeEventListener("input", this._onChange);
+    document.removeEventListener("input", this._onChange);
+    document.removeEventListener("change", this._onChange);
     window.removeEventListener("storage", this._storageHandler);
   },
 };
@@ -83,13 +110,14 @@ export const CategorySelectHook = {
 export const CategoryFilterHook = {
   mounted() {
     const raw = localStorage.getItem("josaa_user_category") || "open";
-    // Validate against known keys — cleans up stale JSON from old code
+    console.log("[CategoryFilterHook] mounted, localStorage raw:", raw);
     const category = CATEGORY_LABELS[raw] ? raw : "open";
     if (raw !== category) localStorage.setItem("josaa_user_category", category);
 
     // Check if a seat_type_select filter is already in the URL
     const url = new URL(window.location.href);
     const hasFilter = url.searchParams.has("filters[seat_type_select][id][]");
+    console.log("[CategoryFilterHook] hasFilter:", hasFilter, "applying:", category);
 
     if (!hasFilter) {
       this.pushEvent("sort", {
@@ -99,20 +127,27 @@ export const CategoryFilterHook = {
       });
     }
 
-    // Listen for LiveTable LiveSelect changes and save to localStorage
-    this.handleEvent("live_select_change", ({ id, text }) => {
-      if (id === "seat_type_select" && text) {
-        const validCategory = CATEGORY_LABELS[text] ? text : "open";
-        localStorage.setItem("josaa_user_category", validCategory);
+    // Listen for LiveSelect hidden input changes.
+    // SutraUI LiveSelect fires 'input' and 'change' on [data-live-select-input].
+    // The value is JSON like {"label":"OPEN","value":"open"}.
+    this._onLiveSelectChange = (e) => {
+      const input = e.target;
+      if (!input.hasAttribute("data-live-select-input")) return;
+      const value = extractCategoryValue(input.value);
+      console.log("[CategoryFilterHook] LiveSelect changed:", input.value, "→", value);
+      if (value) {
+        localStorage.setItem("josaa_user_category", value);
         window.dispatchEvent(
           new CustomEvent("user-category-changed", {
-            detail: { category: validCategory },
+            detail: { category: value },
           })
         );
       }
-    });
+    };
+    document.addEventListener("input", this._onLiveSelectChange);
+    document.addEventListener("change", this._onLiveSelectChange);
 
-    // Cross-tab sync: when another tab changes category, apply filter here too
+    // Cross-tab sync
     this._storageHandler = (event) => {
       if (event.key === "josaa_user_category") {
         const val = event.newValue || "open";
@@ -127,6 +162,8 @@ export const CategoryFilterHook = {
 
   destroyed() {
     window.removeEventListener("storage", this._storageHandler);
+    document.removeEventListener("input", this._onLiveSelectChange);
+    document.removeEventListener("change", this._onLiveSelectChange);
   },
 };
 

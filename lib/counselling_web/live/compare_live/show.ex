@@ -25,6 +25,7 @@ defmodule CounsellingWeb.CompareLive.Show do
       socket
       |> assign(:max_colleges, 4)
       |> assign(:page_title, "Compare Colleges - JOSAA Helper")
+      |> assign(:canonical_url, url(~p"/compare"))
       |> assign(
         :meta_description,
         "Compare up to 4 engineering colleges side-by-side. View cutoffs, NIRF rankings, programs and admission chances for your JEE rank side by side."

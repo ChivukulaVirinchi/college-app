@@ -19,7 +19,7 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
               phx-change="sort"
               class="contents"
             >
-              <div class="flex-1 min-w-[120px] max-w-[180px]">
+              <div class="flex-1 min-w-[120px] max-w-[180px] [&_.fieldset]:mb-0">
                 <.input
                   type="number"
                   phx-hook="RankInput"

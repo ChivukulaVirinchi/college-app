@@ -6,7 +6,8 @@ defmodule CounsellingWeb.PageController do
     render(conn, :home,
       latest_year: Josaa.latest_year(),
       college_count: Colleges.count_colleges(),
-      program_count: Programs.count_programs()
+      program_count: Programs.count_programs(),
+      canonical_url: url(conn, ~p"/")
     )
   end
 

@@ -94,6 +94,9 @@ export const FavoriteButton = {
     this.el.addEventListener('click', this.handleClick.bind(this));
     updateButtonState(this.el);
   },
+  updated() {
+    updateButtonState(this.el);
+  },
   destroyed() {
     this.el.removeEventListener('click', this.handleClick);
   },

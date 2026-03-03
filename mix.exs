@@ -61,9 +61,9 @@ defmodule Counselling.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:req, "~> 0.5.10"},
-      {:sutra_ui, path: "../../sutra_ui"},
       {:igniter, "~> 0.7.0"},
-      {:live_table, path: "../../live_table"}
+      {:sutra_ui, git: "git@github.com:gurujada/sutra_ui.git"},
+      {:live_table, git: "git@github.com:gurujada/live_table.git"}
     ]
   end
 

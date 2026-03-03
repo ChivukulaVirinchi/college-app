@@ -16,6 +16,7 @@ defmodule CounsellingWeb.CollegeLive.Show do
       socket
       |> assign(:data_provider, {Colleges, :get_college_programs, [id]})
       |> assign(:page_title, "#{college.name} - Programs & Cutoffs")
+      |> assign(:canonical_url, url(~p"/colleges/#{college}"))
       |> assign(
         :meta_description,
         "#{college.name} engineering programs, JEE cutoffs and NIRF rankings. Check admission chances based on your rank."
@@ -65,6 +66,14 @@ defmodule CounsellingWeb.CollegeLive.Show do
         assoc: {:program, :degree_type}
       }
     ]
+  end
+
+  def table_options do
+    %{
+      empty_state: fn _assigns ->
+        CounsellingWeb.EmptyState.empty_state(%{context: :college_programs})
+      end
+    }
   end
 
   def filters do
@@ -146,12 +155,14 @@ defmodule CounsellingWeb.CollegeLive.Show do
   def nirf_helper(rank) do
     cond do
       rank == 500 -> "—"
-      rank == 250 -> "201–300"
-      rank == 175 -> "151–200"
-      rank == 125 -> "101–150"
+      rank == 250 -> "201–300*"
+      rank == 175 -> "151–200*"
+      rank == 125 -> "101–150*"
       true -> "#{rank}"
     end
   end
+
+  def nirf_band?(rank), do: rank in [125, 175, 250]
 
   def process_quota(:all_india), do: "All India"
   def process_quota(:home_state), do: "Home State"

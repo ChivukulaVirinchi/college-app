@@ -13,6 +13,43 @@
       }
     />
 
+    <%!-- OpenGraph --%>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JOSAA Counselling Helper" />
+    <meta
+      property="og:title"
+      content={assigns[:page_title] || "JOSAA Counselling Helper"}
+    />
+    <meta
+      property="og:description"
+      content={
+        assigns[:meta_description] ||
+          "Find engineering colleges and programs based on your JEE rank"
+      }
+    />
+    <meta
+      :if={assigns[:canonical_url]}
+      property="og:url"
+      content={assigns[:canonical_url]}
+    />
+
+    <%!-- Twitter Card --%>
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content={assigns[:page_title] || "JOSAA Counselling Helper"}
+    />
+    <meta
+      name="twitter:description"
+      content={
+        assigns[:meta_description] ||
+          "Find engineering colleges and programs based on your JEE rank"
+      }
+    />
+
+    <%!-- Canonical URL --%>
+    <link :if={assigns[:canonical_url]} rel="canonical" href={assigns[:canonical_url]} />
+
 <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -75,11 +75,18 @@ export const CutoffChartHook = {
 
     // Sync with LiveTable's LiveSelect seat_type filter on this page.
     // SutraUI.LiveSelect fires 'change' on [data-live-select-input] hidden inputs.
-    // The value is a plain string (e.g., "open"), not JSON.
+    // The value may be JSON like {"label":"OPEN","value":"open"}.
     this._onLiveSelectChange = (e) => {
       const input = e.target;
       if (!input.hasAttribute('data-live-select-input')) return;
-      const seatType = input.value;
+      let seatType = input.value;
+      // Parse JSON if LiveSelect stores structured data
+      try {
+        const parsed = JSON.parse(seatType);
+        if (parsed && typeof parsed === 'object' && parsed.value) {
+          seatType = String(parsed.value);
+        }
+      } catch (_) { /* plain string, use as-is */ }
       if (seatType && VALID_SEAT_TYPES.has(seatType)) {
         this.category = seatType;
         localStorage.setItem('josaa_user_category', seatType);
@@ -88,6 +95,13 @@ export const CutoffChartHook = {
       }
     };
     document.addEventListener('change', this._onLiveSelectChange);
+  },
+
+  updated() {
+    this.allData = JSON.parse(this.el.dataset.allCutoffs || '[]');
+    if (this.allData.length && window.Chart) {
+      this.render();
+    }
   },
 
   destroyed() {
@@ -202,17 +216,7 @@ export const CutoffChartHook = {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: true,
-            position: 'bottom',
-            labels: {
-              color: textColor,
-              usePointStyle: true,
-              pointStyle: 'line',
-              padding: 18,
-              font: { size: 11, family: 'system-ui' },
-              boxWidth: 24,
-              filter: (item) => item.text.includes('Closing'),
-            },
+            display: false,
           },
           tooltip: {
             backgroundColor: isDark ? 'rgb(39, 39, 42)' : '#fff',

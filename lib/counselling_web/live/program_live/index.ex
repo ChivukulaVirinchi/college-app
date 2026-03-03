@@ -13,6 +13,7 @@ defmodule CounsellingWeb.ProgramLive.Index do
       socket
       |> assign(:data_provider, {Counselling.Programs, :list_programs, []})
       |> assign(:page_title, "Engineering Programs - JOSAA Counselling Helper")
+      |> assign(:canonical_url, url(~p"/programs"))
       |> assign(:program_count, program_count)
       |> assign(
         :meta_description,
@@ -126,7 +127,8 @@ defmodule CounsellingWeb.ProgramLive.Index do
     %{
       mode: :card,
       custom_header: {CustomHeader, :custom_header},
-      card_component: &CounsellingWeb.ProgramComponent.program_component/1
+      card_component: &CounsellingWeb.ProgramComponent.program_component/1,
+      empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :programs}) end
     }
   end
 end

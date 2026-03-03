@@ -21,6 +21,7 @@ defmodule CounsellingWeb.ProgramLive.Show do
       |> assign(:latest_year, @latest_year)
       |> assign(:college_count, Programs.get_college_count(id))
       |> assign(:page_title, "#{program.name} - Colleges & Cutoffs")
+      |> assign(:canonical_url, url(~p"/programs/#{program}"))
       |> assign(
         :meta_description,
         "#{program.name} program across engineering colleges. Compare cutoffs, NIRF rankings and admission chances at IITs, NITs, IIITs."
@@ -121,7 +122,8 @@ defmodule CounsellingWeb.ProgramLive.Show do
     %{
       mode: :card,
       card_component: &CounsellingWeb.CollegeComponent2.college_component2/1,
-      custom_header: {CounsellingWeb.CollegeLive.CustomHeader, :custom_header}
+      custom_header: {CounsellingWeb.CollegeLive.CustomHeader, :custom_header},
+      empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :program_colleges}) end
     }
   end
 

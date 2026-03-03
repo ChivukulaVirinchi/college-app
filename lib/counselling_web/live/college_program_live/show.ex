@@ -4,7 +4,7 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
 
   alias Counselling.{Ranks, Colleges, Programs}
   alias CounsellingWeb.RankComponent
-  import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1]
+  import CounsellingWeb.CollegeLive.Show, only: [nirf_helper: 1, nirf_band?: 1]
 
   @latest_year Josaa.latest_year()
 
@@ -28,6 +28,7 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
       |> assign(:college, college)
       |> assign(:program, program)
       |> assign(:page_title, "#{program.name} at #{college.name} - Cutoffs & Rankings")
+      |> assign(:canonical_url, url(~p"/colleges/#{college}/programs/#{program}"))
       |> assign(
         :meta_description,
         "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances."
@@ -68,6 +69,12 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
         renderer: &RankComponent.rank_badge/1
       }
     ]
+  end
+
+  def table_options do
+    %{
+      empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :cutoffs}) end
+    }
   end
 
   def filters do
