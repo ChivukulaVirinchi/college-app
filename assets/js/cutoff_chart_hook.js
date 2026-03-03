@@ -75,20 +75,17 @@ export const CutoffChartHook = {
 
     // Sync with LiveTable's LiveSelect seat_type filter on this page.
     // SutraUI.LiveSelect fires 'change' on [data-live-select-input] hidden inputs.
-    // The value is JSON like {"label":"OPEN","value":"open"}.
+    // The value is a plain string (e.g., "open"), not JSON.
     this._onLiveSelectChange = (e) => {
       const input = e.target;
       if (!input.hasAttribute('data-live-select-input')) return;
-      try {
-        const parsed = JSON.parse(input.value);
-        const seatType = parsed.value || parsed;
-        if (VALID_SEAT_TYPES.has(seatType)) {
-          this.category = seatType;
-          localStorage.setItem('josaa_user_category', seatType);
-          document.dispatchEvent(new CustomEvent('user-category-changed', { detail: { category: seatType } }));
-          this.render();
-        }
-      } catch (_) { /* not JSON or not a seat type — ignore */ }
+      const seatType = input.value;
+      if (seatType && VALID_SEAT_TYPES.has(seatType)) {
+        this.category = seatType;
+        localStorage.setItem('josaa_user_category', seatType);
+        document.dispatchEvent(new CustomEvent('user-category-changed', { detail: { category: seatType } }));
+        this.render();
+      }
     };
     document.addEventListener('change', this._onLiveSelectChange);
   },

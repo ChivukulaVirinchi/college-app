@@ -48,7 +48,7 @@ defmodule CounsellingWeb.CollegeComponent2 do
 
   def college_component2(assigns) do
     ~H"""
-    <.card class="overflow-hidden gap-0! group hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+    <.card class="overflow-hidden gap-0! group hover:-translate-y-1 hover:shadow-lg transition-all duration-300 pt-0!">
       <:header class="!p-0 block!">
         <div class="relative h-32 sm:h-36 overflow-hidden">
           <img

@@ -41,11 +41,13 @@ export const CategorySelectHook = {
   mounted() {
     // Wait for SutraUI .Select hook to initialize
     requestAnimationFrame(() => {
-      const saved = localStorage.getItem("josaa_user_category") || "open";
+      const raw = localStorage.getItem("josaa_user_category") || "open";
+      const saved = CATEGORY_LABELS[raw] ? raw : "open";
+      if (raw !== saved) localStorage.setItem("josaa_user_category", saved);
       setSutraSelectValue("category-select", saved);
     });
 
-    // Listen for SutraUI select changes (fires 'change' on hidden input)
+    // Listen for SutraUI select changes (fires 'input' on hidden input)
     this._input = this.el.querySelector("[data-select-input]");
     if (this._input) {
       this._onChange = () => {
@@ -57,7 +59,7 @@ export const CategorySelectHook = {
           })
         );
       };
-      this._input.addEventListener("change", this._onChange);
+      this._input.addEventListener("input", this._onChange);
     }
 
     // Cross-tab sync
@@ -71,35 +73,69 @@ export const CategorySelectHook = {
   },
 
   destroyed() {
-    if (this._input) this._input.removeEventListener("change", this._onChange);
+    if (this._input) this._input.removeEventListener("input", this._onChange);
     window.removeEventListener("storage", this._storageHandler);
   },
 };
 
 // Show page: auto-apply saved category as default Select filter
+// Also listens for LiveTable LiveSelect changes and saves to localStorage
 export const CategoryFilterHook = {
   mounted() {
-    const category = localStorage.getItem("josaa_user_category") || "open";
+    const raw = localStorage.getItem("josaa_user_category") || "open";
+    // Validate against known keys — cleans up stale JSON from old code
+    const category = CATEGORY_LABELS[raw] ? raw : "open";
+    if (raw !== category) localStorage.setItem("josaa_user_category", category);
 
     // Check if a seat_type_select filter is already in the URL
     const url = new URL(window.location.href);
     const hasFilter = url.searchParams.has("filters[seat_type_select][id][]");
 
     if (!hasFilter) {
-      const label = CATEGORY_LABELS[category] || "OPEN";
       this.pushEvent("sort", {
         filters: {
-          seat_type_select: JSON.stringify({ label: label, value: category }),
+          seat_type_select: { value: category },
         },
       });
     }
+
+    // Listen for LiveTable LiveSelect changes and save to localStorage
+    this.handleEvent("live_select_change", ({ id, text }) => {
+      if (id === "seat_type_select" && text) {
+        const validCategory = CATEGORY_LABELS[text] ? text : "open";
+        localStorage.setItem("josaa_user_category", validCategory);
+        window.dispatchEvent(
+          new CustomEvent("user-category-changed", {
+            detail: { category: validCategory },
+          })
+        );
+      }
+    });
+
+    // Cross-tab sync: when another tab changes category, apply filter here too
+    this._storageHandler = (event) => {
+      if (event.key === "josaa_user_category") {
+        const val = event.newValue || "open";
+        const validCategory = CATEGORY_LABELS[val] ? val : "open";
+        this.pushEvent("sort", {
+          filters: { seat_type_select: { value: validCategory } },
+        });
+      }
+    };
+    window.addEventListener("storage", this._storageHandler);
+  },
+
+  destroyed() {
+    window.removeEventListener("storage", this._storageHandler);
   },
 };
 
 // Program show page: sync localStorage category to LiveView via change_category event
 export const ProgramCategorySyncHook = {
   mounted() {
-    const category = localStorage.getItem("josaa_user_category") || "open";
+    const raw = localStorage.getItem("josaa_user_category") || "open";
+    const category = CATEGORY_LABELS[raw] ? raw : "open";
+    if (raw !== category) localStorage.setItem("josaa_user_category", category);
     // Only push if not default (open) to avoid unnecessary re-fetch
     if (category !== "open") {
       this.pushEvent("change_category", { seat_type: category });

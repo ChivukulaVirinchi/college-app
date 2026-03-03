@@ -3,7 +3,6 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
   alias LiveTable.Boolean
 
   def custom_header(assigns) do
-
     ~H"""
     <.card>
       <:content class="p-0!">
@@ -68,7 +67,7 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
                 type="text"
                 name="search"
                 id="college-search"
-                placeholder="Search colleges..."
+                placeholder="Search programs..."
                 value={@options["filters"]["search"]}
                 autocomplete="off"
               />

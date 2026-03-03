@@ -63,7 +63,7 @@ config :phoenix, :json_library, Jason
 config :live_table,
   repo: Counselling.Repo,
   pubsub: Counselling.PubSub,
-  defaults: %{pagination: %{enabled: false}, exports: %{enabled: false}}
+  defaults: %{pagination: %{enabled: false}, exports: %{enabled: false}, max_filters: 1}
 
 # Gemini API configuration
 config :counselling,
