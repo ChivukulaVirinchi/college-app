@@ -62,8 +62,14 @@ defmodule Counselling.MixProject do
       {:bandit, "~> 1.5"},
       {:req, "~> 0.5.10"},
       {:igniter, "~> 0.7.0"},
-      {:sutra_ui, git: "git@github.com:gurujada/sutra_ui.git", override: true},
-      {:live_table, git: "git@github.com:gurujada/live_table.git"}
+      {:sutra_ui,
+       git: "git@github.com:gurujada/sutra_ui.git",
+       ref: "1a5f9b33d1668f9c561ca9465e6b8138ac7953f6",
+       override: true},
+      {:live_table,
+       git: "git@github.com:gurujada/live_table.git",
+       ref: "bebf8ca8394d1a9116dd0de85e2f386660cdcbe7",
+       override: true}
     ]
   end
 
