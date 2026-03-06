@@ -96,16 +96,16 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
           mode: :single,
           allow_clear: false,
           options: [
-            %{label: "OPEN", value: :open},
-            %{label: "OBC-NCL", value: :obc_ncl},
-            %{label: "SC", value: :sc},
-            %{label: "ST", value: :st},
-            %{label: "EWS", value: :ews},
-            %{label: "OPEN (PwD)", value: :open_pwd},
-            %{label: "OBC-NCL (PwD)", value: :obc_ncl_pwd},
-            %{label: "SC (PwD)", value: :sc_pwd},
-            %{label: "ST (PwD)", value: :st_pwd},
-            %{label: "EWS (PwD)", value: :ews_pwd}
+            %{label: "OPEN", value: "open"},
+            %{label: "OBC-NCL", value: "obc_ncl"},
+            %{label: "SC", value: "sc"},
+            %{label: "ST", value: "st"},
+            %{label: "EWS", value: "ews"},
+            %{label: "OPEN (PwD)", value: "open_pwd"},
+            %{label: "OBC-NCL (PwD)", value: "obc_ncl_pwd"},
+            %{label: "SC (PwD)", value: "sc_pwd"},
+            %{label: "ST (PwD)", value: "st_pwd"},
+            %{label: "EWS (PwD)", value: "ews_pwd"}
           ],
           selected: [],
           placeholder: "Select category..."
