@@ -8,17 +8,27 @@ defmodule CounsellingWeb.ProgramLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     program_count = Counselling.Programs.count_programs()
+    base_url = url(~p"/")
+    canonical_url = url(~p"/programs")
+    page_title = "Engineering Programs - JOSAA Counselling Helper"
+
+    meta_description =
+      "Explore #{program_count}+ engineering programs across IITs, NITs, IIITs & GFTIs. Filter by duration, degree type and rank eligibility."
 
     socket =
       socket
       |> assign(:data_provider, {Counselling.Programs, :list_programs, []})
-      |> assign(:page_title, "Engineering Programs - JOSAA Counselling Helper")
-      |> assign(:canonical_url, url(~p"/programs"))
+      |> assign(:page_title, page_title)
+      |> assign(:canonical_url, canonical_url)
       |> assign(:program_count, program_count)
-      |> assign(
-        :meta_description,
-        "Explore #{program_count}+ engineering programs across IITs, NITs, IIITs & GFTIs. Filter by duration, degree type and rank eligibility."
-      )
+      |> assign(:meta_description, meta_description)
+      |> assign(:json_ld, [
+        CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
+        CounsellingWeb.SEO.breadcrumb_json_ld([
+          {"Home", base_url},
+          {"Programs", canonical_url}
+        ])
+      ])
 
     {:ok, socket}
   end

@@ -11,16 +11,31 @@ defmodule CounsellingWeb.CollegeLive.Show do
     [id_str | _] = String.split(params["college"], "-")
     id = String.to_integer(id_str)
     college = Colleges.get_college!(id)
+    base_url = url(~p"/")
+    canonical_url = url(~p"/colleges/#{college}")
+    image_url = CounsellingWeb.SEO.absolute_url(base_url, college.photo_path)
+    page_title = "#{college.name} - Programs & Cutoffs"
+
+    meta_description =
+      "#{college.name} engineering programs, JEE cutoffs and NIRF rankings. Check admission chances based on your rank."
 
     socket =
       socket
       |> assign(:data_provider, {Colleges, :get_college_programs, [id]})
-      |> assign(:page_title, "#{college.name} - Programs & Cutoffs")
-      |> assign(:canonical_url, url(~p"/colleges/#{college}"))
-      |> assign(
-        :meta_description,
-        "#{college.name} engineering programs, JEE cutoffs and NIRF rankings. Check admission chances based on your rank."
-      )
+      |> assign(:page_title, page_title)
+      |> assign(:canonical_url, canonical_url)
+      |> assign(:meta_description, meta_description)
+      |> assign(:og_image, image_url)
+      |> assign(:chart_js, true)
+      |> assign(:json_ld, [
+        CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
+        CounsellingWeb.SEO.breadcrumb_json_ld([
+          {"Home", base_url},
+          {"Colleges", url(~p"/colleges")},
+          {college.name, canonical_url}
+        ]),
+        CounsellingWeb.SEO.college_json_ld(college, canonical_url, image_url)
+      ])
       |> assign(:college, college)
       |> assign(:similar_colleges, Colleges.get_similar_colleges(id))
       |> assign(:latest_year, @latest_year)

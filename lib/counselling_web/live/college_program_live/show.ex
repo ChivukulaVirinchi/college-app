@@ -18,6 +18,12 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
 
     college = Colleges.get_college!(college_id)
     program = Programs.get_program!(program_id)
+    base_url = url(~p"/")
+    canonical_url = url(~p"/colleges/#{college}/programs/#{program}")
+    page_title = "#{program.name} at #{college.name} - Cutoffs & Rankings"
+
+    meta_description =
+      "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances."
 
     # All cutoffs for the chart (all years, all seat types)
     all_cutoffs = Ranks.get_rank_cutoffs(college_id, program_id)
@@ -27,12 +33,21 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
       |> assign(:data_provider, {Ranks, :get_college_program_cutoffs, [college_id, program_id]})
       |> assign(:college, college)
       |> assign(:program, program)
-      |> assign(:page_title, "#{program.name} at #{college.name} - Cutoffs & Rankings")
-      |> assign(:canonical_url, url(~p"/colleges/#{college}/programs/#{program}"))
-      |> assign(
-        :meta_description,
-        "#{program.name} at #{college.name} - JEE cutoffs, historical trends, and admission chances."
-      )
+      |> assign(:page_title, page_title)
+      |> assign(:canonical_url, canonical_url)
+      |> assign(:meta_description, meta_description)
+      |> assign(:og_image, CounsellingWeb.SEO.absolute_url(base_url, college.photo_path))
+      |> assign(:chart_js, true)
+      |> assign(:json_ld, [
+        CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
+        CounsellingWeb.SEO.breadcrumb_json_ld([
+          {"Home", base_url},
+          {"Colleges", url(~p"/colleges")},
+          {college.name, url(~p"/colleges/#{college}")},
+          {program.name, canonical_url}
+        ]),
+        CounsellingWeb.SEO.course_json_ld(program, canonical_url, college.name)
+      ])
       |> assign(:all_cutoffs, all_cutoffs)
       |> assign(:latest_year, @latest_year)
 

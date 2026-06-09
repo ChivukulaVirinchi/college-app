@@ -43,8 +43,8 @@ defmodule CounsellingWeb.Layouts do
               <span class="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:scale-150 transition-transform">
               </span>
             </.link>
-
-            <!-- Desktop nav -->
+            
+    <!-- Desktop nav -->
             <div class="hidden md:flex items-center gap-1">
               <.link
                 navigate="/colleges"
@@ -67,8 +67,8 @@ defmodule CounsellingWeb.Layouts do
                 <span class="compare-text">Compare</span>
               </.link>
             </div>
-
-            <!-- Right side -->
+            
+    <!-- Right side -->
             <div class="flex items-center gap-3">
               <SutraUI.ThemeSwitcher.theme_switcher id="theme-toggle" variant="ghost" />
 
@@ -89,8 +89,8 @@ defmodule CounsellingWeb.Layouts do
               </button>
             </div>
           </div>
-
-          <!-- Mobile menu -->
+          
+    <!-- Mobile menu -->
           <div
             id="mobile-menu"
             class="hidden md:hidden py-4 border-t border-stone-200 dark:border-zinc-800"
@@ -124,6 +124,23 @@ defmodule CounsellingWeb.Layouts do
       <main class="flex-1">
         {render_slot(@inner_block)}
       </main>
+
+      <footer class="border-t border-stone-200/80 dark:border-zinc-800/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-sm text-stone-500 dark:text-zinc-500">
+          <p>JoSAA cutoff and NIRF ranking data for counselling research.</p>
+          <div class="flex gap-4">
+            <.link navigate={~p"/methodology"} class="hover:text-amber-600 dark:hover:text-amber-400">
+              Methodology
+            </.link>
+            <.link
+              navigate={~p"/josaa-opening-closing-rank"}
+              class="hover:text-amber-600 dark:hover:text-amber-400"
+            >
+              Cutoff Guide
+            </.link>
+          </div>
+        </div>
+      </footer>
 
       <.flash_group flash={@flash} />
     </div>
@@ -172,5 +189,4 @@ defmodule CounsellingWeb.Layouts do
     </div>
     """
   end
-
 end

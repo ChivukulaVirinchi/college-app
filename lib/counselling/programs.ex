@@ -30,7 +30,7 @@ defmodule Counselling.Programs do
   end
 
   def list_all_programs_sitemap() do
-    Repo.all(from p in Program, select: %{id: p.id, slug: p.slug})
+    Repo.all(from p in Program, select: %{id: p.id, slug: p.slug, updated_at: p.updated_at})
   end
 
   def get_program!(id) do

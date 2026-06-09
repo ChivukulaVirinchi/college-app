@@ -18,6 +18,13 @@ defmodule CounsellingWeb.Router do
     pipe_through :browser
 
     get "/sitemap.xml", PageController, :sitemap
+    get "/methodology", PageController, :methodology
+    get "/josaa-college-predictor", PageController, :guide
+    get "/iit-cutoff-2026", PageController, :guide
+    get "/nit-cutoff-2026", PageController, :guide
+    get "/iiit-cutoff-2026", PageController, :guide
+    get "/josaa-opening-closing-rank", PageController, :guide
+    get "/jee-main-college-predictor", PageController, :guide
     live "/colleges", CollegeLive.Index, :index
     live "/colleges/:college", CollegeLive.Show, :show
     live "/programs", ProgramLive.Index, :index

@@ -11,6 +11,12 @@ defmodule CounsellingWeb.ProgramLive.Show do
     [id_str | _] = String.split(params["program"], "-")
     id = String.to_integer(id_str)
     program = Programs.get_program!(id)
+    base_url = url(~p"/")
+    canonical_url = url(~p"/programs/#{program}")
+    page_title = "#{program.name} - Colleges & Cutoffs"
+
+    meta_description =
+      "#{program.name} program across engineering colleges. Compare cutoffs, NIRF rankings and admission chances at IITs, NITs, IIITs."
 
     socket =
       socket
@@ -20,12 +26,18 @@ defmodule CounsellingWeb.ProgramLive.Show do
       |> assign(:seat_type, :open)
       |> assign(:latest_year, @latest_year)
       |> assign(:college_count, Programs.get_college_count(id))
-      |> assign(:page_title, "#{program.name} - Colleges & Cutoffs")
-      |> assign(:canonical_url, url(~p"/programs/#{program}"))
-      |> assign(
-        :meta_description,
-        "#{program.name} program across engineering colleges. Compare cutoffs, NIRF rankings and admission chances at IITs, NITs, IIITs."
-      )
+      |> assign(:page_title, page_title)
+      |> assign(:canonical_url, canonical_url)
+      |> assign(:meta_description, meta_description)
+      |> assign(:json_ld, [
+        CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
+        CounsellingWeb.SEO.breadcrumb_json_ld([
+          {"Home", base_url},
+          {"Programs", url(~p"/programs")},
+          {program.name, canonical_url}
+        ]),
+        CounsellingWeb.SEO.course_json_ld(program, canonical_url)
+      ])
 
     {:ok, socket}
   end
@@ -123,7 +135,9 @@ defmodule CounsellingWeb.ProgramLive.Show do
       mode: :card,
       card_component: &CounsellingWeb.CollegeComponent2.college_component2/1,
       custom_header: {CounsellingWeb.CollegeLive.CustomHeader, :custom_header},
-      empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :program_colleges}) end
+      empty_state: fn _assigns ->
+        CounsellingWeb.EmptyState.empty_state(%{context: :program_colleges})
+      end
     }
   end
 

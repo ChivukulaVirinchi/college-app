@@ -26,6 +26,7 @@ defmodule CounsellingWeb.CompareLive.Show do
       |> assign(:max_colleges, 4)
       |> assign(:page_title, "Compare Colleges - JOSAA Helper")
       |> assign(:canonical_url, url(~p"/compare"))
+      |> assign(:robots, "noindex,follow")
       |> assign(
         :meta_description,
         "Compare up to 4 engineering colleges side-by-side. View cutoffs, NIRF rankings, programs and admission chances for your JEE rank side by side."
@@ -187,19 +188,16 @@ defmodule CounsellingWeb.CompareLive.Show do
 
   # Bold colored badges for the comparison table
   defp type_color(:IIT),
-    do:
-      "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-400"
+    do: "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-400"
 
   defp type_color(:NIT),
     do: "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400"
 
   defp type_color(:IIIT),
-    do:
-      "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400"
+    do: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400"
 
   defp type_color(:GFTI),
-    do:
-      "bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400"
+    do: "bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400"
 
   defp type_color(_),
     do: "bg-stone-100 text-stone-600 dark:bg-zinc-800 dark:text-zinc-400"

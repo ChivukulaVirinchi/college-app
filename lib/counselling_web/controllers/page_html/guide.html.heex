@@ -1,0 +1,62 @@
+<Layouts.app flash={@flash}>
+  <section class="px-4 pt-16 pb-10 sm:pt-24 max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <div class="w-10 h-1 bg-amber-500 rounded-full mb-6"></div>
+      <p class="text-xs uppercase tracking-[0.22em] text-stone-400 dark:text-zinc-500 mb-5 font-medium">
+        {@page.kicker} &middot; {@latest_year} data
+      </p>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-[4.5rem] leading-[1.06] tracking-tight text-stone-900 dark:text-zinc-50">
+        {@page.h1}
+      </h1>
+      <p class="mt-7 text-lg sm:text-xl text-stone-500 dark:text-zinc-400 leading-relaxed">
+        {@page.description}
+      </p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <.button navigate={@page.primary_path} size="lg">
+          {@page.primary_label} &rarr;
+        </.button>
+        <.button navigate={@page.secondary_path} variant="ghost" size="lg">
+          {@page.secondary_label}
+        </.button>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-stone-200/80 dark:border-zinc-800/80 bg-stone-100/50 dark:bg-zinc-900/30">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+      <p class="max-w-3xl text-base sm:text-lg text-stone-600 dark:text-zinc-300 leading-relaxed">
+        {@page.body}
+      </p>
+    </div>
+  </section>
+
+  <section class="px-4 py-12 sm:py-16 max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="grid gap-8 md:grid-cols-[1fr_1fr]">
+      <div>
+        <h2 class="font-serif text-2xl sm:text-3xl text-stone-900 dark:text-zinc-50 mb-5">
+          What To Check
+        </h2>
+        <ul class="space-y-4">
+          <li :for={item <- @page.bullets} class="flex gap-3 text-stone-600 dark:text-zinc-300">
+            <span class="mt-2 size-1.5 rounded-full bg-amber-500 shrink-0"></span>
+            <span>{item}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-serif text-2xl sm:text-3xl text-stone-900 dark:text-zinc-50 mb-5">
+          Common Questions
+        </h2>
+        <div class="space-y-5">
+          <div :for={{question, answer} <- @page.faq}>
+            <h3 class="font-medium text-stone-900 dark:text-zinc-100">{question}</h3>
+            <p class="mt-1 text-sm text-stone-500 dark:text-zinc-400 leading-relaxed">
+              {answer}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layouts.app>

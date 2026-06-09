@@ -8,17 +8,28 @@ defmodule CounsellingWeb.CollegeLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     college_count = Colleges.count_colleges()
+    base_url = url(~p"/")
+    canonical_url = url(~p"/colleges")
+    page_title = "Engineering Colleges - JOSAA Helper"
+
+    meta_description =
+      "Browse #{college_count}+ engineering colleges (IITs, NITs, IIITs, GFTIs) with JEE rank-based filtering, cutoffs, and NIRF rankings. Find colleges you can get admission to."
 
     socket =
       socket
-      |> assign(:page_title, "Engineering Colleges - JOSAA Helper")
-      |> assign(:canonical_url, url(~p"/colleges"))
+      |> assign(:page_title, page_title)
+      |> assign(:canonical_url, canonical_url)
       |> assign(:data_provider, {Colleges, :list_colleges, []})
       |> assign(:college_count, college_count)
-      |> assign(
-        :meta_description,
-        "Browse #{college_count}+ engineering colleges (IITs, NITs, IIITs, GFTIs) with JEE rank-based filtering, cutoffs, and NIRF rankings. Find colleges you can get admission to."
-      )
+      |> assign(:meta_description, meta_description)
+      |> assign(:json_ld, [
+        CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
+        CounsellingWeb.SEO.breadcrumb_json_ld([
+          {"Home", base_url},
+          {"Colleges", canonical_url}
+        ])
+      ])
+
     {:ok, socket}
   end
 

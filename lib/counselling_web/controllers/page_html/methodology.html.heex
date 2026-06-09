@@ -1,0 +1,50 @@
+<Layouts.app flash={@flash}>
+  <section class="px-4 pt-16 pb-12 sm:pt-24 max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <div class="w-10 h-1 bg-amber-500 rounded-full mb-6"></div>
+      <p class="text-xs uppercase tracking-[0.22em] text-stone-400 dark:text-zinc-500 mb-5 font-medium">
+        Data sources &middot; Updated for {@latest_year}
+      </p>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-[4.5rem] leading-[1.06] tracking-tight text-stone-900 dark:text-zinc-50">
+        Data Methodology
+      </h1>
+      <p class="mt-7 text-lg sm:text-xl text-stone-500 dark:text-zinc-400 leading-relaxed">
+        This site combines JoSAA opening and closing rank data with NIRF engineering
+        rankings to help students research college and program options.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-4 pb-16 max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="grid gap-10 md:grid-cols-3">
+      <div>
+        <h2 class="font-serif text-2xl text-stone-900 dark:text-zinc-50 mb-3">
+          JoSAA Cutoffs
+        </h2>
+        <p class="text-stone-600 dark:text-zinc-300 leading-relaxed">
+          Opening and closing ranks are organized by year, institute, program, category,
+          quota and gender. Closing rank is treated as the last admitted rank for that
+          combination.
+        </p>
+      </div>
+      <div>
+        <h2 class="font-serif text-2xl text-stone-900 dark:text-zinc-50 mb-3">
+          NIRF Rankings
+        </h2>
+        <p class="text-stone-600 dark:text-zinc-300 leading-relaxed">
+          NIRF rankings are used as one comparison signal. Rank bands are displayed as
+          bands where NIRF publishes a range instead of an exact rank.
+        </p>
+      </div>
+      <div>
+        <h2 class="font-serif text-2xl text-stone-900 dark:text-zinc-50 mb-3">
+          Limitations
+        </h2>
+        <p class="text-stone-600 dark:text-zinc-300 leading-relaxed">
+          Historical cutoffs are guidance, not guarantees. Seat matrices, student
+          preferences, category rules and exam rank distributions can change every year.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layouts.app>

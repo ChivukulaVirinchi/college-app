@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <meta :if={assigns[:robots]} name="robots" content={assigns[:robots]} />
 
     <meta
       name="description"
@@ -28,13 +29,17 @@
       }
     />
     <meta
+      property="og:image"
+      content={assigns[:og_image] || CounsellingWeb.SEO.default_social_image(url(~p"/"))}
+    />
+    <meta
       :if={assigns[:canonical_url]}
       property="og:url"
       content={assigns[:canonical_url]}
     />
 
     <%!-- Twitter Card --%>
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
       content={assigns[:page_title] || "JOSAA Counselling Helper"}
@@ -46,10 +51,14 @@
           "Find engineering colleges and programs based on your JEE rank"
       }
     />
+    <meta
+      name="twitter:image"
+      content={assigns[:og_image] || CounsellingWeb.SEO.default_social_image(url(~p"/"))}
+    />
 
     <%!-- Canonical URL --%>
     <link :if={assigns[:canonical_url]} rel="canonical" href={assigns[:canonical_url]} />
-
+    
 <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -68,7 +77,13 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    <script :if={assigns[:chart_js]} src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+    <script
+      :for={json_ld <- List.wrap(assigns[:json_ld] || [])}
+      type="application/ld+json"
+    >
+      {Phoenix.HTML.raw(Jason.encode!(json_ld))}
     </script>
     <script>
       (function() {
@@ -101,7 +116,7 @@
         });
       })();
     </script>
-
+    
 <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSDMMF18JD">
     </script>

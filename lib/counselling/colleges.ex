@@ -33,7 +33,7 @@ defmodule Counselling.Colleges do
   end
 
   def list_all_colleges_sitemap() do
-    Repo.all(from c in College, select: %{id: c.id, slug: c.slug})
+    Repo.all(from c in College, select: %{id: c.id, slug: c.slug, updated_at: c.updated_at})
   end
 
   def list_all_college_programs_sitemap() do
@@ -46,7 +46,8 @@ defmodule Counselling.Colleges do
         college_id: c.id,
         college_slug: c.slug,
         program_id: p.id,
-        program_slug: p.slug
+        program_slug: p.slug,
+        updated_at: cp.updated_at
       }
     )
     |> Repo.all()
@@ -183,7 +184,10 @@ defmodule Counselling.Colleges do
         [college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank] =
           Enum.map(data, &extract_row_content/1)
 
-        if Enum.any?([college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank], &(&1 == "")) do
+        if Enum.any?(
+             [college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank],
+             &(&1 == "")
+           ) do
           {:skip, "Skipping row with empty fields"}
         else
           create_assocs(
