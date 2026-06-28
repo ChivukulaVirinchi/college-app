@@ -22,6 +22,12 @@ const CATEGORY_LABELS = {
 
 const VALID_SEAT_TYPES = new Set(Object.keys(CATEGORY_LABELS));
 
+function findChartSubtitle(el) {
+  return el.querySelector('[data-chart-subtitle]') ||
+    el.closest('section')?.querySelector('[data-chart-subtitle]') ||
+    document.querySelector('[data-chart-subtitle]');
+}
+
 export const CutoffChartHook = {
   mounted() {
     this.allData = JSON.parse(this.el.dataset.allCutoffs || '[]');
@@ -71,7 +77,7 @@ export const CutoffChartHook = {
       this.category = e.detail?.category || localStorage.getItem('josaa_user_category') || 'open';
       this.render();
     };
-    document.addEventListener('user-category-changed', this._onCategoryChange);
+    window.addEventListener('user-category-changed', this._onCategoryChange);
 
     // Sync with LiveTable's LiveSelect seat_type filter on this page.
     // SutraUI.LiveSelect fires 'change' on [data-live-select-input] hidden inputs.
@@ -107,7 +113,7 @@ export const CutoffChartHook = {
   destroyed() {
     if (this.chart) this.chart.destroy();
     window.removeEventListener('storage', this._onStorage);
-    document.removeEventListener('user-category-changed', this._onCategoryChange);
+    window.removeEventListener('user-category-changed', this._onCategoryChange);
     document.removeEventListener('change', this._onLiveSelectChange);
   },
 
@@ -191,7 +197,7 @@ export const CutoffChartHook = {
     }
 
     // Update subtitle
-    const subtitle = this.el.querySelector('[data-chart-subtitle]');
+    const subtitle = findChartSubtitle(this.el);
     if (subtitle) {
       const gLabel = this.showFemale ? 'Female Only' : 'Gender Neutral';
       subtitle.textContent = `${CATEGORY_LABELS[this.category] || this.category} · ${gLabel} · Opening → Closing range by quota`;
@@ -276,7 +282,7 @@ export const CutoffChartHook = {
   },
 
   renderEmpty() {
-    const subtitle = this.el.querySelector('[data-chart-subtitle]');
+    const subtitle = findChartSubtitle(this.el);
     if (subtitle) {
       const gLabel = this.showFemale ? 'Female Only' : 'Gender Neutral';
       subtitle.textContent = `No data for ${CATEGORY_LABELS[this.category] || this.category} · ${gLabel}`;

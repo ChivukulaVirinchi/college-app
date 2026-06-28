@@ -146,6 +146,7 @@ defmodule CounsellingWeb.ProgramLive.Show do
   def table_options do
     %{
       mode: :card,
+      pagination: %{enabled: true},
       card_component: &CounsellingWeb.CollegeComponent2.college_component2/1,
       custom_header: {CounsellingWeb.CollegeLive.CustomHeader, :custom_header},
       empty_state: fn _assigns ->

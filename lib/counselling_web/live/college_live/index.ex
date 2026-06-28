@@ -44,6 +44,7 @@ defmodule CounsellingWeb.CollegeLive.Index do
   def table_options do
     %{
       mode: :card,
+      pagination: %{enabled: true},
       card_component: &CounsellingWeb.CollegeComponent.college_component/1,
       custom_header: {CustomHeader, :custom_header},
       empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :colleges}) end

@@ -87,6 +87,7 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
 
   def table_options do
     %{
+      pagination: %{enabled: true},
       empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :cutoffs}) end
     }
   end

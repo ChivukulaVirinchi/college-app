@@ -25,6 +25,7 @@ import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
 
 import { default as hooks_default } from "./live-table.js";
+import { hooks as sutraUiHooks } from "phoenix-colocated/sutra_ui";
 import {
   FavoritesHook,
   FavoriteButton,
@@ -58,6 +59,7 @@ const liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
   hooks: {
     ...hooks_default,
+    ...sutraUiHooks,
     FavoritesHook,
     FavoriteButton,
     ShareHook,

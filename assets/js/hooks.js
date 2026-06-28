@@ -146,8 +146,27 @@ export const ShareHook = {
       await navigator.clipboard.writeText(text);
       this.showToast('Link copied to clipboard!');
     } catch (err) {
-      console.error('Failed to copy:', err);
-      this.showToast('Failed to copy link');
+      if (this.copyWithTextArea(text)) {
+        this.showToast('Link copied to clipboard!');
+      } else {
+        this.showToast('Failed to copy link');
+      }
+    }
+  },
+
+  copyWithTextArea(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      return document.execCommand('copy');
+    } finally {
+      document.body.removeChild(textarea);
     }
   },
 

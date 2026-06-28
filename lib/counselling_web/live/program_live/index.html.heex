@@ -19,7 +19,12 @@
         Browse programs by degree type. Click any program to see which colleges offer it
         and their cutoff ranks for your category.
       </.help_pill>
-      <.live_table fields={fields()} options={@options} streams={@streams} filters={filters()} />
+      <.live_table
+        fields={fields()}
+        options={@options}
+        streams={@streams}
+        filters={filters()}
+      />
     </div>
   </div>
 </Layouts.app>

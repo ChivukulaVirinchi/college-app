@@ -143,6 +143,7 @@ defmodule CounsellingWeb.ProgramLive.Index do
   def table_options do
     %{
       mode: :card,
+      pagination: %{enabled: true},
       custom_header: {CustomHeader, :custom_header},
       card_component: &CounsellingWeb.ProgramComponent.program_component/1,
       empty_state: fn _assigns -> CounsellingWeb.EmptyState.empty_state(%{context: :programs}) end

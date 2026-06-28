@@ -135,7 +135,12 @@
       </.help_pill>
 
       <div id="program-category-sync" phx-hook="ProgramCategorySyncHook" class="hidden"></div>
-      <.live_table fields={fields()} streams={@streams} filters={filters()} options={@options} />
+      <.live_table
+        fields={fields()}
+        streams={@streams}
+        filters={filters()}
+        options={@options}
+      />
     </section>
   </div>
 </Layouts.app>

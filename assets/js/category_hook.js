@@ -172,8 +172,10 @@ export const CategoryFilterHook = {
     this._onClearFilters = (event) => {
       if (!isClearFiltersClick(event)) return;
 
+      event.preventDefault();
+      event.stopImmediatePropagation();
       resetCategoryToOpen();
-      this.applyOpenAfterClear();
+      this.applyDefaultFilters();
     };
     document.addEventListener("click", this._onClearFilters, true);
 
@@ -206,9 +208,17 @@ export const CategoryFilterHook = {
     }
   },
 
-  applyOpenAfterClear() {
-    [80, 250, 600].forEach((delay) => {
-      window.setTimeout(() => this.applyOpenIfMissing(), delay);
+  applyDefaultFilters() {
+    this.pushEvent("sort", {
+      search: "",
+      filters: {
+        seat_type_select: { value: "open" },
+        gender_filter: "true",
+        female_filter: "false",
+        hs: "false",
+        all_india: "false",
+        os: "false",
+      },
     });
   },
 

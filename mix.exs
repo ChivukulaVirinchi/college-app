@@ -41,7 +41,7 @@ defmodule Counselling.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 1.1"},
+      {:phoenix_live_view, "~> 1.2"},
       {:floki, "~> 0.37.0"},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.9", runtime: Mix.env() == :dev},
@@ -68,7 +68,7 @@ defmodule Counselling.MixProject do
        override: true},
       {:live_table,
        git: "git@github.com:gurujada/live_table.git",
-       ref: "bebf8ca8394d1a9116dd0de85e2f386660cdcbe7",
+       ref: "ecf2f7233bb786c67c9748f968a65a66befee4e7",
        override: true}
     ]
   end

@@ -20,7 +20,12 @@
         Select your reservation category to see relevant cutoffs. Toggle IIT/NIT/IIIT/GFTI
         pills to filter by institution type.
       </.help_pill>
-      <.live_table fields={fields()} filters={filters()} options={@options} streams={@streams} />
+      <.live_table
+        fields={fields()}
+        filters={filters()}
+        options={@options}
+        streams={@streams}
+      />
     </div>
   </div>
 </Layouts.app>
