@@ -53,6 +53,26 @@ export function setSutraSelectValue(selectId, value) {
   el.dataset.selectValue = value;
 }
 
+function isClearFiltersClick(event) {
+  const target = event.target;
+  if (!(target instanceof Element)) return false;
+
+  const clearButton = target.closest(
+    '[phx-value-clear_filters="true"], [data-phx-value-clear_filters="true"], [phx-click*="clear_filters"]'
+  );
+  return !!clearButton;
+}
+
+function resetCategoryToOpen() {
+  localStorage.setItem("josaa_user_category", "open");
+  setSutraSelectValue("category-select", "open");
+  window.dispatchEvent(
+    new CustomEvent("user-category-changed", {
+      detail: { category: "open" },
+    })
+  );
+}
+
 // Index page: category SutraUI Select synced with localStorage.
 // This hook goes on the wrapper div; the inner <.select> has its own .Select hook.
 export const CategorySelectHook = {
@@ -88,6 +108,11 @@ export const CategorySelectHook = {
     document.addEventListener("input", this._onChange);
     document.addEventListener("change", this._onChange);
 
+    this._onClearFilters = (event) => {
+      if (isClearFiltersClick(event)) resetCategoryToOpen();
+    };
+    document.addEventListener("click", this._onClearFilters, true);
+
     // Cross-tab sync
     this._storageHandler = (event) => {
       if (event.key === "josaa_user_category") {
@@ -101,6 +126,7 @@ export const CategorySelectHook = {
   destroyed() {
     document.removeEventListener("input", this._onChange);
     document.removeEventListener("change", this._onChange);
+    document.removeEventListener("click", this._onClearFilters, true);
     window.removeEventListener("storage", this._storageHandler);
   },
 };
@@ -120,11 +146,7 @@ export const CategoryFilterHook = {
     console.log("[CategoryFilterHook] hasFilter:", hasFilter, "applying:", category);
 
     if (!hasFilter) {
-      this.pushEvent("sort", {
-        filters: {
-          seat_type_select: { value: category },
-        },
-      });
+      this.applyCategoryFilter(category);
     }
 
     // Listen for LiveSelect hidden input changes.
@@ -147,21 +169,53 @@ export const CategoryFilterHook = {
     document.addEventListener("input", this._onLiveSelectChange);
     document.addEventListener("change", this._onLiveSelectChange);
 
+    this._onClearFilters = (event) => {
+      if (!isClearFiltersClick(event)) return;
+
+      resetCategoryToOpen();
+      this.applyOpenAfterClear();
+    };
+    document.addEventListener("click", this._onClearFilters, true);
+
+    this._onPageLoadingStop = () => {
+      this.applyOpenIfMissing();
+    };
+    window.addEventListener("phx:page-loading-stop", this._onPageLoadingStop);
+
     // Cross-tab sync
     this._storageHandler = (event) => {
       if (event.key === "josaa_user_category") {
         const val = event.newValue || "open";
         const validCategory = CATEGORY_LABELS[val] ? val : "open";
-        this.pushEvent("sort", {
-          filters: { seat_type_select: { value: validCategory } },
-        });
+        this.applyCategoryFilter(validCategory);
       }
     };
     window.addEventListener("storage", this._storageHandler);
   },
 
+  applyCategoryFilter(category) {
+    this.pushEvent("sort", {
+      filters: { seat_type_select: { value: category } },
+    });
+  },
+
+  applyOpenIfMissing() {
+    const nextUrl = new URL(window.location.href);
+    if (!nextUrl.searchParams.has("filters[seat_type_select][id][]")) {
+      this.applyCategoryFilter("open");
+    }
+  },
+
+  applyOpenAfterClear() {
+    [80, 250, 600].forEach((delay) => {
+      window.setTimeout(() => this.applyOpenIfMissing(), delay);
+    });
+  },
+
   destroyed() {
     window.removeEventListener("storage", this._storageHandler);
+    window.removeEventListener("phx:page-loading-stop", this._onPageLoadingStop);
+    document.removeEventListener("click", this._onClearFilters, true);
     document.removeEventListener("input", this._onLiveSelectChange);
     document.removeEventListener("change", this._onLiveSelectChange);
   },
@@ -185,6 +239,11 @@ export const ProgramCategorySyncHook = {
     };
     window.addEventListener("user-category-changed", this._onCategoryChanged);
 
+    this._onClearFilters = (event) => {
+      if (isClearFiltersClick(event)) resetCategoryToOpen();
+    };
+    document.addEventListener("click", this._onClearFilters, true);
+
     this._onStorage = (e) => {
       if (e.key === "josaa_user_category") {
         this.pushEvent("change_category", {
@@ -198,5 +257,6 @@ export const ProgramCategorySyncHook = {
   destroyed() {
     window.removeEventListener("user-category-changed", this._onCategoryChanged);
     window.removeEventListener("storage", this._onStorage);
+    document.removeEventListener("click", this._onClearFilters, true);
   },
 };

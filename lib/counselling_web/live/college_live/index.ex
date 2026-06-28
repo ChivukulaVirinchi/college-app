@@ -108,8 +108,15 @@ defmodule CounsellingWeb.CollegeLive.Index do
   end
 
   def rank_filter(query, %{"value" => rank}) do
-    number = String.to_integer(rank)
+    with {number, ""} <- Integer.parse(rank),
+         true <- number > 0 do
+      apply_rank_filter(query, number)
+    else
+      _ -> query
+    end
+  end
 
+  defp apply_rank_filter(query, number) do
     query
     |> where(
       [c, _, rc],

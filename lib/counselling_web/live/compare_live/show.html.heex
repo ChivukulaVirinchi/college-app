@@ -109,12 +109,18 @@
           id="compare-category-wrapper"
           phx-update="ignore"
           phx-hook="CompareCategoryHook"
+          data-current-seat-type={Atom.to_string(@seat_type)}
+          data-has-seat-type-param={@has_seat_type_param}
           class="flex items-center gap-2 shrink-0"
         >
           <span class="text-xs uppercase tracking-[0.15em] text-stone-400 dark:text-zinc-500 font-medium hidden sm:inline">
             Category
           </span>
-          <.select id="compare-category-select" name="seat_type" value="open">
+          <.select
+            id="compare-category-select"
+            name="seat_type"
+            value={Atom.to_string(@seat_type)}
+          >
             <.select_option value="open" label="OPEN" />
             <.select_option value="obc_ncl" label="OBC-NCL" />
             <.select_option value="sc" label="SC" />
@@ -389,7 +395,11 @@
           <.command_item
             :for={college <- @all_colleges}
             id={"college-cmd-#{college.id}"}
-            keywords={[college.location, to_string(college.class), format_college_class(college.class)]}
+            keywords={[
+              college.location,
+              to_string(college.class),
+              format_college_class(college.class)
+            ]}
             disabled={college.id in @selected_college_ids}
             phx-click={
               JS.push("add_college", value: %{id: college.id})

@@ -1,68 +1,217 @@
 import Ecto.Query, warn: false
-alias Counselling.Ranks.RankCutoff
-alias Counselling.{Colleges, Colleges.College, Programs, Repo, NirfRanking, NirfRankings}
+
+alias Counselling.{
+  CollegePrograms.CollegeProgram,
+  Colleges,
+  Colleges.College,
+  NirfRanking,
+  Programs.Program,
+  Repo,
+  Ranks.RankCutoff
+}
+
+defmodule Counselling.Seeds.Helpers do
+  @college_aliases %{
+    "Indian Institute of Information Technology Manipur" =>
+      "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY SENAPATI MANIPUR",
+    "Institute of Technology, Guru Ghasidas Vishwavidyalaya (A Central University), Bilaspur, (C.G.)" =>
+      "School of Studies of Engineering and Technology, Guru Ghasidas Vishwavidyalaya, Bilaspur"
+  }
+
+  def now, do: NaiveDateTime.utc_now(:second)
+
+  def normalize_name(value) do
+    value
+    |> String.trim()
+    |> String.replace(~r/\s+/, " ")
+  end
+
+  def normalize_josaa_name(value) do
+    value
+    |> normalize_name()
+    |> String.replace("&", "and")
+  end
+
+  def canonical_college_name(value) do
+    normalized = normalize_josaa_name(value)
+    Map.get(@college_aliases, normalized, normalized)
+  end
+
+  def college_slug(name) do
+    name
+    |> String.downcase()
+    |> String.replace([" ", "  "], "-")
+    |> String.replace(",", "")
+  end
+
+  def program_slug(name) do
+    name
+    |> String.downcase()
+    |> String.replace(" ", "-")
+  end
+
+  def program_key(program_name) do
+    details =
+      program_name
+      |> normalize_josaa_name()
+      |> Josaa.parse_degree_info()
+
+    case details do
+      %{name: name, duration: duration, degree_type: degree_type} ->
+        {name, duration, degree_type}
+
+      _ ->
+        nil
+    end
+  end
+
+  def parse_cutoff_row(row, year) do
+    case row do
+      {"tr", [{"class", "text-white bg-secondary"}], _} ->
+        {:skip, "Skipping header row"}
+
+      {"tr", _, [{"th", _, _} | _]} ->
+        {:skip, "Skipping header row"}
+
+      {"tr", _, data} when length(data) == 7 ->
+        [college_name, program_name, quota, seat_type, gender, opening_rank, closing_rank] =
+          Enum.map(data, &Colleges.extract_row_content/1)
+
+        values = [
+          college_name,
+          program_name,
+          quota,
+          seat_type,
+          gender,
+          opening_rank,
+          closing_rank
+        ]
+
+        if Enum.any?(values, &(&1 == "")) do
+          {:skip, "Skipping row with empty fields"}
+        else
+          {:ok,
+           %{
+             college_name: college_name,
+             canonical_college_name: canonical_college_name(college_name),
+             program_name: program_name,
+             program_key: program_key(program_name),
+             quota: Colleges.parse_quota(quota),
+             seat_type: Josaa.seat_type_atom(seat_type),
+             gender: Colleges.parse_gender(gender),
+             opening_rank: Colleges.parse_rank(opening_rank),
+             closing_rank: Colleges.parse_rank(closing_rank),
+             year: year
+           }}
+        end
+
+      _ ->
+        {:error, "Invalid row format"}
+    end
+  end
+end
+
+helpers = Counselling.Seeds.Helpers
+now = helpers.now()
+seed_years = [2023, 2024, 2025]
+
+parsed_results =
+  seed_years
+  |> Task.async_stream(
+    fn year ->
+      year
+      |> Josaa.list_college_program_data()
+      |> Enum.map(&helpers.parse_cutoff_row(&1, year))
+    end,
+    max_concurrency: System.schedulers_online(),
+    timeout: :infinity
+  )
+  |> Enum.flat_map(fn {:ok, results} -> results end)
 
 generated_college_data =
   "priv/static/generated_college_data.json"
   |> File.read!()
   |> Jason.decode!()
 
-# Create Colleges
-"lib/counselling/data/colleges/college-names.json"
-|> File.read!()
-|> Jason.decode!()
-|> Map.get("colleges")
-|> Enum.each(fn college_name ->
-  # Get details for this college, or use empty map if not found
-  details = Map.get(generated_college_data, college_name, %{})
+college_names_from_rank_files =
+  parsed_results
+  |> Enum.flat_map(fn
+    {:ok, row} -> [row.canonical_college_name]
+    _ -> []
+  end)
 
-  Colleges.create_college(%{
-    name: String.trim(college_name) |> String.replace(~r/\s+/, " "),
-    location: Map.get(details, "location"),
-    established_year: Map.get(details, "established_year"),
-    class: Colleges.class(college_name),
-    website: Map.get(details, "official_website"),
-    campus_area: Map.get(details, "campus_area_acres"),
-    description: Map.get(details, "description"),
-    photo_path: Map.get(details, "image_path")
-  })
-end)
+college_rows =
+  "lib/counselling/data/colleges/college-names.json"
+  |> File.read!()
+  |> Jason.decode!()
+  |> Map.get("colleges")
+  |> Enum.map(&helpers.normalize_name/1)
+  |> Enum.concat(college_names_from_rank_files)
+  |> Enum.uniq()
+  |> Enum.map(fn college_name ->
+    details = Map.get(generated_college_data, college_name, %{})
 
-IO.puts("Created #{Repo.aggregate(Colleges.College, :count)} colleges successfully!")
+    %{
+      name: college_name,
+      location: Map.get(details, "location"),
+      established_year: Map.get(details, "established_year"),
+      class: Colleges.class(college_name),
+      website: Map.get(details, "official_website"),
+      campus_area: Map.get(details, "campus_area_acres"),
+      description: Map.get(details, "description"),
+      photo_path: Map.get(details, "image_path"),
+      slug: helpers.college_slug(college_name),
+      inserted_at: now,
+      updated_at: now
+    }
+  end)
+  |> Enum.filter(fn row ->
+    row.name && row.established_year && row.location && row.class && row.description
+  end)
 
-# Create Programs
-"lib/counselling/data/programs/program-names.json"
-|> File.read!()
-|> Jason.decode!()
-|> Map.get("programs")
-|> Enum.each(fn program ->
-  Programs.create_program(%{
-    name: program["name"] |> String.trim() |> String.replace(~r/\s+/, " "),
-    duration: program["duration"],
-    degree_type: program["degree_type"]
-  })
-end)
+Repo.insert_all(College, college_rows,
+  on_conflict: :nothing,
+  conflict_target: [:name]
+)
 
-IO.puts("Created #{Repo.aggregate(Programs.Program, :count)} programs successfully!")
+IO.puts("Created #{Repo.aggregate(College, :count)} colleges successfully!")
 
-# Create NIRF Ranks
+program_rows_from_rank_files =
+  parsed_results
+  |> Enum.flat_map(fn
+    {:ok, %{program_key: {name, duration, degree_type}}} ->
+      [%{"name" => name, "duration" => duration, "degree_type" => degree_type}]
 
-colleges = Repo.all(from c in College, select: {c.id, c.name})
+    _ ->
+      []
+  end)
 
-# Seed NIRF for all years with data files
-nirf_years = [2023, 2024, 2025]
+program_rows =
+  "lib/counselling/data/programs/program-names.json"
+  |> File.read!()
+  |> Jason.decode!()
+  |> Map.get("programs")
+  |> Enum.concat(program_rows_from_rank_files)
+  |> Enum.uniq_by(&{&1["name"], &1["duration"], &1["degree_type"]})
+  |> Enum.map(fn program ->
+    name = helpers.normalize_name(program["name"])
 
-for year <- nirf_years,
-    {college_id, college_name} <- colleges do
-  {:ok, _created_rank} =
-    NirfRankings.create_ranking(%{
-      college_id: college_id,
-      year: year,
-      nirf_rank: NIRF.get_rank(college_name, year)
-    })
-end
+    %{
+      name: name,
+      duration: program["duration"],
+      degree_type: program["degree_type"],
+      slug: helpers.program_slug(name),
+      inserted_at: now,
+      updated_at: now
+    }
+  end)
 
-IO.puts("Created #{Repo.aggregate(NirfRanking, :count)} rankings successfully!")
+Repo.insert_all(Program, program_rows,
+  on_conflict: :nothing,
+  conflict_target: [:name, :duration, :degree_type]
+)
+
+IO.puts("Created #{Repo.aggregate(Program, :count)} programs successfully!")
 
 corrections =
   [
@@ -133,7 +282,6 @@ corrections =
     {"National Institute of Technology, Uttarakhand", 2023, 125},
     {"Punjab Engineering College, Chandigarh", 2023, 125},
     {"Sant Longowal Institute of Engineering and Technology", 2023, 175},
-    # 2025 corrections
     {"National Institute of Technology, Tiruchirappalli", 2025, 9},
     {"National Institute of Technology, Rourkela", 2025, 13},
     {"Indian Institute of Technology (ISM) Dhanbad", 2025, 15},
@@ -159,8 +307,10 @@ corrections =
     {"Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacture Jabalpur",
      2025, 125},
     {"Punjab Engineering College, Chandigarh", 2025, 125},
-    {"National Institute of Food Technology Entrepreneurship and Management, Thanjavur", 2025, 125},
-    {"Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram", 2025, 125},
+    {"National Institute of Food Technology Entrepreneurship and Management, Thanjavur", 2025,
+     125},
+    {"Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram", 2025,
+     125},
     {"School of Engineering, Tezpur University, Napaam, Tezpur", 2025, 175},
     {"Indian Institute of Information Technology Design and Manufacturing Kurnool, Andhra Pradesh",
      2025, 175},
@@ -169,35 +319,153 @@ corrections =
     {"Shri Mata Vaishno Devi University, Katra, Jammu and Kashmir", 2025, 175}
   ]
 
-Enum.each(corrections, fn {college_name, year, rank} ->
-  college = Repo.get_by(College, name: college_name)
+nirf_years = seed_years
 
-  if college do
-    NirfRankings.update_ranking(college_name, year, rank)
+college_lookup =
+  Repo.all(from c in College, select: {c.name, c.id})
+  |> Map.new()
+
+rankings_by_year =
+  Map.new(nirf_years, fn year ->
+    rankings =
+      case File.read("lib/counselling/data/colleges/nirf/#{year}/rankings.json") do
+        {:ok, content} ->
+          content
+          |> Jason.decode!()
+          |> Map.new(&{&1["college"], &1["rank"]})
+
+        _ ->
+          %{}
+      end
+
+    {year, rankings}
+  end)
+
+corrections_by_college_year =
+  corrections
+  |> Enum.filter(fn {college_name, _year, _rank} ->
+    Map.has_key?(college_lookup, college_name)
+  end)
+  |> Map.new(fn {college_name, year, rank} -> {{college_lookup[college_name], year}, rank} end)
+
+nirf_rows =
+  for {college_name, college_id} <- college_lookup,
+      year <- nirf_years do
+    rank =
+      Map.get(corrections_by_college_year, {college_id, year}) ||
+        get_in(rankings_by_year, [year, college_name]) ||
+        500
+
+    %{
+      college_id: college_id,
+      year: year,
+      nirf_rank: rank,
+      inserted_at: now,
+      updated_at: now
+    }
   end
-end)
 
+Repo.delete_all(from nr in NirfRanking, where: nr.year in ^nirf_years)
+Repo.insert_all(NirfRanking, nirf_rows)
+
+IO.puts("Created #{Repo.aggregate(NirfRanking, :count)} rankings successfully!")
 IO.puts("Finished nirf rank corrections...")
 
-# Associate Programs and Colleges with cutoff data
+program_lookup =
+  Repo.all(from p in Program, select: {{p.name, p.duration, p.degree_type}, p.id})
+  |> Map.new()
+
 errors =
-  for year <- [2023, 2024, 2025] do
-    Josaa.list_college_program_data(year)
-    |> Enum.reduce([], fn row, acc ->
-      case Colleges.process_table_row(row, year) do
-        {:ok, _result} ->
-          acc
+  parsed_results
+  |> Enum.flat_map(fn
+    {:error, reason} ->
+      [reason]
 
-        {:error, reason} ->
-          [reason | acc]
+    {:ok, %{program_key: nil, program_name: program_name}} ->
+      ["Program not found: #{program_name}"]
 
-        {:skip, reason} ->
-          IO.puts("Skipped row: #{reason}")
-          acc
+    {:ok, row} ->
+      cond do
+        !Map.has_key?(college_lookup, row.canonical_college_name) ->
+          ["College not found: #{row.college_name}"]
+
+        !Map.has_key?(program_lookup, row.program_key) ->
+          ["Program not found: #{row.program_name}"]
+
+        true ->
+          []
       end
-    end)
-  end
-  |> List.flatten()
+
+    {:skip, reason} ->
+      IO.puts("Skipped row: #{reason}")
+      []
+  end)
+
+valid_rows =
+  parsed_results
+  |> Enum.flat_map(fn
+    {:ok, row} ->
+      college_id = Map.get(college_lookup, row.canonical_college_name)
+      program_id = Map.get(program_lookup, row.program_key)
+
+      if college_id && program_id do
+        [Map.merge(row, %{college_id: college_id, program_id: program_id})]
+      else
+        []
+      end
+
+    _ ->
+      []
+  end)
+
+college_program_rows =
+  valid_rows
+  |> Enum.map(
+    &%{college_id: &1.college_id, program_id: &1.program_id, inserted_at: now, updated_at: now}
+  )
+  |> Enum.uniq_by(&{&1.college_id, &1.program_id})
+
+college_program_rows
+|> Enum.chunk_every(1_000)
+|> Enum.each(fn rows ->
+  Repo.insert_all(CollegeProgram, rows,
+    on_conflict: :nothing,
+    conflict_target: [:college_id, :program_id]
+  )
+end)
+
+college_program_lookup =
+  Repo.all(from cp in CollegeProgram, select: {{cp.college_id, cp.program_id}, cp.id})
+  |> Map.new()
+
+rank_cutoff_rows =
+  valid_rows
+  |> Enum.map(fn row ->
+    college_program_id = college_program_lookup[{row.college_id, row.program_id}]
+
+    %{
+      opening_rank: row.opening_rank,
+      closing_rank: row.closing_rank,
+      quota: row.quota,
+      gender: row.gender,
+      seat_type: row.seat_type,
+      year: row.year,
+      college_program_id: college_program_id,
+      inserted_at: now,
+      updated_at: now
+    }
+  end)
+  |> Enum.reject(&is_nil(&1.college_program_id))
+  |> Enum.uniq_by(&{&1.year, &1.college_program_id, &1.quota, &1.gender, &1.seat_type})
+
+rank_cutoff_rows
+|> Enum.chunk_every(1_000)
+|> Enum.each(fn rows ->
+  Repo.insert_all(RankCutoff, rows,
+    on_conflict: {:replace, [:opening_rank, :closing_rank, :updated_at]},
+    conflict_target: [:year, :college_program_id, :quota, :gender, :seat_type]
+  )
+end)
 
 IO.inspect(errors, label: "Errors found")
 IO.puts("Created #{Repo.aggregate(RankCutoff, :count)} rank cutoffs successfully!")

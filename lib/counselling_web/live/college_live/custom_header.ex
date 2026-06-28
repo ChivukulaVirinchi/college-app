@@ -3,7 +3,6 @@ defmodule CounsellingWeb.CollegeLive.CustomHeader do
   alias LiveTable.Boolean
 
   def custom_header(assigns) do
-
     ~H"""
     <.card>
       <:content class="p-0!">
@@ -139,6 +138,7 @@ defmodule CounsellingWeb.CollegeLive.CustomHeader do
               :if={@options["filters"] != %{"search" => ""}}
               variant="ghost"
               size="sm"
+              type="button"
               phx-click="sort"
               phx-value-clear_filters="true"
             >
@@ -171,12 +171,10 @@ defmodule CounsellingWeb.CollegeLive.CustomHeader do
     do: "bg-blue-600 text-white border-blue-600 dark:bg-blue-500 dark:border-blue-500"
 
   defp pill_color(:iiit, true),
-    do:
-      "bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-500 dark:border-emerald-500"
+    do: "bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-500 dark:border-emerald-500"
 
   defp pill_color(:gfti, true),
-    do:
-      "bg-orange-600 text-white border-orange-600 dark:bg-orange-500 dark:border-orange-500"
+    do: "bg-orange-600 text-white border-orange-600 dark:bg-orange-500 dark:border-orange-500"
 
   # Inactive (unchecked) pill colors
   defp pill_color(:iit, false),

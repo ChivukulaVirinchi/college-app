@@ -42,8 +42,12 @@ defmodule CounsellingWeb.CollegeComponent2 do
     ews_pwd: "EWS (PwD)"
   }
 
-  defp seat_type_color(seat_type), do: Map.get(@seat_type_colors, seat_type, "text-stone-700 dark:text-zinc-300")
-  defp seat_type_bg(seat_type), do: Map.get(@seat_type_bg, seat_type, "bg-stone-50 dark:bg-zinc-800/50")
+  defp seat_type_color(seat_type),
+    do: Map.get(@seat_type_colors, seat_type, "text-stone-700 dark:text-zinc-300")
+
+  defp seat_type_bg(seat_type),
+    do: Map.get(@seat_type_bg, seat_type, "bg-stone-50 dark:bg-zinc-800/50")
+
   defp seat_type_label(seat_type), do: Map.get(@seat_type_labels, seat_type, "OPEN")
 
   def college_component2(assigns) do
@@ -127,8 +131,8 @@ defmodule CounsellingWeb.CollegeComponent2 do
           </svg>
           {@record.college.location}
         </p>
-
-        <!-- Category label -->
+        
+    <!-- Category label -->
         <%= if Map.has_key?(@record, :seat_type) do %>
           <div class="text-[10px] font-semibold uppercase tracking-wider mb-2">
             <span class={seat_type_color(@record.seat_type)}>
@@ -136,8 +140,8 @@ defmodule CounsellingWeb.CollegeComponent2 do
             </span>
           </div>
         <% end %>
-
-        <!-- Rank Display -->
+        
+    <!-- Rank Display -->
         <div class="grid grid-cols-2 gap-2">
           <div class={"text-center p-2.5 rounded-lg #{if Map.has_key?(@record, :seat_type), do: seat_type_bg(@record.seat_type), else: "bg-stone-50 dark:bg-zinc-800/50"}"}>
             <div class={"font-bold #{if Map.has_key?(@record, :seat_type), do: seat_type_color(@record.seat_type), else: ""}"}>
@@ -170,6 +174,7 @@ defmodule CounsellingWeb.CollegeComponent2 do
           id={"compare-btn-#{@record.college.id}-#{@record.program.id}"}
           phx-hook="CompareButtonHook"
           data-compare-college-id={@record.college.id}
+          data-college-name={@record.college.name}
           class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors text-stone-600 dark:text-zinc-400 border-stone-200 dark:border-zinc-700 bg-transparent hover:bg-stone-100 dark:hover:bg-zinc-800"
         >
           <span class="compare-text">+ Compare</span>

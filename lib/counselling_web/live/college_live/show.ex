@@ -26,7 +26,6 @@ defmodule CounsellingWeb.CollegeLive.Show do
       |> assign(:canonical_url, canonical_url)
       |> assign(:meta_description, meta_description)
       |> assign(:og_image, image_url)
-      |> assign(:chart_js, true)
       |> assign(:json_ld, [
         CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
         CounsellingWeb.SEO.breadcrumb_json_ld([
@@ -48,6 +47,7 @@ defmodule CounsellingWeb.CollegeLive.Show do
       program: %{
         label: "Name",
         sortable: false,
+        assoc: {:program, :name},
         renderer: fn value, record -> college_link(value, record) end,
         searchable: true
       },

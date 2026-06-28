@@ -84,6 +84,7 @@ defmodule CounsellingWeb.CollegeComponent do
           id={"compare-btn-#{@record.college.id}"}
           phx-hook="CompareButtonHook"
           data-compare-college-id={@record.college.id}
+          data-college-name={@record.college.name}
           class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors text-stone-600 dark:text-zinc-400 border-stone-200 dark:border-zinc-700 bg-transparent hover:bg-stone-100 dark:hover:bg-zinc-800"
         >
           <span class="compare-text">+ Compare</span>

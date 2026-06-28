@@ -1,4 +1,66 @@
 {
+  "Birla Institute of Technology, Mesra, Ranchi": {
+    "description": "Birla Institute of Technology, Mesra is a government funded technical institute in Ranchi, Jharkhand. The institute was founded in 1955 by B. M. Birla and later became a deemed university.",
+    "established_year": 1955,
+    "location": "Ranchi, Jharkhand",
+    "official_website": "https://www.bitmesra.ac.in/"
+  },
+  "Indian Institute of Carpet Technology, Bhadohi": {
+    "campus_area_acres": 10,
+    "description": "Indian Institute of Carpet Technology, Bhadohi is an institute set up by the Ministry of Textiles, Government of India for education, training, research, and consultancy in carpet and textile technology. The institute started functioning from 2001.",
+    "established_year": 2001,
+    "location": "Bhadohi, Uttar Pradesh",
+    "official_website": "https://www.iict.ac.in/"
+  },
+  "Islamic University of Science and Technology Kashmir": {
+    "description": "Islamic University of Science and Technology is a public university in Awantipora, Jammu and Kashmir, established through a 2005 Act of the Jammu and Kashmir State Legislature. Its School of Engineering and Technology offers technical education as part of the university's science and technology focus.",
+    "established_year": 2005,
+    "location": "Awantipora, Jammu and Kashmir",
+    "official_website": "https://www.iust.ac.in/"
+  },
+  "National Institute of Electronics and Information Technology, Ajmer (Rajasthan)": {
+    "description": "NIELIT Ajmer is a centre of the National Institute of Electronics and Information Technology under the Ministry of Electronics and Information Technology. The centre was set up under the RIELIT Ajmer project and renamed as NIELIT Ajmer in 2012.",
+    "established_year": 2012,
+    "location": "Ajmer, Rajasthan",
+    "official_website": "https://www.nielit.gov.in/ajmer"
+  },
+  "National Institute of Electronics and Information Technology, Gorakhpur (UP)": {
+    "description": "NIELIT Gorakhpur is a centre of the National Institute of Electronics and Information Technology under the Ministry of Electronics and Information Technology. It was established as the Centre for Electronics Design and Technology of India in June 1989.",
+    "established_year": 1989,
+    "location": "Gorakhpur, Uttar Pradesh",
+    "official_website": "https://www.nielit.gov.in/gorakhpur"
+  },
+  "National Institute of Electronics and Information Technology, Patna (Bihar)": {
+    "description": "NIELIT Patna is a centre of the National Institute of Electronics and Information Technology under the Ministry of Electronics and Information Technology. It is operational from its permanent campus at Bihta near IIT Patna.",
+    "established_year": 2008,
+    "location": "Patna, Bihar",
+    "official_website": "https://www.nielit.gov.in/patna"
+  },
+  "National Institute of Electronics and Information Technology, Ropar (Punjab)": {
+    "campus_area_acres": 12,
+    "description": "NIELIT Ropar is the main campus of the National Institute of Electronics and Information Technology deemed-to-be university under the Ministry of Electronics and Information Technology. The Ropar centre was established in 1978 and is located at Bada Phull, Rupnagar.",
+    "established_year": 1978,
+    "location": "Ropar, Punjab",
+    "official_website": "https://www.nielit.gov.in/ropar"
+  },
+  "National Institute of Technology Agartala": {
+    "description": "National Institute of Technology Agartala is an Institute of National Importance in Tripura. It originated as Tripura Engineering College, established in 1965, and was converted to NIT Agartala by the Ministry of Education in 2006.",
+    "established_year": 1965,
+    "location": "Agartala, Tripura",
+    "official_website": "https://nita.ac.in/"
+  },
+  "Rajiv Gandhi National Aviation University, Fursatganj, Amethi (UP)": {
+    "description": "Rajiv Gandhi National Aviation University is India's first national aviation university, established by the Rajiv Gandhi National Aviation University Act, 2013. The central university is located near Fursatganj Airfield in Amethi, Uttar Pradesh.",
+    "established_year": 2013,
+    "location": "Fursatganj, Amethi, Uttar Pradesh",
+    "official_website": "https://rgnau.ac.in/"
+  },
+  "Shri G. S. Institute of Technology and Science Indore": {
+    "description": "Shri Govindram Seksaria Institute of Technology and Science, Indore is a government-run autonomous institute in Madhya Pradesh. The institute was established in 1952 and is affiliated with Rajiv Gandhi Proudyogiki Vishwavidyalaya and Devi Ahilya Vishwavidyalaya.",
+    "established_year": 1952,
+    "location": "Indore, Madhya Pradesh",
+    "official_website": "https://www.sgsits.ac.in/"
+  },
   "Gurukula Kangri Vishwavidyalaya, Haridwar": {
     "campus_area_acres": 200,
     "description": "Gurukula Kangri Vishwavidyalaya is a historic educational institution with roots in the traditional Gurukul system of education, now transformed into a modern university offering technical and professional courses. Located in the spiritual city of Haridwar, the university combines traditional Indian educational values with contemporary academic programs.",

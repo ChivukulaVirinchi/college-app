@@ -70,8 +70,15 @@ defmodule CounsellingWeb.ProgramLive.Index do
   end
 
   def rank_filter(query, %{"value" => rank}) do
-    number = String.to_integer(rank)
+    with {number, ""} <- Integer.parse(rank),
+         true <- number > 0 do
+      apply_rank_filter(query, number)
+    else
+      _ -> query
+    end
+  end
 
+  defp apply_rank_filter(query, number) do
     # Get program IDs that have at least one eligible college_program
     eligible_program_ids =
       from(cp in Counselling.CollegePrograms.CollegeProgram,

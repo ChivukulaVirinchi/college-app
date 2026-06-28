@@ -48,7 +48,9 @@ defmodule Counselling.DataIntegrityTest do
 
         rankings = path |> File.read!() |> Jason.decode!()
         assert is_list(rankings)
-        assert length(rankings) > 20, "#{path} has only #{length(rankings)} entries (expected >20)"
+
+        assert length(rankings) > 20,
+               "#{path} has only #{length(rankings)} entries (expected >20)"
 
         # All entries have required fields
         Enum.each(rankings, fn entry ->
@@ -151,8 +153,7 @@ defmodule Counselling.DataIntegrityTest do
 
       program_keys =
         Enum.map(program_data, fn p ->
-          {p["name"] |> String.trim() |> String.replace(~r/\s+/, " "),
-           p["duration"],
+          {p["name"] |> String.trim() |> String.replace(~r/\s+/, " "), p["duration"],
            p["degree_type"]}
         end)
         |> MapSet.new()

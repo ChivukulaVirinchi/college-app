@@ -1,16 +1,22 @@
 export const CompareButtonHook = {
   mounted() {
     this.storageKey = 'compare_colleges';
+    this.maxColleges = 4;
     this.collegeId = parseInt(this.el.dataset.compareCollegeId);
     
     // Update button state on mount
     this.updateButtonState();
     
     // Add click handler
-    this.el.addEventListener('click', (e) => {
+    this._handleClick = (e) => {
       e.preventDefault();
       this.handleClick();
-    });
+    };
+    this.el.addEventListener('click', this._handleClick);
+  },
+
+  destroyed() {
+    this.el.removeEventListener('click', this._handleClick);
   },
 
   handleClick() {
@@ -28,6 +34,12 @@ export const CompareButtonHook = {
     const compareColleges = this.getCompareColleges();
     
     if (!compareColleges.includes(this.collegeId)) {
+      if (compareColleges.length >= this.maxColleges) {
+        this.showFlashMessage('full');
+        this.animateCompareNav();
+        return;
+      }
+
       compareColleges.push(this.collegeId);
       this.saveCompareColleges(compareColleges);
       this.updateButtonState();
@@ -46,7 +58,8 @@ export const CompareButtonHook = {
 
   getCompareColleges() {
     try {
-      return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+      const parsed = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+      return Array.isArray(parsed) ? parsed.slice(0, this.maxColleges) : [];
     } catch (error) {
       return [];
     }
@@ -54,7 +67,7 @@ export const CompareButtonHook = {
 
   saveCompareColleges(colleges) {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(colleges));
+      localStorage.setItem(this.storageKey, JSON.stringify(colleges.slice(0, this.maxColleges)));
       document.dispatchEvent(new CustomEvent('compare-storage-updated'));
     } catch (error) {
       console.error('Error saving to localStorage:', error);
@@ -107,11 +120,13 @@ export const CompareButtonHook = {
   showFlashMessage(action) {
     // Get college name from the nearest college card
     const collegeCard = this.el.closest('[data-college-name]');
-    const collegeName = collegeCard ? collegeCard.dataset.collegeName : 'College';
+    const collegeName = this.el.dataset.collegeName || (collegeCard ? collegeCard.dataset.collegeName : 'College');
     
-    const message = action === 'added' 
+    const message = action === 'added'
       ? `${collegeName} has been added to compare`
-      : `${collegeName} has been removed from compare`;
+      : action === 'full'
+        ? 'Compare is limited to 4 colleges'
+        : `${collegeName} has been removed from compare`;
     
     this.createFlashElement(message);
     this.animateCompareNav();

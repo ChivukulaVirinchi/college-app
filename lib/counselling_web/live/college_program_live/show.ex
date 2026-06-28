@@ -37,7 +37,6 @@ defmodule CounsellingWeb.CollegeProgramLive.Show do
       |> assign(:canonical_url, canonical_url)
       |> assign(:meta_description, meta_description)
       |> assign(:og_image, CounsellingWeb.SEO.absolute_url(base_url, college.photo_path))
-      |> assign(:chart_js, true)
       |> assign(:json_ld, [
         CounsellingWeb.SEO.web_page_json_ld(page_title, meta_description, canonical_url),
         CounsellingWeb.SEO.breadcrumb_json_ld([

@@ -102,9 +102,7 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
               class="contents"
             >
               <label
-                :for={
-                  {id, %Boolean{field: :duration, options: %{label: label}}} <- @filters
-                }
+                :for={{id, %Boolean{field: :duration, options: %{label: label}}} <- @filters}
                 class={[
                   "relative px-4 py-1.5 rounded-full text-sm font-medium cursor-pointer transition-all duration-200 select-none border",
                   if(Map.has_key?(@options["filters"], id),
@@ -131,6 +129,7 @@ defmodule CounsellingWeb.ProgramLive.CustomHeader do
               :if={@options["filters"] != %{"search" => ""}}
               variant="ghost"
               size="sm"
+              type="button"
               phx-click="sort"
               phx-value-clear_filters="true"
             >

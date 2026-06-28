@@ -7,8 +7,21 @@ defmodule Counselling.Ranks.RankCutoff do
     field :closing_rank, :integer
     field :quota, Ecto.Enum, values: [:home_state, :other_state, :all_india, :go, :jk, :la]
     field :gender, Ecto.Enum, values: [:gender_neutral, :female]
+
     field :seat_type, Ecto.Enum,
-      values: [:open, :obc_ncl, :sc, :st, :ews, :open_pwd, :obc_ncl_pwd, :sc_pwd, :st_pwd, :ews_pwd]
+      values: [
+        :open,
+        :obc_ncl,
+        :sc,
+        :st,
+        :ews,
+        :open_pwd,
+        :obc_ncl_pwd,
+        :sc_pwd,
+        :st_pwd,
+        :ews_pwd
+      ]
+
     field :year, :integer
 
     belongs_to :college_program, Counselling.CollegePrograms.CollegeProgram

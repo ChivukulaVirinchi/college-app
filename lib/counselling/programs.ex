@@ -41,11 +41,17 @@ defmodule Counselling.Programs do
     list_colleges(id)
     |> exclude(:select)
     |> exclude(:order_by)
-    |> select([_, _, c, _, _], count(c.id))
+    |> select([_, _, c, _, _], count(c.id, :distinct))
     |> Repo.one()
   end
 
   def list_colleges(id, seat_type \\ :open) do
+    latest_nirf_ranks =
+      from nr in NirfRanking,
+        where: nr.year == ^@latest_year,
+        group_by: nr.college_id,
+        select: %{college_id: nr.college_id, nirf_rank: min(nr.nirf_rank)}
+
     from p in Program,
       join: cp in CollegeProgram,
       on: cp.program_id == p.id,
@@ -53,8 +59,8 @@ defmodule Counselling.Programs do
       as: :college,
       on: c.id == cp.college_id,
       where: p.id == ^id,
-      join: nr in NirfRanking,
-      on: nr.college_id == c.id and nr.year == ^@latest_year,
+      join: nr in subquery(latest_nirf_ranks),
+      on: nr.college_id == c.id,
       join: rc in RankCutoff,
       on:
         rc.college_program_id == cp.id and rc.year == ^@latest_year and

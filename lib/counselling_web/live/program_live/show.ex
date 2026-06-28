@@ -6,6 +6,19 @@ defmodule CounsellingWeb.ProgramLive.Show do
 
   @latest_year Josaa.latest_year()
 
+  @seat_type_labels %{
+    open: "OPEN",
+    obc_ncl: "OBC-NCL",
+    sc: "SC",
+    st: "ST",
+    ews: "EWS",
+    open_pwd: "OPEN (PwD)",
+    obc_ncl_pwd: "OBC-NCL (PwD)",
+    sc_pwd: "SC (PwD)",
+    st_pwd: "ST (PwD)",
+    ews_pwd: "EWS (PwD)"
+  }
+
   @impl true
   def mount(params, _session, socket) do
     [id_str | _] = String.split(params["program"], "-")
@@ -43,7 +56,7 @@ defmodule CounsellingWeb.ProgramLive.Show do
   end
 
   def handle_event("change_category", %{"seat_type" => seat_type}, socket) do
-    seat_type_atom = String.to_existing_atom(seat_type)
+    seat_type_atom = parse_seat_type(seat_type)
     id = socket.assigns.program_id
     data_provider = {Programs, :list_colleges, [id, seat_type_atom]}
 
@@ -146,8 +159,15 @@ defmodule CounsellingWeb.ProgramLive.Show do
   end
 
   def rank_filter(query, %{"value" => rank}) do
-    number = String.to_integer(rank)
+    with {number, ""} <- Integer.parse(rank),
+         true <- number > 0 do
+      apply_rank_filter(query, number)
+    else
+      _ -> query
+    end
+  end
 
+  defp apply_rank_filter(query, number) do
     query
     |> where(
       [_, _, c, _, rc],
@@ -239,18 +259,11 @@ defmodule CounsellingWeb.ProgramLive.Show do
     query
   end
 
-  @seat_type_labels %{
-    open: "OPEN",
-    obc_ncl: "OBC-NCL",
-    sc: "SC",
-    st: "ST",
-    ews: "EWS",
-    open_pwd: "OPEN (PwD)",
-    obc_ncl_pwd: "OBC-NCL (PwD)",
-    sc_pwd: "SC (PwD)",
-    st_pwd: "ST (PwD)",
-    ews_pwd: "EWS (PwD)"
-  }
-
   def seat_type_label(seat_type), do: Map.get(@seat_type_labels, seat_type, "OPEN")
+
+  defp parse_seat_type(seat_type) do
+    Enum.find_value(@seat_type_labels, :open, fn {key, _label} ->
+      if Atom.to_string(key) == seat_type, do: key
+    end)
+  end
 end

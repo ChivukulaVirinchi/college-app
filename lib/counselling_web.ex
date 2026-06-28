@@ -19,7 +19,7 @@ defmodule CounsellingWeb do
 
   def static_paths,
     do:
-      ~w(assets fonts images favicon.ico favicon.svg favicon-96x96.png apple-touch-icon.png robots.txt)
+      ~w(assets fonts images vendor favicon.ico favicon.svg favicon-96x96.png apple-touch-icon.png robots.txt)
 
   def router do
     quote do

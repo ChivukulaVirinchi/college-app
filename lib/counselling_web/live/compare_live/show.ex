@@ -41,6 +41,7 @@ defmodule CounsellingWeb.CompareLive.Show do
   def handle_params(params, _uri, socket) do
     college_ids = parse_college_ids(params)
     seat_type = parse_seat_type(params)
+    has_seat_type_param = Map.has_key?(params, "seat_type")
 
     colleges = Colleges.fetch_colleges(college_ids)
     common_programs = Programs.get_common_programs(college_ids)
@@ -64,6 +65,7 @@ defmodule CounsellingWeb.CompareLive.Show do
       |> assign(:common_programs, common_programs)
       |> assign(:seat_type, seat_type)
       |> assign(:seat_type_label, Map.get(@seat_type_labels, seat_type, "OPEN"))
+      |> assign(:has_seat_type_param, has_seat_type_param)
       |> assign(:cutoff_map, cutoff_map)
       |> assign(:page_title, "Compare Colleges")
 
@@ -72,22 +74,18 @@ defmodule CounsellingWeb.CompareLive.Show do
 
   @impl true
   def handle_event("add_college", %{"id" => college_id}, socket) do
-    college_id =
-      if is_binary(college_id), do: String.to_integer(college_id), else: college_id
-
-    current_ids = socket.assigns.selected_college_ids
-
-    if length(current_ids) < socket.assigns.max_colleges and college_id not in current_ids do
+    with {:ok, college_id} <- parse_college_id(college_id),
+         current_ids <- socket.assigns.selected_college_ids,
+         true <-
+           length(current_ids) < socket.assigns.max_colleges and college_id not in current_ids do
       new_ids = current_ids ++ [college_id]
 
-      socket =
-        socket
-        |> push_event("update_compare_storage", %{college_ids: new_ids})
-        |> push_patch(to: compare_path(new_ids, socket.assigns.seat_type))
-
-      {:noreply, socket}
+      {:noreply,
+       socket
+       |> push_event("update_compare_storage", %{college_ids: new_ids})
+       |> push_patch(to: compare_path(new_ids, socket.assigns.seat_type))}
     else
-      {:noreply, socket}
+      _ -> {:noreply, socket}
     end
   end
 
@@ -97,15 +95,18 @@ defmodule CounsellingWeb.CompareLive.Show do
   end
 
   def handle_event("remove_college", %{"college_id" => college_id}, socket) do
-    college_id = String.to_integer(college_id)
-    new_ids = Enum.reject(socket.assigns.selected_college_ids, &(&1 == college_id))
+    case parse_college_id(college_id) do
+      {:ok, college_id} ->
+        new_ids = Enum.reject(socket.assigns.selected_college_ids, &(&1 == college_id))
 
-    socket =
-      socket
-      |> push_event("update_compare_storage", %{college_ids: new_ids})
-      |> push_patch(to: compare_path(new_ids, socket.assigns.seat_type))
+        {:noreply,
+         socket
+         |> push_event("update_compare_storage", %{college_ids: new_ids})
+         |> push_patch(to: compare_path(new_ids, socket.assigns.seat_type))}
 
-    {:noreply, socket}
+      :error ->
+        {:noreply, socket}
+    end
   end
 
   def handle_event("clear_all", _params, socket) do
@@ -145,18 +146,25 @@ defmodule CounsellingWeb.CompareLive.Show do
     end
   end
 
+  defp parse_college_id(id) when is_integer(id), do: {:ok, id}
+
+  defp parse_college_id(id) when is_binary(id) do
+    case Integer.parse(id) do
+      {id, ""} -> {:ok, id}
+      _ -> :error
+    end
+  end
+
+  defp parse_college_id(_id), do: :error
+
   defp parse_seat_type(params) do
     params |> Map.get("seat_type", "open") |> parse_seat_type_atom()
   end
 
   defp parse_seat_type_atom(str) when is_binary(str) do
-    if Map.has_key?(@seat_type_labels, String.to_existing_atom(str)) do
-      String.to_existing_atom(str)
-    else
-      :open
-    end
-  rescue
-    ArgumentError -> :open
+    Enum.find_value(@seat_type_labels, :open, fn {key, _label} ->
+      if Atom.to_string(key) == str, do: key
+    end)
   end
 
   defp compare_path([], _seat_type), do: ~p"/compare"

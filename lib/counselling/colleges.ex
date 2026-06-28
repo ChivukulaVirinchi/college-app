@@ -13,6 +13,8 @@ defmodule Counselling.Colleges do
   @latest_year Josaa.latest_year()
 
   def list_colleges() do
+    latest_nirf_ranks = latest_nirf_rank_query()
+
     from c in College,
       join: cp in CollegeProgram,
       on: c.id == cp.college_id,
@@ -21,13 +23,13 @@ defmodule Counselling.Colleges do
         rc.college_program_id == cp.id and rc.year == ^@latest_year and
           rc.gender == :gender_neutral and rc.seat_type == :open and
           rc.quota in [:all_india, :other_state],
-      join: nr in NirfRanking,
-      on: c.id == nr.college_id and nr.year == ^@latest_year,
+      join: nr in subquery(latest_nirf_ranks),
+      on: c.id == nr.college_id,
       group_by: [c.id, c.name, c.established_year, c.campus_area, c.location, nr.nirf_rank],
       order_by: [asc: nr.nirf_rank],
       select: %{
         rank: nr.nirf_rank,
-        programs: count(cp.id),
+        programs: count(cp.id, :distinct),
         college: c
       }
   end
@@ -312,16 +314,18 @@ defmodule Counselling.Colleges do
   end
 
   def get_college_rank(college_id) do
-    NirfRanking
-    |> where(college_id: ^college_id, year: ^@latest_year)
+    latest_nirf_rank_query()
+    |> where([nr], nr.college_id == ^college_id)
     |> Repo.one()
   end
 
   @doc "Lightweight list for the compare command palette (id, name, location, class, nirf_rank)."
   def list_colleges_summary do
+    latest_nirf_ranks = latest_nirf_rank_query()
+
     from(c in College,
-      left_join: nr in NirfRanking,
-      on: nr.college_id == c.id and nr.year == ^@latest_year,
+      left_join: nr in subquery(latest_nirf_ranks),
+      on: nr.college_id == c.id,
       order_by: [asc: fragment("COALESCE(?, 999)", nr.nirf_rank), asc: c.name],
       select: %{
         id: c.id,
@@ -335,23 +339,36 @@ defmodule Counselling.Colleges do
   end
 
   def get_similar_colleges(college_id) do
+    latest_nirf_ranks = latest_nirf_rank_query()
+
     current_rank =
-      from(nr in NirfRanking,
-        where: nr.college_id == ^college_id and nr.year == ^@latest_year,
+      from(nr in subquery(latest_nirf_ranks),
+        where: nr.college_id == ^college_id,
         select: nr.nirf_rank
       )
       |> Repo.one()
 
-    query =
-      from c in College,
-        join: nr in NirfRanking,
-        on: nr.college_id == c.id and nr.year == ^@latest_year,
-        where: c.id != ^college_id,
-        where:
-          nr.nirf_rank >= ^max(1, current_rank - 15) and nr.nirf_rank <= ^(current_rank + 15),
-        limit: 3,
-        select: %{college: c, rank: nr.nirf_rank}
+    if is_nil(current_rank) do
+      []
+    else
+      query =
+        from c in College,
+          join: nr in subquery(latest_nirf_ranks),
+          on: nr.college_id == c.id,
+          where: c.id != ^college_id,
+          where:
+            nr.nirf_rank >= ^max(1, current_rank - 15) and nr.nirf_rank <= ^(current_rank + 15),
+          limit: 3,
+          select: %{college: c, rank: nr.nirf_rank}
 
-    Repo.all(query)
+      Repo.all(query)
+    end
+  end
+
+  defp latest_nirf_rank_query do
+    from nr in NirfRanking,
+      where: nr.year == ^@latest_year,
+      group_by: nr.college_id,
+      select: %{college_id: nr.college_id, nirf_rank: min(nr.nirf_rank)}
   end
 end

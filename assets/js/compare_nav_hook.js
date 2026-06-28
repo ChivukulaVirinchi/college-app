@@ -33,7 +33,8 @@ export const CompareNavHook = {
 
   getCompareColleges() {
     try {
-      return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+      const parsed = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+      return Array.isArray(parsed) ? parsed.slice(0, 4) : [];
     } catch (error) {
       return [];
     }

@@ -1,6 +1,7 @@
 export const CompareStorageHook = {
   mounted() {
     this.storageKey = "compare_colleges";
+    this.syncUrlAndStorage();
 
     // Register event handlers
     this.handleEvent("add_to_compare_storage", (payload) => {
@@ -18,6 +19,32 @@ export const CompareStorageHook = {
     this.handleEvent("trigger_compare_animation", () => {
       this.triggerNavAnimation();
     });
+  },
+
+  syncUrlAndStorage() {
+    const url = new URL(window.location.href);
+    const urlCollegeIds = this.parseCollegeIds(url.searchParams.get("colleges"));
+
+    if (urlCollegeIds.length > 0) {
+      this.saveCompareColleges(urlCollegeIds);
+      return;
+    }
+
+    const storedCollegeIds = this.getCompareColleges();
+    if (storedCollegeIds.length === 0) return;
+
+    url.searchParams.set("colleges", storedCollegeIds.join("-"));
+    window.location.assign(url.toString());
+  },
+
+  parseCollegeIds(value) {
+    if (!value) return [];
+
+    return value
+      .split("-")
+      .map((id) => Number.parseInt(id, 10))
+      .filter((id) => Number.isInteger(id))
+      .slice(0, 4);
   },
 
   addToCompare(collegeId) {
@@ -44,9 +71,8 @@ export const CompareStorageHook = {
 
   saveCompareColleges(colleges) {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(colleges));
+      localStorage.setItem(this.storageKey, JSON.stringify(colleges.slice(0, 4)));
       document.dispatchEvent(new CustomEvent("compare-storage-updated"));
-      console.log("Saved to localStorage:", colleges); // Add this for debugging
     } catch (error) {
       console.error("Error saving to localStorage:", error);
     }

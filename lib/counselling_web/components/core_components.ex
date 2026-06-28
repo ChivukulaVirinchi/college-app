@@ -89,7 +89,10 @@ defmodule CounsellingWeb.CoreComponents do
       <.button phx-click="go" variant="primary">Send!</.button>
       <.button navigate={~p"/"}>Home</.button>
   """
-  attr :rest, :global, include: ~w(href navigate patch method)
+  attr :rest, :global,
+    include:
+      ~w(href navigate patch method disabled form name type value aria-label aria-expanded aria-controls phx-click phx-target phx-value-clear_filters phx-value-id phx-value-college_id phx-disable-with)
+
   attr :variant, :string, values: ~w(primary)
   slot :inner_block, required: true
 

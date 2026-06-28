@@ -91,14 +91,15 @@ export const FavoritesHook = {
 // Individual button hook
 export const FavoriteButton = {
   mounted() {
-    this.el.addEventListener('click', this.handleClick.bind(this));
+    this._handleClick = this.handleClick.bind(this);
+    this.el.addEventListener('click', this._handleClick);
     updateButtonState(this.el);
   },
   updated() {
     updateButtonState(this.el);
   },
   destroyed() {
-    this.el.removeEventListener('click', this.handleClick);
+    this.el.removeEventListener('click', this._handleClick);
   },
   handleClick(e) {
     e.preventDefault();
@@ -187,12 +188,12 @@ export const ChartsHook = {
   initChart() {
     const canvas = this.el;
     const chartType = canvas.getAttribute('data-chart-type');
-    
+
     if (!window.Chart) {
       console.log('Chart.js not available');
       return;
     }
-    
+
     try {
       if (chartType === 'rank-trends') {
         this.initRankTrendsChart(canvas);
@@ -307,4 +308,3 @@ export const ChartsHook = {
     });
   }
 };
-

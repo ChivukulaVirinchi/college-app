@@ -47,7 +47,6 @@ import { CmdKHook } from "./cmd_k_hook.js";
 import { CutoffChartHook } from "./cutoff_chart_hook.js";
 import { HelpPillHook } from "./help_pill_hook.js";
 
-
 // import { hooks_default } from "../../../../live_table/priv/static/live-table.js";
 
 const csrfToken = document
@@ -78,6 +77,73 @@ const liveSocket = new LiveSocket("/live", Socket, {
     HelpPill: HelpPillHook,
   },
 });
+
+const exclusiveLiveTableBooleanGroups = [
+  ["filters-gender_filter", "filters-female_filter"],
+  ["filters-hs", "filters-all_india", "filters-os"],
+];
+
+function liveTableCheckboxFromEvent(event) {
+  const target = event.target;
+
+  if (target instanceof HTMLInputElement && target.type === "checkbox") {
+    return target;
+  }
+
+  if (!(target instanceof Element)) {
+    return null;
+  }
+
+  const label = target.closest("label");
+  if (!label) {
+    return null;
+  }
+
+  const input = label.htmlFor
+    ? document.getElementById(label.htmlFor)
+    : label.querySelector('input[type="checkbox"]');
+
+  return input instanceof HTMLInputElement && input.type === "checkbox"
+    ? input
+    : null;
+}
+
+function normalizeExclusiveLiveTableBoolean(event) {
+  const target = liveTableCheckboxFromEvent(event);
+  if (!target) return;
+
+  const group = exclusiveLiveTableBooleanGroups.find((ids) =>
+    ids.includes(target.id),
+  );
+  if (!group) return;
+
+  const shouldClearPeers =
+    ["pointerdown", "mousedown", "click"].includes(event.type)
+      ? !target.checked
+      : target.checked;
+
+  if (!shouldClearPeers) return;
+
+  group
+    .filter((id) => id !== target.id)
+    .forEach((id) => {
+      const input = document.getElementById(id);
+      if (input instanceof HTMLInputElement) {
+        input.checked = false;
+        input.removeAttribute("checked");
+      }
+    });
+}
+
+document.addEventListener(
+  "pointerdown",
+  normalizeExclusiveLiveTableBoolean,
+  true,
+);
+document.addEventListener("mousedown", normalizeExclusiveLiveTableBoolean, true);
+document.addEventListener("click", normalizeExclusiveLiveTableBoolean, true);
+document.addEventListener("input", normalizeExclusiveLiveTableBoolean, true);
+document.addEventListener("change", normalizeExclusiveLiveTableBoolean, true);
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
